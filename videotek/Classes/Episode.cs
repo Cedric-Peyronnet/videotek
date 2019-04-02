@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    class Episode
+    public class Episode
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private int Id { get; set; }
-        private int IdMedia { get; set; }
-        private int NumSaison { get; set; }
-        private int NumEpisode { get; set; }
-        private TimeSpan Duree { get; set; }
-        private string Titre { get; set; }
-        private string Description { get; set; }
-        private DateTime DateDiffusion { get; set; }
+        public int Id { get; set; }
+        public int IdMedia { get; set; }
+        public int NumSaison { get; set; }
+        public int NumEpisode { get; set; }
+        public TimeSpan Duree { get; set; }
+        public string Titre { get; set; }
+        public string Description { get; set; }
+        public DateTime DateDiffusion { get; set; }
     }
 }
