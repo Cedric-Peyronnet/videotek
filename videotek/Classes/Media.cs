@@ -22,7 +22,7 @@ namespace videotek.Classes
         private TypeMedia Type { get; set; }
         private int AgeMinimum { get; set; }
         private bool SupportPhysique { get; set; }
-        private bool supportNumerique { get; set; }
+        private bool SupportNumerique { get; set; }
         private string Image { get; set; }
         private Langue LangueVO { get; set; }
         private Langue LangueMedia { get; set; }
