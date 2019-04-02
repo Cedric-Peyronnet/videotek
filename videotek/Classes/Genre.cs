@@ -11,7 +11,7 @@ namespace videotek.Classes
     public class Genre
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private int Id { get; set; }
-        private string Libelle { get; set; }
+        public int Id { get; set; }
+        public string Libelle { get; set; }
     }
 }

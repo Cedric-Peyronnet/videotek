@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    enum Civilite
+    public enum Civilite
     {
         Monsieur,
         Madame,

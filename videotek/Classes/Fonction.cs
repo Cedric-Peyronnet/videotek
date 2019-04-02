@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    enum Fonction
+    public enum Fonction
     {
         Acteur,
         Réalisateur,
