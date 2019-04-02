@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using videotek.Classes;
 using static System.Environment;
 
 namespace videotek.db
@@ -25,6 +26,11 @@ namespace videotek.db
         }
         public string DatabasePath { get; }
 
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<GenreMedia> GenreMedias { get; set; }
+     //   public DbSet<Langue> Langues { get; set; }
+        public DbSet<Media> Medias { get; set; }
+     //   public DbSet<TypeMedia> Medias { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
