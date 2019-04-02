@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,8 @@ namespace videotek.Classes
 {
     class Genre
     {
-        private int id { get; set; }
-        private string libelle { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        private int Id { get; set; }
+        private string Libelle { get; set; }
     }
 }
