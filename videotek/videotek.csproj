@@ -164,9 +164,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Civilite.cs" />
+    <Compile Include="Classes\Episode.cs" />
+    <Compile Include="Classes\Fonction.cs" />
     <Compile Include="Classes\Genre.cs" />
     <Compile Include="Classes\GenreMedia.cs" />
     <Compile Include="Classes\Langue.cs" />
+    <Compile Include="Classes\Personne.cs" />
+    <Compile Include="Classes\PersonneMedia.cs" />
     <Compile Include="Classes\TypeMedia.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
