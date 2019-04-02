@@ -11,21 +11,21 @@ namespace videotek.Classes
     class Media
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private int id { get; set; }
-        private TimeSpan duree { get; set; }
-        private DateTime dateSortie { get; set; }
-        private string titre { get; set; }
-        private string description { get; set; }
-        private bool vu { get; set; }
-        private int note { get; set; }
-        private string commentaire { get; set; }
-        private TypeMedia type { get; set; }
-        private int ageMinimum { get; set; }
-        private bool supportPhysique { get; set; }
-        private bool supportNumerique { get; set; }
-        private string image { get; set; }
-        private Langue langueVO { get; set; }
-        private Langue langueMedia { get; set; }
-        private Langue sousTitre { get; set; }
+        private int Id { get; set; }
+        private TimeSpan Duree { get; set; }
+        private DateTime DateSortie { get; set; }
+        private string Titre { get; set; }
+        private string Description { get; set; }
+        private bool Vu { get; set; }
+        private int Note { get; set; }
+        private string Commentaire { get; set; }
+        private TypeMedia Type { get; set; }
+        private int AgeMinimum { get; set; }
+        private bool SupportPhysique { get; set; }
+        private bool SupportNumerique { get; set; }
+        private string Image { get; set; }
+        private Langue LangueVO { get; set; }
+        private Langue LangueMedia { get; set; }
+        private Langue SousTitre { get; set; }
     }
 }
