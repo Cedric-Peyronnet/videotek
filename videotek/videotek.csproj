@@ -182,6 +182,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Media.cs" />
+    <Compile Include="db\BooksDbContext.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

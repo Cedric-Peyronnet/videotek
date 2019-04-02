@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    class GenreMedia
+    public class GenreMedia
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int IdGenre { get; set; }
