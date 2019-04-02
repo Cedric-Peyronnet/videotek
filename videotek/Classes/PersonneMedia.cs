@@ -12,8 +12,13 @@ namespace videotek.Classes
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int Id { get; set; }
+
         private int IdPersonne { get; set; }
+        
+
         private int IdMedia { get; set; }
+
+
         private Fonction Fonction { get; set; }
         private string Role { get; set; }
         private string Photo { get; set; }
