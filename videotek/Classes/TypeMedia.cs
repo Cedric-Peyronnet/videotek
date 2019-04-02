@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace videotek
+namespace videotek.Classes
 {
     enum TypeMedia
     {
         Film,
         Serie
     }
+
 }
