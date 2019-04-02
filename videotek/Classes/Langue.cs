@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    enum Langue
+    public enum Langue
     {
         Anglais,
         Français,

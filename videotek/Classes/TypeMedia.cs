@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    enum TypeMedia
+    public enum TypeMedia
     {
         Film,
         Serie
