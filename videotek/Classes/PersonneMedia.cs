@@ -8,17 +8,21 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    public class GenreMedia
+    public class PersonneMedia
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdGenre { get; set; }
-        [ForeignKey(nameof(IdGenre))]
-        public Genre Genre { get; set; }
+        public int Id { get; set; }
+
+        public int IdPersonne { get; set; }
+        [ForeignKey(nameof(IdPersonne))]
+        public Personne Personne { get; set; }
 
         public int IdMedia { get; set; }
         [ForeignKey(nameof(IdMedia))]
         public Media Media { get; set; }
 
-
+        public Fonction Fonction { get; set; }
+        public string Role { get; set; }
+        public string Photo { get; set; }
     }
 }

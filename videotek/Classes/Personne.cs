@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    public class Genre
+    public class Personne
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Libelle { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
+        public Civilite Civilite { get; set; }
+        public string Nationalite { get; set; }
+        public DateTime DateNaissance { get; set; }
+        public string Photo { get; set; }
     }
 }

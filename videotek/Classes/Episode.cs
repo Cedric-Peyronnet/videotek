@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    public class GenreMedia
+    public class Episode
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdGenre { get; set; }
-        [ForeignKey(nameof(IdGenre))]
-        public Genre Genre { get; set; }
-
+        public int Id { get; set; }
         public int IdMedia { get; set; }
-        [ForeignKey(nameof(IdMedia))]
-        public Media Media { get; set; }
-
-
+        public int NumSaison { get; set; }
+        public int NumEpisode { get; set; }
+        public TimeSpan Duree { get; set; }
+        public string Titre { get; set; }
+        public string Description { get; set; }
+        public DateTime DateDiffusion { get; set; }
     }
 }
