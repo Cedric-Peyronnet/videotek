@@ -27,5 +27,11 @@ namespace videotek.Classes
         public Langue LangueVO { get; set; }
         public Langue LangueMedia { get; set; }
         public Langue SousTitre { get; set; }
+
+        [InverseProperty(nameof(GenreMedia.IdMedia))]
+        public List<GenreMedia> Genre { get; set; }
+
+        [InverseProperty(nameof(PersonneMedia.IdMedia))]
+        public List<PersonneMedia> Personne { get; set; }
     }
 }

@@ -13,5 +13,8 @@ namespace videotek.Classes
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Libelle { get; set; }
+
+        [InverseProperty(nameof(GenreMedia.IdGenre))]
+        public List<GenreMedia> Media { get; set; }
     }
 }

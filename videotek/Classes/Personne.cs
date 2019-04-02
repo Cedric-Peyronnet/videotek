@@ -18,5 +18,8 @@ namespace videotek.Classes
         public string Nationalite { get; set; }
         public DateTime DateNaissance { get; set; }
         public string Photo { get; set; }
+
+        [InverseProperty(nameof(PersonneMedia.IdPersonne))]
+        public List<PersonneMedia> Media { get; set; }
     }
 }
