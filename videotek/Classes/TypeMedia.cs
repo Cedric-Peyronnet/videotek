@@ -11,9 +11,4 @@ namespace videotek
         Film,
         Serie
     }
-
-    enum Langue
-    {
-
-    }
 }
