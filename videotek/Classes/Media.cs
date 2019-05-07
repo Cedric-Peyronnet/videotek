@@ -28,10 +28,10 @@ namespace videotek.Classes
         public Langue LangueMedia { get; set; }
         public Langue SousTitre { get; set; }
 
-        [InverseProperty(nameof(GenreMedia.IdMedia))]
+        [InverseProperty(nameof(GenreMedia.Media))]
         public List<GenreMedia> Genre { get; set; }
 
-        [InverseProperty(nameof(PersonneMedia.IdMedia))]
+        [InverseProperty(nameof(PersonneMedia.Media))]
         public List<PersonneMedia> Personne { get; set; }
     }
 }

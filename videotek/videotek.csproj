@@ -182,13 +182,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Media.cs" />
-    <Compile Include="db\BooksDbContext.cs" />
+    <Compile Include="db\VideoTDbContext.cs" />
+    <Compile Include="db\VideoTDbContextFactory.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\20190507073938_Initiale.cs" />
+    <Compile Include="Migrations\20190507073938_Initiale.designer.cs">
+      <DependentUpon>20190507073938_Initiale.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\VideoTDbContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
