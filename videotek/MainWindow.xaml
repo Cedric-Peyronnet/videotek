@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+            <Button x:Name="btnAccueil" Content ="Accueil" Click="btnClickAccueil"/>
+            <Button Content="Page Film"  Margin="10,0,0,0" Click="btnClickFilm"/>
+            <Button Content="Page Serie" Margin="10,0,0,0" Click="btnClickSerie"/>
+        </StackPanel>
+        <Frame x:Name="Main" Margin="0,35, 150,0"/>
+        <Frame x:Name="Menu" Margin="650,35, 0,0"/>
     </Grid>
 </Window>
