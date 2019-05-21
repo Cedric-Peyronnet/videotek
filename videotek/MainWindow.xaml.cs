@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using videotek.Frames.Common;
+using videotek.Frames.Films;
+using videotek.Frames.Series;
 
 namespace videotek
 {
@@ -23,6 +26,21 @@ namespace videotek
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnClickFilm(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new FilmMain();
+        }
+
+        private void btnClickSerie(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new SerieMain();
+        }
+
+        private void btnClickAccueil(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Accueil();
         }
     }
 }

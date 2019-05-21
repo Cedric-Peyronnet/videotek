@@ -173,6 +173,18 @@
     <Compile Include="Classes\Personne.cs" />
     <Compile Include="Classes\PersonneMedia.cs" />
     <Compile Include="Classes\TypeMedia.cs" />
+    <Page Include="Frames\Common\Accueil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Films\FilmMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Series\SerieMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,6 +196,15 @@
     <Compile Include="Classes\Media.cs" />
     <Compile Include="db\VideoTDbContext.cs" />
     <Compile Include="db\VideoTDbContextFactory.cs" />
+    <Compile Include="Frames\Common\Accueil.xaml.cs">
+      <DependentUpon>Accueil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\Films\FilmMain.xaml.cs">
+      <DependentUpon>FilmMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\Series\SerieMain.xaml.cs">
+      <DependentUpon>SerieMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -221,6 +242,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
