@@ -4,22 +4,27 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:videotek.Frames.Common"
+      xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"  
+      xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="Accueil">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Accueil" />
-        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Width="160">
+        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Width="200">
             <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de séries enregistrés :"> </TextBlock>
             <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de films enregistrés :"></TextBlock>
             <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de séries à voir :"></TextBlock>
             <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de films à voir :"></TextBlock>
             <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Derniers épisodes à voir :"></TextBlock>
+            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Note moyenne aux films :"></TextBlock>
+            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Note moyenne donnée aux séries :"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Width="20">
             <TextBlock Margin="0,0,0,10" TextAlignment="Left" Text="0"></TextBlock>
@@ -27,7 +32,21 @@
             <TextBlock Margin="0,0,0,10" TextAlignment="Left" Text="0"></TextBlock>
             <TextBlock Margin="0,0,0,10" TextAlignment="Left" Text="0"></TextBlock>
             <TextBlock Margin="0,0,0,10" TextAlignment="Left" Text="0"></TextBlock>
+            <TextBlock Margin="0,0,0,10" TextAlignment="Left" Text="0"></TextBlock>
+            <TextBlock Margin="0,0,0,10" TextAlignment="Left" Text="0"></TextBlock>
         </StackPanel>
+        <DVC:Chart Grid.Column="2" VerticalAlignment="Bottom" Margin="0,0,0,15" Name="mcChartFilms" Width="300" Height="200" Background="YellowGreen" Foreground="DarkBlue" Title="Années des films vus" LegendTitle="Années">
+            <DVC:Chart.Series>
+                <DVC:PieSeries IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
+                </DVC:PieSeries>
+            </DVC:Chart.Series>
+        </DVC:Chart>
+        <DVC:Chart Grid.Column="2" VerticalAlignment="Top" Margin="0,15,0,0"  Name="mcChartSeries" Width="300" Height="200" Background="YellowGreen" Foreground="DarkBlue" Title="Années des séries vues"  LegendTitle="Années">
+            <DVC:Chart.Series>
+                <DVC:PieSeries  IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
+                </DVC:PieSeries>
+            </DVC:Chart.Series>
+        </DVC:Chart>
 
     </Grid>
 </Page>
