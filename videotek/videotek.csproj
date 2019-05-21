@@ -177,6 +177,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frames\Common\Ajout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frames\Common\MenuGestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -202,6 +206,9 @@
     <Compile Include="db\VideoTDbContextFactory.cs" />
     <Compile Include="Frames\Common\Accueil.xaml.cs">
       <DependentUpon>Accueil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\Common\Ajout.xaml.cs">
+      <DependentUpon>Ajout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\Common\MenuGestion.xaml.cs">
       <DependentUpon>MenuGestion.xaml</DependentUpon>
