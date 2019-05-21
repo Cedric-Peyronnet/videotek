@@ -3,11 +3,9 @@
                     xmlns:local="clr-namespace:videotek">
 
     <Style x:Key="texteBlockAlignDroite" TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
-        <Setter Property="Margin" Value="Right"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0,0,0,10"></Setter>
     </Style>
-
-
-
+   
 </ResourceDictionary>
     

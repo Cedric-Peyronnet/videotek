@@ -18,13 +18,13 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="Accueil" />
         <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Width="200">
-            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de séries enregistrés :"> </TextBlock>
-            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de films enregistrés :"></TextBlock>
-            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de séries à voir :"></TextBlock>
-            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Nombre de films à voir :"></TextBlock>
-            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Derniers épisodes à voir :"></TextBlock>
-            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Note moyenne aux films :"></TextBlock>
-            <TextBlock Margin="0,0,0,10" TextAlignment="Right" Text="Note moyenne donnée aux séries :"></TextBlock>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de séries enregistrés :"> </TextBlock>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de films enregistrés :"></TextBlock>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de séries à voir :"></TextBlock>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de films à voir :"></TextBlock>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Derniers épisodes à voir :"></TextBlock>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note moyenne aux films :"></TextBlock>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note moyenne donnée aux séries :"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Width="20">
             <TextBlock Margin="0,0,0,10" TextAlignment="Left" Text="0"></TextBlock>
