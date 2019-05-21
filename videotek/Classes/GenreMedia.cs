@@ -10,7 +10,6 @@ namespace videotek.Classes
 {
     public class GenreMedia
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdGenre { get; set; }
         [ForeignKey(nameof(IdGenre))]
         public Genre Genre { get; set; }
