@@ -28,13 +28,22 @@ namespace videotek.Frames.Common
             InitializeComponent();
         }
 
-        private async Task EnregistrerAsync()
+        private async void EnregistrerAsync()
         {
             var context = await db.VideoTDbContext.GetCurrent();
 
             context.Add(new Media()
             {
-                Titre = titre.Text
+                Titre = titre.Text,
+                AgeMinimum = int.Parse(ageMini.Text),
+                Commentaire = commentaire.Text,
+                DateSortie = DateTime.Parse(date.Text),
+                Description = description.Text,
+                Duree = TimeSpan.Parse(dure.Text),
+                LangueVO = (Langue)Enum.Parse(typeof(Langue), langueVO.Text),
+                SousTitre = (Langue)Enum.Parse(typeof(Langue), sousTitres.Text),
+                LangueMedia = (Langue)Enum.Parse(typeof(Langue), langue.Text),
+
             }
             );
 
