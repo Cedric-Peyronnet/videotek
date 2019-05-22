@@ -27,7 +27,7 @@ namespace videotek.Frames.Common
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Button_Click popup = new Button_Click();
+            Ajout popup = new Ajout();
             popup.ShowDialog();
         }
     }
