@@ -19,10 +19,10 @@ namespace videotek.Frames.Common
     /// <summary>
     /// Logique d'interaction pour Ajout.xaml
     /// </summary>
-    public partial class Button_Click : Window
+    public partial class Ajout : Window
     {
         
-        public Button_Click()
+        public Ajout()
         {
             this.DataContext = this;
             InitializeComponent();
