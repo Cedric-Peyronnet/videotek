@@ -19,13 +19,33 @@ namespace videotek.Frames.Common
     /// <summary>
     /// Logique d'interaction pour Ajout.xaml
     /// </summary>
-    public partial class Ajout : Window
+    public partial class Button_Click : Window
     {
         
-        public Ajout()
+        public Button_Click()
         {
             this.DataContext = this;
             InitializeComponent();
+        }
+
+        private async Task EnregistrerAsync()
+        {
+            var context = await db.VideoTDbContext.GetCurrent();
+
+            context.Add(new Media()
+            {
+                Titre = titre.Text
+            }
+            );
+
+            await context.SaveChangesAsync();
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+            EnregistrerAsync();
         }
     }
 }
