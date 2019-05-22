@@ -8,9 +8,9 @@ namespace videotek.Classes
 {
     public enum Langue
     {
-        Anglais,
-        Français,
-        Japonais,
-        Coréen
+        Anglais = 1,
+        Français = 2,
+        Japonais = 3,
+        Coréen = 4
     }
 }
