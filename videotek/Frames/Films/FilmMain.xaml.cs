@@ -22,11 +22,8 @@ namespace videotek.Frames.Films
     /// <summary>
     /// Logique d'interaction pour FilmMain.xaml
     /// </summary>
-    public partial class FilmMain : Page, INotifyPropertyChanged
+    public partial class FilmMain : Page
     {
-
-        ObservableCollection<Media> filmList = new ObservableCollection<Media>();
-        public ObservableCollection<Media> FilmList { get => filmList; set; }
 
         public FilmMain()
         {
@@ -38,12 +35,14 @@ namespace videotek.Frames.Films
         {
             var context = await db.VideoTDbContext.GetCurrent();
             List<Media> films = context.Medias.ToList();
-            ObservableCollection<Media> FilmListtmp = new ObservableCollection<Media>();
-            FilmList = new ObservableCollection<Media>();
+            
+            /*
+            media.FilmList = new ObservableCollection<Media>();
             foreach (Media film in films)
                 FilmList.Add(film);
-            test.ItemsSource = films;
+            test.ItemsSource = films;*/
         }
         
+       
     }
 }

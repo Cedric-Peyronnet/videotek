@@ -185,6 +185,10 @@
     <Compile Include="Classes\Personne.cs" />
     <Compile Include="Classes\PersonneMedia.cs" />
     <Compile Include="Classes\TypeMedia.cs" />
+    <Compile Include="Converters\InverseBoolConverter.cs" />
+    <Compile Include="Converters\TestConverter.cs" />
+    <Compile Include="Utils\UtilsBinding.cs" />
+    <Compile Include="ViewModels\filmViewModel.cs" />
     <Page Include="CommonDictionnaire.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
