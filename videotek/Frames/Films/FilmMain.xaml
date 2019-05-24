@@ -9,6 +9,20 @@
       Title="FilmMain">
 
     <Grid>
-        <TextBlock Text="Page Film" />
+        <TextBlock Text="Consultation des films" />
+        <ListView Margin="0,20,0,0">
+            
+        </ListView>
+        <ListView Height="124" HorizontalAlignment="Left" Margin="0,20,0,0" Name="test" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding Path=FilmList}">
+            <ListView.View>
+                <GridView  >
+                    <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
+                    <GridViewColumn Width="100" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
+                    <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie}"/>
+                    <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
+                   
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

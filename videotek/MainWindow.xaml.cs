@@ -32,9 +32,6 @@ namespace videotek
             btnAccueil.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
 
             Main.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-
-
-          
         }
       
         private void btnClickFilm(object sender, RoutedEventArgs e)

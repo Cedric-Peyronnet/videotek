@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,11 +51,29 @@ namespace videotek.Frames.Common
             await context.SaveChangesAsync();
             
         }
+    
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        Regex regexEntierPositif = new Regex("[^0-9]+");
+
+        private void Note_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            e.Handled = regexEntierPositif.IsMatch(e.Text);
+        }    
 
+        private void AgeMini_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = regexEntierPositif.IsMatch(e.Text);
+        }
+
+        private void Annuler_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Enregistrer_Click(object sender, RoutedEventArgs e)
+        {
             EnregistrerAsync();
+            this.Close();
         }
     }
 }
