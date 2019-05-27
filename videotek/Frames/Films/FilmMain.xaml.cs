@@ -28,15 +28,6 @@ namespace videotek.Frames.Films
         public FilmMain()
         {
             InitializeComponent();
-            InitialisationValeursConsultationAsync();
-
-        }
-        private async void InitialisationValeursConsultationAsync()
-        {
-            var context = await db.VideoTDbContext.GetCurrent();
-            List<Media> films = context.Medias.ToList();
-        }
-        
-       
+        }    
     }
 }

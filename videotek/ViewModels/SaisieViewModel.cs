@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using videotek.Classes;
 using videotek.Utils;
 
@@ -11,6 +12,10 @@ namespace videotek.ViewModels
 {
     public class SaisieViewModel : UtilsBinding
     {
+        public Action CloseAction { get; set; }
+
+        public filmViewModel FilmViewModel { get; set; }
+
         private string titre;
         public string Titre { get => titre; set => SetProperty(ref titre, value); }
 
@@ -53,29 +58,44 @@ namespace videotek.ViewModels
         public SaisieViewModel()
         {
             _canExecute = true;
+            
         }
 
         private bool _canExecute;
+
+
+        UtilsCommand annuler;
+        public UtilsCommand Annuler
+        {
+            get
+            {
+                return ajoutSaisie ?? (annuler = new UtilsCommand(() => AnnulerAction(), _canExecute));
+            }
+        }
 
         UtilsCommand ajoutSaisie;
         public UtilsCommand AjoutSaisie
         {
             get
             {
-                return ajoutSaisie ?? (ajoutSaisie = new UtilsCommand(() => MyAction(), _canExecute));
+                return ajoutSaisie ?? (ajoutSaisie = new UtilsCommand(() => EnregistrerAction(), _canExecute));
             }
         }
  
-        public void MyAction()
+        public void EnregistrerAction()
         {
             EnregistrerAsync();
+        }
+
+        public void AnnulerAction()
+        {
+            CloseAction();
         }
 
         private async void EnregistrerAsync()
         {
             var context = await db.VideoTDbContext.GetCurrent();
-
-            context.Add(new Media()
+            Media m = new Media()
             {
                 Titre = Titre,
                 Commentaire = Commentaire,
@@ -90,9 +110,14 @@ namespace videotek.ViewModels
                 Vu = Vu,
                 SupportNumerique = SupportNumerique,
                 SupportPhysique = SupportPhysique
-            }
-            );
+            };
+            context.Add(m);
             await context.SaveChangesAsync();
+            
+            MessageBox.Show("Enregistré");
+            FilmViewModel.MaListFilm.Add(m);
+            CloseAction();
+           
         }
     }
 }

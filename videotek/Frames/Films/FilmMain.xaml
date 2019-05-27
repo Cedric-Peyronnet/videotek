@@ -10,12 +10,13 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FilmMain">
     <Page.DataContext>
-        <viewmodels:filmViewModel/>
+        <viewmodels:filmViewModel x:Name="FilmViewModel"/>
     </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="Converter"/>
             <converters:TestConverter x:Key="TConverter"/>
+            <converters:ImageCheckedConverter x:Key="ImageChecked"/> 
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
@@ -28,7 +29,31 @@
             <ListView.View>
                 <GridView  >
                     <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
-                  <!---  <GridViewColumn Width="100" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
+                    <GridViewColumn Width="60" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
+                    <GridViewColumn Width="100" Header="Date  de sortie" DisplayMemberBinding="{Binding DateSortie}"/>
+                    <GridViewColumn Width="30" Header="Pegi" DisplayMemberBinding="{Binding AgeMinimum}"/>
+
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center">
+                                    <CheckBox  IsChecked="{Binding Vu}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <Grid>
+                            <TextBlock  Text="Vu"  />
+                        </Grid>
+                    </GridViewColumn>
+
+
+
+                    <GridViewColumn Width="100" Header="Support Physique" DisplayMemberBinding="{Binding SupportPhysique}"/>
+                    <GridViewColumn Width="100" Header="Support Numérique" DisplayMemberBinding="{Binding SupportNumerique}"/>
+                    <GridViewColumn Width="100" Header="Langue Original" DisplayMemberBinding="{Binding LangueVO}"/>
+                    <GridViewColumn Width="100" Header="Langue" DisplayMemberBinding="{Binding LangueMedia}"/>
+                    <GridViewColumn Width="100" Header="Sous Titre" DisplayMemberBinding="{Binding SousTitre}"/>
+                    <!---  <GridViewColumn Width="100" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
                    <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie}"/> -->
                    
 

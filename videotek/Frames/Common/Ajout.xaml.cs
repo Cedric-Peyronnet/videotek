@@ -28,6 +28,7 @@ namespace videotek.Frames.Common
         {
             this.DataContext = this;
             InitializeComponent();
+           
         }
   
         
@@ -43,16 +44,6 @@ namespace videotek.Frames.Common
         private void AgeMini_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = regexEntierPositif.IsMatch(e.Text);
-        }
-
-        private void Annuler_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Enregistrer_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

@@ -51,7 +51,6 @@ namespace videotek
         private void btnClickAccueil(object sender, RoutedEventArgs e)
         {
             Main.Content = AC;
-          
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -59,10 +58,10 @@ namespace videotek
             if(Main.Content.Equals(FM))
             {
                 Ajout popup = new Ajout();
+                popup.SaisieViewWindow.CloseAction = new Action(popup.Close);
+                popup.SaisieViewWindow.FilmViewModel = FM.FilmViewModel;
                 popup.ShowDialog();
-            }
-
-            
+            }   
         }
     }
 }
