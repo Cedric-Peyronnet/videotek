@@ -4,11 +4,66 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:videotek.Frames.Films"
+      xmlns:viewmodels="clr-namespace:videotek.ViewModels"
+      xmlns:converters="clr-namespace:videotek.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FilmMain">
-
+    <Page.DataContext>
+        <viewmodels:filmViewModel x:Name="FilmViewModel"/>
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="Converter"/>
+            <converters:TestConverter x:Key="TConverter"/>
+            <converters:ImageCheckedConverter x:Key="ImageChecked"/> 
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
-        <TextBlock Text="Page Film" />
+        <TextBlock Text="Consultation des films" />
+
+        <ListView Margin="0,20,0,0">
+
+        </ListView>
+        <ListView Height="124" HorizontalAlignment="Left" Margin="0,20,0,0" Name="test" VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MaListFilm}">
+            <ListView.View>
+                <GridView  >
+                    <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
+                    <GridViewColumn Width="60" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
+                    <GridViewColumn Width="100" Header="Date  de sortie" DisplayMemberBinding="{Binding DateSortie}"/>
+                    <GridViewColumn Width="30" Header="Pegi" DisplayMemberBinding="{Binding AgeMinimum}"/>
+
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center">
+                                    <CheckBox  IsChecked="{Binding Vu}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <Grid>
+                            <TextBlock  Text="Vu"  />
+                        </Grid>
+                    </GridViewColumn>
+
+
+
+                    <GridViewColumn Width="100" Header="Support Physique" DisplayMemberBinding="{Binding SupportPhysique}"/>
+                    <GridViewColumn Width="100" Header="Support Numérique" DisplayMemberBinding="{Binding SupportNumerique}"/>
+                    <GridViewColumn Width="100" Header="Langue Original" DisplayMemberBinding="{Binding LangueVO}"/>
+                    <GridViewColumn Width="100" Header="Langue" DisplayMemberBinding="{Binding LangueMedia}"/>
+                    <GridViewColumn Width="100" Header="Sous Titre" DisplayMemberBinding="{Binding SousTitre}"/>
+                    <!---  <GridViewColumn Width="100" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
+                   <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie}"/> -->
+                   
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Command="{Binding Command}" Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding Texte}" Margin="0,200" />
+        <Label  Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding UnBool,Converter={StaticResource TConverter}}" Margin="0,255,0,145" />
+        <TextBox Height="50" HorizontalAlignment="Left" Width="122" Text="{Binding UnBool,Converter={StaticResource TConverter},Mode=TwoWay}" Margin="127,255,0,145" />
+        <CheckBox Height="50" HorizontalAlignment="Left" Width="122" Content="fsdsfdssfd" IsChecked="{Binding UnBool,Mode=TwoWay}" Margin="0,334,0,66"/>
+
     </Grid>
 </Page>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using videotek.Classes;
+using videotek.ViewModels;
 
 namespace videotek.Frames.Common
 {
@@ -26,35 +28,22 @@ namespace videotek.Frames.Common
         {
             this.DataContext = this;
             InitializeComponent();
+           
         }
+  
+        
+    
 
-        private async void EnregistrerAsync()
+        Regex regexEntierPositif = new Regex("[^0-9]+");
+
+        private void Note_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            var context = await db.VideoTDbContext.GetCurrent();
+            e.Handled = regexEntierPositif.IsMatch(e.Text);
+        }    
 
-            context.Add(new Media()
-            {
-                Titre = titre.Text,
-                AgeMinimum = int.Parse(ageMini.Text),
-                Commentaire = commentaire.Text,
-                DateSortie = DateTime.Parse(date.Text),
-                Description = description.Text,
-                Duree = TimeSpan.Parse(dure.Text),
-                LangueVO = (Langue)Enum.Parse(typeof(Langue), langueVO.Text),
-                SousTitre = (Langue)Enum.Parse(typeof(Langue), sousTitres.Text),
-                LangueMedia = (Langue)Enum.Parse(typeof(Langue), langue.Text),
-
-            }
-            );
-
-            await context.SaveChangesAsync();
-            
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void AgeMini_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-
-            EnregistrerAsync();
+            e.Handled = regexEntierPositif.IsMatch(e.Text);
         }
     }
 }

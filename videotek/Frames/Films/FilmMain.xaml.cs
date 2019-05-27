@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using videotek.Classes;
 
 namespace videotek.Frames.Films
 {
@@ -20,9 +24,10 @@ namespace videotek.Frames.Films
     /// </summary>
     public partial class FilmMain : Page
     {
+
         public FilmMain()
         {
             InitializeComponent();
-        }
+        }    
     }
 }

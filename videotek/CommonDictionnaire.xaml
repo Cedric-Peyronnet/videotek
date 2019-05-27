@@ -7,12 +7,23 @@
 
     <Style x:Key="texteBlockAlignDroite" TargetType="TextBlock">
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0,0,0,20"></Setter>
+    </Style>
+
+    <Style x:Key="texteBlockAlignGauche" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Margin" Value="0,0,0,10"></Setter>
     </Style>
-    
+
     <ObjectDataProvider x:Key="enmLangue" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
         <ObjectDataProvider.MethodParameters>
             <x:Type TypeName="enm:Langue"></x:Type>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="enmTypeMedia" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enm:TypeMedia"></x:Type>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 

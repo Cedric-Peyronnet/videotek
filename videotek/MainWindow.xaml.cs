@@ -24,35 +24,44 @@ namespace videotek
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MenuGestion gm = new MenuGestion();
+        FilmMain FM = new FilmMain();
+        SerieMain SM = new SerieMain();
+        Accueil AC = new Accueil();
+
         public MainWindow()
         {
             InitializeComponent();
-            Menu.Content = gm;
+           
             btnAccueil.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
 
             Main.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-
-
-          
         }
       
         private void btnClickFilm(object sender, RoutedEventArgs e)
         {
-            Main.Content = new FilmMain();
-            gm.Visibility = Visibility.Visible;
+            Main.Content = FM;
+          
         }
 
         private void btnClickSerie(object sender, RoutedEventArgs e)
         {
-            Main.Content = new SerieMain();
-            gm.Visibility = Visibility.Visible;
+            Main.Content = SM;
         }
 
         private void btnClickAccueil(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Accueil();
-            gm.Visibility = Visibility.Hidden;
+            Main.Content = AC;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(Main.Content.Equals(FM))
+            {
+                Ajout popup = new Ajout();
+                popup.SaisieViewWindow.CloseAction = new Action(popup.Close);
+                popup.SaisieViewWindow.FilmViewModel = FM.FilmViewModel;
+                popup.ShowDialog();
+            }   
         }
     }
 }
