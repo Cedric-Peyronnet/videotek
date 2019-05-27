@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using videotek.Classes;
+using videotek.ViewModels;
 
 namespace videotek.Frames.Common
 {
@@ -28,29 +29,8 @@ namespace videotek.Frames.Common
             this.DataContext = this;
             InitializeComponent();
         }
-
-        private async void EnregistrerAsync()
-        {
-            var context = await db.VideoTDbContext.GetCurrent();
-
-            context.Add(new Media()
-            {
-                Titre = titre.Text,
-                AgeMinimum = int.Parse(ageMini.Text),
-                Commentaire = commentaire.Text,
-                DateSortie = DateTime.Parse(date.Text),
-                Description = description.Text,
-                Duree = TimeSpan.Parse(dure.Text),
-                LangueVO = (Langue)Enum.Parse(typeof(Langue), langueVO.Text),
-                SousTitre = (Langue)Enum.Parse(typeof(Langue), sousTitres.Text),
-                LangueMedia = (Langue)Enum.Parse(typeof(Langue), langue.Text),
-
-            }
-            );
-
-            await context.SaveChangesAsync();
-            
-        }
+  
+        
     
 
         Regex regexEntierPositif = new Regex("[^0-9]+");
@@ -72,7 +52,6 @@ namespace videotek.Frames.Common
 
         private void Enregistrer_Click(object sender, RoutedEventArgs e)
         {
-            EnregistrerAsync();
             this.Close();
         }
     }

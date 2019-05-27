@@ -35,12 +35,6 @@ namespace videotek.Frames.Films
         {
             var context = await db.VideoTDbContext.GetCurrent();
             List<Media> films = context.Medias.ToList();
-            
-            /*
-            media.FilmList = new ObservableCollection<Media>();
-            foreach (Media film in films)
-                FilmList.Add(film);
-            test.ItemsSource = films;*/
         }
         
        

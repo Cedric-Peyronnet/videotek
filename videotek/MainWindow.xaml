@@ -13,6 +13,10 @@
             <Button Content="Page Serie" Margin="10,0,0,0" Click="btnClickSerie"/>
         </StackPanel>
         <Frame x:Name="Main" Margin="0,35, 150,0"/>
-        <Frame x:Name="Menu" Margin="650,35, 0,0"/>
+        <StackPanel Margin="650,35, 0,0" Orientation="Vertical" VerticalAlignment="Center">
+            <Button Margin="0,0,0,20" Content ="Ajouter" Click="Button_Click" />
+            <Button Margin="0,0,0,20" Content ="Modifier"/>
+            <Button Content ="Supprimer" />
+        </StackPanel>
     </Grid>
 </Window>

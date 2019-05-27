@@ -29,7 +29,7 @@ namespace videotek.ViewModels
             _canExecute = true;
             InitialisationValeursConsultationAsync();
         }
-
+       
         private async void InitialisationValeursConsultationAsync()
         {
             var context = await db.VideoTDbContext.GetCurrent();

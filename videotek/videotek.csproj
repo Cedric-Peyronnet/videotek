@@ -188,7 +188,10 @@
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\TestConverter.cs" />
     <Compile Include="Utils\UtilsBinding.cs" />
+    <Compile Include="Utils\UtilsCommand.cs" />
     <Compile Include="ViewModels\filmViewModel.cs" />
+    <Compile Include="ViewModels\MediaViewModel.cs" />
+    <Compile Include="ViewModels\SaisieViewModel.cs" />
     <Page Include="CommonDictionnaire.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,10 +201,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\Common\Ajout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Frames\Common\MenuGestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -229,9 +228,6 @@
     </Compile>
     <Compile Include="Frames\Common\Ajout.xaml.cs">
       <DependentUpon>Ajout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Frames\Common\MenuGestion.xaml.cs">
-      <DependentUpon>MenuGestion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\Films\FilmMain.xaml.cs">
       <DependentUpon>FilmMain.xaml</DependentUpon>
