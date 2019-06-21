@@ -24,44 +24,17 @@ namespace videotek
     /// </summary>
     public partial class MainWindow : Window
     {
-        FilmMain FM = new FilmMain();
-        SerieMain SM = new SerieMain();
-        Accueil AC = new Accueil();
+        
 
         public MainWindow()
         {
             InitializeComponent();
            
-            btnAccueil.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
-
-            Main.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
-      
-        private void btnClickFilm(object sender, RoutedEventArgs e)
-        {
-            Main.Content = FM;
-          
-        }
-
-        private void btnClickSerie(object sender, RoutedEventArgs e)
-        {
-            Main.Content = SM;
-        }
-
-        private void btnClickAccueil(object sender, RoutedEventArgs e)
-        {
-            Main.Content = AC;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if(Main.Content.Equals(FM))
-            {
-                Ajout popup = new Ajout();
-                popup.SaisieViewWindow.CloseAction = new Action(popup.Close);
-                popup.SaisieViewWindow.FilmViewModel = FM.FilmViewModel;
-                popup.ShowDialog();
-            }   
-        }
+ 
+            // On vient faire des commands pour ouvrir les pop ups avec les valeurs
+            // Dans la frame de consultation on vient passer le data contexte du this & passer le datacontext.selectedfilm dans la variable du consulter
+            // 
+        
     }
 }

@@ -188,9 +188,14 @@
     <Compile Include="Converters\ImageCheckedConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\TestConverter.cs" />
+    <Compile Include="Frames\Common\Consultation.xaml.cs">
+      <DependentUpon>Consultation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\UtilsBinding.cs" />
     <Compile Include="Utils\UtilsCommand.cs" />
+    <Compile Include="ViewModels\ConsultationViewModel.cs" />
     <Compile Include="ViewModels\filmViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SaisieViewModel.cs" />
     <Page Include="CommonDictionnaire.xaml">
       <SubType>Designer</SubType>
@@ -201,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\Common\Ajout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Common\Consultation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

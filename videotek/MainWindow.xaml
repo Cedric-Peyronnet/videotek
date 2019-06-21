@@ -4,17 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:videotek"
+        xmlns:viewmodels="clr-namespace:videotek.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="800">
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
+    
     <Grid>
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
-            <Button x:Name="btnAccueil" Content ="Accueil" Click="btnClickAccueil"/>
-            <Button Content="Page Film"  Margin="10,0,0,0" Click="btnClickFilm"/>
-            <Button Content="Page Serie" Margin="10,0,0,0" Click="btnClickSerie"/>
+            <Button  Content ="Accueil" Command="{Binding CommandClicAccueil}"/>
+            <Button Content="Page Film"  Margin="10,0,0,0" Command="{Binding CommandClicFilm}"/>
+            <Button Content="Page Serie" Margin="10,0,0,0" Command="{Binding CommandClicSerie}"/>
         </StackPanel>
-        <Frame x:Name="Main" Margin="0,35, 150,0"/>
+        <Frame Content="{Binding Path=PageCourrante, Mode=TwoWay}" Margin="0,35, 150,0" NavigationUIVisibility="Hidden"/>
         <StackPanel Margin="650,35, 0,0" Orientation="Vertical" VerticalAlignment="Center">
-            <Button Margin="0,0,0,20" Content ="Ajouter" Click="Button_Click" />
+                    <Button Margin="0,0,0,20" Content ="Ajouter" Command="{Binding CommandClicSaisie}" />
             <Button Margin="0,0,0,20" Content ="Modifier"/>
             <Button Content ="Supprimer" />
         </StackPanel>
