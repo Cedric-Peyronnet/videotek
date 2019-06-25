@@ -8,50 +8,71 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Consultation">
-    
-    <Page.DataContext>
-        <viewmodels:ConsultationViewModel x:Name="ConsultViewModel"/>
-    </Page.DataContext>
+
     <Grid>
         <TextBlock Text="Consultation d'un film" />
-
-        <ListView Margin="0,20,0,0">
-
-        </ListView>
-        <ListView Height="124" HorizontalAlignment="Left" Margin="0,20,0,0"  VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding LeMedia}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
-                    <GridViewColumn Width="60" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
-                    <GridViewColumn Width="100" Header="Date  de sortie" DisplayMemberBinding="{Binding DateSortie}"/>
-                    <GridViewColumn Width="30" Header="Pegi" DisplayMemberBinding="{Binding AgeMinimum}"/>
-
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid HorizontalAlignment="Center">
-                                    <CheckBox  IsChecked="{Binding Vu}" />
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                        <Grid>
-                            <TextBlock  Text="Vu"  />
-                        </Grid>
-                    </GridViewColumn>
-
-
-                    <!--- 
-                    <GridViewColumn Width="100" Header="Support Physique" DisplayMemberBinding="{Binding SupportPhysique}"/>
-                    <GridViewColumn Width="100" Header="Support Numérique" DisplayMemberBinding="{Binding SupportNumerique}"/>
-                    <GridViewColumn Width="100" Header="Langue Original" DisplayMemberBinding="{Binding LangueVO}"/>
-                    <GridViewColumn Width="100" Header="Langue" DisplayMemberBinding="{Binding LangueMedia}"/>
-                    <GridViewColumn Width="100" Header="Sous Titre" DisplayMemberBinding="{Binding SousTitre}"/>
-                     <GridViewColumn Width="100" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
-                   <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie}"/> -->
-
-
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="100">
+                <TextBlock Margin="0,50,0,20" TextAlignment="Right" Text="Titre : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Date de sortie : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Durée : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Vu : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Description : "/>
+            </StackPanel >
+           
+            <!-- -->
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="200">
+                <TextBlock Height="16" Margin="0,50,0,20" TextAlignment="Left" Text="{Binding Titre}"/>
+                <DatePicker Height="24" Margin="0,0,0,16" SelectedDate="{Binding Annee}" IsEnabled="False"/>
+                <TextBlock Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding Duree}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <RadioButton GroupName="Vu" Content="Oui" IsChecked="{Binding Vu}"/>
+                    <RadioButton Margin="20,0,0,0" GroupName="Vu" Content="Non"/>
+                </StackPanel>
+                <TextBlock Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding Note}" />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}"  Width="160" Margin="0,0,0,16" TextAlignment="Left"  TextWrapping="Wrap" Text="{Binding Description}"/>
+            </StackPanel>
+            <!-- -->
+            <StackPanel Grid.Column="2"  Grid.Row="0">
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Type : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Age minimum : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support Physique : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support numérique : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Image : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Langue VO : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Langue : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Sous titres : " />
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Commentaire : "/>
+            </StackPanel>
+            <!-- -->
+            <StackPanel Grid.Column="3"  Grid.Row="0">
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmTypeMedia}}" Height="16" Margin="0,0,0,20" />
+                <TextBox Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding AgeMini}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <RadioButton GroupName="SP" IsChecked="{Binding SupportPhysique}" Content="Oui"/>
+                    <RadioButton Margin="20,0,0,0" GroupName="SP" Content="Non"></RadioButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <RadioButton GroupName="SN" Content="Oui" IsChecked="{Binding SupportNumerique}"/>
+                    <RadioButton Margin="20,0,0,0"  GroupName="SN" Content="Non" />
+                </StackPanel>
+                <TextBox Height="16" Margin="0,0,0,20" TextAlignment="Left" Text=""/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Height="16" Margin="0,0,0,20" Text="{Binding LangueVo}"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Height="16" Margin="0,0,0,20" Text="{Binding LangueMedia}"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Height="16" Margin="0,0,0,20" Text="{Binding LangueSousTitre}" />
+                <TextBlock Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding Commentaire}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

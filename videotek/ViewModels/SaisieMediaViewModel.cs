@@ -10,11 +10,14 @@ using videotek.Utils;
 
 namespace videotek.ViewModels
 {
-    public class SaisieViewModel : UtilsBinding
+    public class SaisieMediaViewModel : UtilsBinding
     {
         public Action CloseAction { get; set; }
 
-        public filmViewModel FilmViewModel { get; set; }
+        private Media monMedia;
+        public Media MonMedia { get => monMedia; set => SetProperty(ref monMedia, value); }
+
+        public FilmViewModel FilmViewModel { get; set; }
 
         private string titre;
         public string Titre { get => titre; set => SetProperty(ref titre, value); }
@@ -46,22 +49,44 @@ namespace videotek.ViewModels
         private TimeSpan duree;
         public TimeSpan Duree { get => duree; set => SetProperty(ref duree, value); }
 
-        private Langue langueVo;
-        public Langue LangueVo { get => langueVo; set => SetProperty(ref langueVo, value); }
+        private ELangue langueVo;
+        public ELangue LangueVo { get => langueVo; set => SetProperty(ref langueVo, value); }
 
-        private Langue langueSousTitre;
-        public Langue LangueSousTitre { get => langueSousTitre; set => SetProperty(ref langueSousTitre, value); }
+        private ELangue langueSousTitre;
+        public ELangue LangueSousTitre { get => langueSousTitre; set => SetProperty(ref langueSousTitre, value); }
 
-        private Langue langueMedia;
-        public Langue LangueMedia { get => langueMedia; set => SetProperty(ref langueMedia, value); }
+        private ELangue langueMedia;
+        public ELangue LangueMedia { get => langueMedia; set => SetProperty(ref langueMedia, value); }
 
-        public SaisieViewModel()
+        public SaisieMediaViewModel(Action close, FilmViewModel filmViewModel, Media media)
         {
-            _canExecute = true;
-            
+            CloseAction = close;
+            FilmViewModel = filmViewModel;
+
+            Titre = media.Titre;
+            Commentaire = media.Commentaire;
+            Description = media.Description;
+            annee = media.DateSortie;
+            Duree = media.Duree;
+            AgeMini = media.AgeMinimum;
+            Note = media.Note;
+            LangueMedia = LangueMedia;
+            LangueVo = media.LangueVO;
+            LangueSousTitre = media.SousTitre;
+            Vu = media.Vu;
+            SupportNumerique = media.SupportNumerique;
+            SupportPhysique = media.SupportPhysique;
         }
 
-        private bool _canExecute;
+        public SaisieMediaViewModel(Action close, FilmViewModel filmViewModel)
+        {
+            CloseAction = close;
+            FilmViewModel = filmViewModel;
+        }
+
+       
+
+        private bool _canExecute = true;
 
 
         UtilsCommand annuler;
@@ -69,7 +94,7 @@ namespace videotek.ViewModels
         {
             get
             {
-                return ajoutSaisie ?? (annuler = new UtilsCommand(() => AnnulerAction(), _canExecute));
+                return annuler ?? (annuler = new UtilsCommand(() => AnnulerAction(), _canExecute));
             }
         }
 

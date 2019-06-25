@@ -10,39 +10,16 @@ using videotek.Utils;
 
 namespace videotek.ViewModels
 {
-    public class filmViewModel : UtilsBinding
+    public class FilmViewModel : UtilsBinding
     {
 
         private MainViewModel mainViewModel;
-
-        private bool unBool;
-
-        public bool UnBool { get => unBool; set => SetProperty(ref unBool, value); }
-
-        private bool consulter = false;
-
-        public bool Consulter
-        {
-            get
-            {
-                return selectedItem != null;
-            }
-            set
-            {
-                
-                SetProperty(ref consulter, value);
-            }
-        }
-           
+    
 
         private ObservableCollection<Media> maListFilm = new ObservableCollection<Media>();
 
         public ObservableCollection<Media> MaListFilm { get => maListFilm; set => SetProperty(ref maListFilm, value); }
-
-        private string texte = "bouton de test";
-
-        public string Texte { get => texte; set => SetProperty(ref texte, value); }
-
+     
         private Media selectedItem;
         public Media SelectedItem
         {
@@ -56,13 +33,12 @@ namespace videotek.ViewModels
                 if (SetProperty(ref selectedItem, value))
                 {    
                     selectedItem = value;
-                    mainViewModel.m = value;
-                    OnPropertyChanged("Consulter");
+                    mainViewModel.MediaCourrant = value;
                 };
             }
         }
 
-        public filmViewModel(MainViewModel mvm)
+        public FilmViewModel(MainViewModel mvm)
         {
             mainViewModel = mvm;
             _canExecute = true;
@@ -77,6 +53,15 @@ namespace videotek.ViewModels
             foreach (Media film in films)
                 MaListFilm.Add(film);        
         }
+
+
+        private bool unBool;
+
+        public bool UnBool { get => unBool; set => SetProperty(ref unBool, value); }
+
+        private string texte = "bouton de test";
+
+        public string Texte { get => texte; set => SetProperty(ref texte, value); }
 
 
         UtilsCommand command;

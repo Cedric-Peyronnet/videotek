@@ -18,9 +18,7 @@
     </Page.Resources>
     <Grid>
         <TextBlock Text="Consultation des films" />
-
         <ListView Margin="0,20,0,0">
-
         </ListView>
         <ListView Height="124" HorizontalAlignment="Left" Margin="0,20,0,0"  VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MaListFilm}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
@@ -42,22 +40,9 @@
                             <TextBlock  Text="Vu"  />
                         </Grid>
                     </GridViewColumn>
-
-
-                    <!--- 
-                    <GridViewColumn Width="100" Header="Support Physique" DisplayMemberBinding="{Binding SupportPhysique}"/>
-                    <GridViewColumn Width="100" Header="Support Numérique" DisplayMemberBinding="{Binding SupportNumerique}"/>
-                    <GridViewColumn Width="100" Header="Langue Original" DisplayMemberBinding="{Binding LangueVO}"/>
-                    <GridViewColumn Width="100" Header="Langue" DisplayMemberBinding="{Binding LangueMedia}"/>
-                    <GridViewColumn Width="100" Header="Sous Titre" DisplayMemberBinding="{Binding SousTitre}"/>
-                     <GridViewColumn Width="100" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
-                   <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie}"/> -->
-                   
-
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button IsEnabled="{Binding Consulter}" Content="Consulter" Height="50" Width="122"  />
         <Button Command="{Binding Command}" Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding Texte}" Margin="0,200" />
         <Label  Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding UnBool,Converter={StaticResource TConverter}}" Margin="0,255,0,145" />
         <TextBox Height="50" HorizontalAlignment="Left" Width="122" Text="{Binding UnBool,Converter={StaticResource TConverter},Mode=TwoWay}" Margin="127,255,0,145" />

@@ -21,7 +21,7 @@ namespace videotek.Classes
         [ForeignKey(nameof(IdMedia))]
         public Media Media { get; set; }
 
-        public Fonction Fonction { get; set; }
+        public EFonction Fonction { get; set; }
         public string Role { get; set; }
         public string Photo { get; set; }
     }

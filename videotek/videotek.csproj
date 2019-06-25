@@ -178,13 +178,13 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Civilite.cs" />
     <Compile Include="Classes\Episode.cs" />
-    <Compile Include="Classes\Fonction.cs" />
+    <Compile Include="Classes\EFonction.cs" />
     <Compile Include="Classes\Genre.cs" />
     <Compile Include="Classes\GenreMedia.cs" />
-    <Compile Include="Classes\Langue.cs" />
+    <Compile Include="Classes\ELangue.cs" />
     <Compile Include="Classes\Personne.cs" />
     <Compile Include="Classes\PersonneMedia.cs" />
-    <Compile Include="Classes\TypeMedia.cs" />
+    <Compile Include="Classes\ETypeMedia.cs" />
     <Compile Include="Converters\ImageCheckedConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\TestConverter.cs" />
@@ -193,10 +193,10 @@
     </Compile>
     <Compile Include="Utils\UtilsBinding.cs" />
     <Compile Include="Utils\UtilsCommand.cs" />
-    <Compile Include="ViewModels\ConsultationViewModel.cs" />
-    <Compile Include="ViewModels\filmViewModel.cs" />
+    <Compile Include="ViewModels\ConsultMediaViewModel.cs" />
+    <Compile Include="ViewModels\FilmViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\SaisieViewModel.cs" />
+    <Compile Include="ViewModels\SaisieMediaViewModel.cs" />
     <Page Include="CommonDictionnaire.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -205,7 +205,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Frames\Common\Ajout.xaml">
+    <Page Include="Frames\Common\Saisie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,8 +235,8 @@
     <Compile Include="Frames\Common\Accueil.xaml.cs">
       <DependentUpon>Accueil.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Frames\Common\Ajout.xaml.cs">
-      <DependentUpon>Ajout.xaml</DependentUpon>
+    <Compile Include="Frames\Common\Saisie.xaml.cs">
+      <DependentUpon>Saisie.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frames\Films\FilmMain.xaml.cs">
       <DependentUpon>FilmMain.xaml</DependentUpon>

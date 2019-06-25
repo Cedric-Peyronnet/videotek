@@ -10,27 +10,73 @@ namespace videotek.ViewModels
 {
     public class MainViewModel : UtilsBinding
     {
-        public Media m = new Media();
-
-        private static MainViewModel MVM;
-        
         public MainViewModel()
         {
-            MVM = this;
+            AC = new Accueil()
+            {
+                DataContext = new Accueil()
+            };
+
+            FM = new FilmMain()
+            {
+                DataContext = new FilmViewModel(this)
+
+            };
+
+            SM = new SerieMain()
+            {
+               // DataContext = new SerieMain()
+            };
+            PageCourrante = AC;
         }
 
         private bool _canExecute = true;
+
+        #region Element Courrant
+        private Media mediaCourrant; 
+
+        public Media MediaCourrant
+        {
+            get
+            {
+                return mediaCourrant;
+            }
+
+            set
+            {
+                if (SetProperty(ref mediaCourrant, value))
+                {
+                    mediaCourrant = value;
+                    OnPropertyChanged("UnMediaSelectionne");
+                };
+            }
+        }
+
+        private bool unMediaSelectionne = false;
+
+        public bool UnMediaSelectionne
+        {
+            get
+            {
+                return mediaCourrant != null;
+            }
+            set
+            {
+
+                SetProperty(ref unMediaSelectionne, value);
+            }
+        }
+
 
         private Page pageCourrante;
 
         public Page PageCourrante { get => pageCourrante; set => SetProperty(ref pageCourrante, value); }
 
+        #endregion
+
         #region Accueil
 
-        Accueil AC = new Accueil()
-         {
-            DataContext = new Accueil()
-         };
+        Accueil AC; 
 
         UtilsCommand commandClicAccueil;
         public UtilsCommand CommandClicAccueil
@@ -52,10 +98,7 @@ namespace videotek.ViewModels
 
         #region Serie
 
-        SerieMain SM = new SerieMain()
-        {
-            DataContext = new SerieMain()
-        };
+        SerieMain SM; 
 
         UtilsCommand commandClicSerie;
         public UtilsCommand CommandClicSerie
@@ -72,14 +115,10 @@ namespace videotek.ViewModels
             PageCourrante = SM;
         }
         #endregion
-  
+
         #region Film
-        FilmMain FM = new FilmMain()
-        {
-            DataContext = new filmViewModel(MVM)
-            
-        };
-        
+        FilmMain FM; 
+
         UtilsCommand commandClicFilm;
         public UtilsCommand CommandClicFilm
 
@@ -93,36 +132,93 @@ namespace videotek.ViewModels
         public void ClicFilm()
         {
             PageCourrante = FM;
-            
-           
+                
         }
         #endregion
 
-        #region Saisie 
-      
-        UtilsCommand commandClicSaisie;
-        public UtilsCommand CommandClicSaisie
+        #region Ajout 
+
+        Saisie Ajout;
+        UtilsCommand commandClicAjout;
+        public UtilsCommand CommandClicAjout
 
         {
             get
             {
-                return commandClicSaisie ?? (commandClicSaisie = new UtilsCommand(() => ClicSaisie(), _canExecute));
+                return commandClicAjout ?? (commandClicAjout = new UtilsCommand(() => ClicAjout(), _canExecute));
             }
         }
 
-        public void ClicSaisie()
+        public void ClicAjout()
         {
-            if (PageCourrante.Equals(FM))
+            Action close = new Action(() => Ajout.Close());
+            Ajout = new Saisie()
             {
-                
-                Ajout popup = new Ajout();
-                popup.SaisieViewWindow.CloseAction = new Action(popup.Close);
-                popup.SaisieViewWindow.FilmViewModel = (filmViewModel)FM.DataContext;
-                popup.ShowDialog();
-                
+
+                DataContext = new SaisieMediaViewModel(close)
+            };
+
+            if (PageCourrante.Equals(FM))
+            {                
+                Ajout.ShowDialog();          
             }
         }
         #endregion
+
+        #region Modification 
+
+        Saisie Modification;
+        UtilsCommand commandClicModification;
+        public UtilsCommand CommandClicModification
+
+        {
+            get
+            {
+                return commandClicModification ?? (commandClicModification = new UtilsCommand(() => ClicModification(), _canExecute));
+            }
+        }
+
+        public void ClicModification()
+        {
+            Action close = new Action(() => Ajout.Close());
+            Modification = new Saisie()
+            {
+
+                DataContext = new SaisieMediaViewModel(close, MediaCourrant)
+            };
+
+            if (PageCourrante.Equals(FM))
+            {
+                Modification.ShowDialog();
+            }
+        }
+        #endregion
+
+        #region Consultation 
+
+        Consultation Consult;
+
+
+        UtilsCommand commandClicConsultation;
+        public UtilsCommand CommandClicConsultation
+
+        {
+            get
+            {
+                return commandClicConsultation ?? (commandClicConsultation = new UtilsCommand(() => ClicConsultation(), _canExecute));
+            }
+        }
+
+        public void ClicConsultation()
+        {
+            Consult = new Consultation()
+            {
+                DataContext = new ConsultationViewModel(MediaCourrant)
+            };
+            PageCourrante = Consult;
+        }
+        #endregion
+
 
     }
 }
