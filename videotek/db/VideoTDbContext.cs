@@ -15,7 +15,7 @@ namespace videotek.db
             if(_context == null)
             {
                 _context = new VideoTDbContext(
-                    Path.Combine(Environment.GetFolderPath(SpecialFolder.LocalApplicationData), "database.db"));
+                    Path.Combine(Environment.GetFolderPath(SpecialFolder.MyDocuments), "database.db"));
                 await _context.Database.MigrateAsync();
             }
             return _context;

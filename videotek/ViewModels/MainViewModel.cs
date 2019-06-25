@@ -10,16 +10,19 @@ namespace videotek.ViewModels
 {
     public class MainViewModel : UtilsBinding
     {
+        private FilmViewModel ContextFilmView;
         public MainViewModel()
         {
+            
             AC = new Accueil()
             {
                 DataContext = new Accueil()
             };
 
+            ContextFilmView = new FilmViewModel(this);
             FM = new FilmMain()
             {
-                DataContext = new FilmViewModel(this)
+                DataContext = ContextFilmView
 
             };
 
@@ -152,10 +155,12 @@ namespace videotek.ViewModels
         public void ClicAjout()
         {
             Action close = new Action(() => Ajout.Close());
+            
             Ajout = new Saisie()
             {
-
-                DataContext = new SaisieMediaViewModel(close)
+                
+                DataContext = new SaisieMediaViewModel(close, ContextFilmView)
+                
             };
 
             if (PageCourrante.Equals(FM))
@@ -180,11 +185,11 @@ namespace videotek.ViewModels
 
         public void ClicModification()
         {
-            Action close = new Action(() => Ajout.Close());
+            Action close = new Action(() => Modification.Close());
             Modification = new Saisie()
             {
 
-                DataContext = new SaisieMediaViewModel(close, MediaCourrant)
+                DataContext = new SaisieMediaViewModel(close, ContextFilmView, MediaCourrant)
             };
 
             if (PageCourrante.Equals(FM))

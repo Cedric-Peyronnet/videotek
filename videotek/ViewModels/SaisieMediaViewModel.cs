@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,10 +13,21 @@ namespace videotek.ViewModels
 {
     public class SaisieMediaViewModel : UtilsBinding
     {
+        #region propriété 
         public Action CloseAction { get; set; }
+
+        private ObservableCollection<Genre> listeGenre = new ObservableCollection<Genre>();
+
+        public ObservableCollection<Genre> ListeGenre { get => listeGenre; set => SetProperty(ref listeGenre, value); }
 
         private Media monMedia;
         public Media MonMedia { get => monMedia; set => SetProperty(ref monMedia, value); }
+
+        private Genre genre;
+        public Genre Genre { get => genre; set => SetProperty(ref genre, value); }
+
+        private Genre sousGenre;
+        public Genre SousGenre { get => sousGenre; set => SetProperty(ref sousGenre, value); }
 
         public FilmViewModel FilmViewModel { get; set; }
 
@@ -46,6 +58,12 @@ namespace videotek.ViewModels
         private DateTime annee;
         public DateTime Annee { get => annee; set => SetProperty(ref annee, value); }
 
+        private int heures;
+        public int Heures { get => heures; set => SetProperty(ref heures, value); }
+
+        private int minutes;
+        public int Minutes { get => minutes; set => SetProperty(ref minutes, value); }
+
         private TimeSpan duree;
         public TimeSpan Duree { get => duree; set => SetProperty(ref duree, value); }
 
@@ -58,34 +76,47 @@ namespace videotek.ViewModels
         private ELangue langueMedia;
         public ELangue LangueMedia { get => langueMedia; set => SetProperty(ref langueMedia, value); }
 
+        private ETypeMedia type;
+        public ETypeMedia Type { get => type; set => SetProperty(ref type, value); }
+        #endregion
+
+        #region constructeur
         public SaisieMediaViewModel(Action close, FilmViewModel filmViewModel, Media media)
         {
+            RecuperationGenre();
+
             CloseAction = close;
             FilmViewModel = filmViewModel;
+            MonMedia = media;
 
             Titre = media.Titre;
             Commentaire = media.Commentaire;
             Description = media.Description;
             annee = media.DateSortie;
-            Duree = media.Duree;
+            Heures = media.Duree.Hours;
+            Minutes = media.Duree.Minutes;
             AgeMini = media.AgeMinimum;
             Note = media.Note;
-            LangueMedia = LangueMedia;
+            LangueMedia = media.LangueMedia;
             LangueVo = media.LangueVO;
             LangueSousTitre = media.SousTitre;
             Vu = media.Vu;
+            Type = media.Type;
             SupportNumerique = media.SupportNumerique;
             SupportPhysique = media.SupportPhysique;
+           
         }
 
         public SaisieMediaViewModel(Action close, FilmViewModel filmViewModel)
         {
+            RecuperationGenre();
+
             CloseAction = close;
             FilmViewModel = filmViewModel;
         }
+        #endregion
 
-       
-
+        #region command & action
         private bool _canExecute = true;
 
 
@@ -116,33 +147,99 @@ namespace videotek.ViewModels
         {
             CloseAction();
         }
+        #endregion
+
+        #region enregistrement
 
         private async void EnregistrerAsync()
         {
             var context = await db.VideoTDbContext.GetCurrent();
-            Media m = new Media()
+            TimeSpan ts = new TimeSpan(Heures, minutes, 0);
+
+            if (MonMedia == null)
             {
-                Titre = Titre,
-                Commentaire = Commentaire,
-                Description = Description,
-                DateSortie = Annee,
-                Duree = Duree,
-                AgeMinimum = AgeMini,
-                Note = Note,
-                LangueMedia = LangueMedia,
-                LangueVO = LangueVo,
-                SousTitre = LangueSousTitre,
-                Vu = Vu,
-                SupportNumerique = SupportNumerique,
-                SupportPhysique = SupportPhysique
-            };
-            context.Add(m);
-            await context.SaveChangesAsync();
+                Media m = new Media()
+                {
+                    Titre = Titre,
+                    Commentaire = Commentaire,
+                    Description = Description,
+                    DateSortie = Annee,
+                    Duree = ts,
+                    AgeMinimum = AgeMini,
+                    Note = Note,
+                    LangueMedia = LangueMedia,
+                    LangueVO = LangueVo,
+                    SousTitre = LangueSousTitre,
+                    Vu = Vu,
+                    Type = Type,
+                    SupportNumerique = SupportNumerique,
+                    SupportPhysique = SupportPhysique
+                };
+                context.Add(m);
+                FilmViewModel.MaListFilm.Add(m);
+                MonMedia = m;
+            }
+            //Cas d'une modification
+            else
+            {
+                var entity = context.Medias.Find(MonMedia.Id);
+                if (entity == null)
+                {
+                    return;
+                }
+                MonMedia.Titre = Titre;
+                MonMedia.Commentaire = Commentaire;
+                MonMedia.Description = Description;
+                MonMedia.DateSortie = Annee;
+                MonMedia.Duree = ts;
+                MonMedia.AgeMinimum = AgeMini;
+                MonMedia.Note = Note;
+                MonMedia.LangueMedia = LangueMedia;
+                MonMedia.LangueVO = LangueVo;
+                MonMedia.SousTitre = LangueSousTitre;
+                MonMedia.Vu = Vu;
+                MonMedia.SupportNumerique = SupportNumerique;
+                MonMedia.SupportPhysique = SupportPhysique;
+                MonMedia.Type = Type;
+                context.Entry(entity).CurrentValues.SetValues(MonMedia);
+            }
             
-            MessageBox.Show("Enregistré");
-            FilmViewModel.MaListFilm.Add(m);
+            await context.SaveChangesAsync();
+
+           
+            //Enregistrement du genre et du media
+            GenreMedia genreMedia = new GenreMedia()
+            {
+                IdGenre = Genre.Id,
+                IdMedia = MonMedia.Id
+                
+            };
+            context.Add(genreMedia);
+            GenreMedia sousGenreMedia = new GenreMedia()
+            {
+                IdGenre = SousGenre.Id,
+                IdMedia = MonMedia.Id
+            };
+           
+            context.Add(sousGenreMedia);
+            await context.SaveChangesAsync();
+
+            MessageBox.Show("Enregistré");        
             CloseAction();
            
         }
+        #endregion
+
+        #region
+        private async void RecuperationGenre()
+        {
+            var context = await db.VideoTDbContext.GetCurrent();
+            List<Genre> genres = context.Genres.ToList();
+
+            foreach (Genre genre in genres)
+                ListeGenre.Add(genre);
+        }
+
+        #endregion
     }
 }
