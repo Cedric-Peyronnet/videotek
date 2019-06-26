@@ -33,6 +33,9 @@ namespace videotek.Classes
         [InverseProperty(nameof(GenreMedia.Media))]
         public List<GenreMedia> Genre { get; set; }
 
+        [InverseProperty(nameof(EpisodeMedia.Media))]
+        public List<EpisodeMedia> Episode { get; set; }
+
         [InverseProperty(nameof(PersonneMedia.Media))]
         public List<PersonneMedia> Personne { get; set; }
     }

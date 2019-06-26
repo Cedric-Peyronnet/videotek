@@ -10,16 +10,19 @@ using videotek.Utils;
 
 namespace videotek.ViewModels
 {
-    public class FilmViewModel : UtilsBinding
+    public class MediaViewModel : UtilsBinding
     {
 
         private MainViewModel mainViewModel;
     
-
         private ObservableCollection<Media> maListFilm = new ObservableCollection<Media>();
 
         public ObservableCollection<Media> MaListFilm { get => maListFilm; set => SetProperty(ref maListFilm, value); }
-     
+
+        private ObservableCollection<Media> maListSerie = new ObservableCollection<Media>();
+
+        public ObservableCollection<Media> MaListSerie { get => maListSerie; set => SetProperty(ref maListSerie, value); }
+
         private Media selectedItem;
         public Media SelectedItem
         {
@@ -38,7 +41,7 @@ namespace videotek.ViewModels
             }
         }
 
-        public FilmViewModel(MainViewModel mvm)
+        public MediaViewModel(MainViewModel mvm)
         {
             mainViewModel = mvm;
             _canExecute = true;
@@ -48,10 +51,15 @@ namespace videotek.ViewModels
         private async void InitialisationValeursConsultationAsync()
         {
             var context = await db.VideoTDbContext.GetCurrent();
-            List<Media> films = context.Medias.ToList();
+            List<Media> films = context.Medias.Where(m => m.Type == ETypeMedia.Film).ToList();
 
             foreach (Media film in films)
-                MaListFilm.Add(film);        
+                MaListFilm.Add(film);
+
+            List<Media> series = context.Medias.Where(m => m.Type == ETypeMedia.Serie).ToList();
+
+            foreach (Media serie in series)
+                MaListSerie.Add(serie);
         }
 
 

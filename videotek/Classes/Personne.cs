@@ -22,4 +22,5 @@ namespace videotek.Classes
         [InverseProperty(nameof(PersonneMedia.Personne))]
         public List<PersonneMedia> Media { get; set; }
     }
+
 }

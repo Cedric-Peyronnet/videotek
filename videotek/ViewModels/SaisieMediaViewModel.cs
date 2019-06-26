@@ -29,7 +29,7 @@ namespace videotek.ViewModels
         private Genre sousGenre;
         public Genre SousGenre { get => sousGenre; set => SetProperty(ref sousGenre, value); }
 
-        public FilmViewModel FilmViewModel { get; set; }
+        public MediaViewModel MediaViewModel { get; set; }
 
         private string titre;
         public string Titre { get => titre; set => SetProperty(ref titre, value); }
@@ -81,12 +81,12 @@ namespace videotek.ViewModels
         #endregion
 
         #region constructeur
-        public SaisieMediaViewModel(Action close, FilmViewModel filmViewModel, Media media)
+        public SaisieMediaViewModel(Action close, MediaViewModel mediaViewModel, Media media)
         {
             RecuperationGenre();
 
             CloseAction = close;
-            FilmViewModel = filmViewModel;
+            MediaViewModel = mediaViewModel;
             MonMedia = media;
 
             RecuperationGenreMedia();
@@ -110,12 +110,13 @@ namespace videotek.ViewModels
            
         }
 
-        public SaisieMediaViewModel(Action close, FilmViewModel filmViewModel)
+        public SaisieMediaViewModel(Action close, MediaViewModel mediaViewModel, ETypeMedia eTypeMedia)
         {
             RecuperationGenre();
 
+            
             CloseAction = close;
-            FilmViewModel = filmViewModel;
+            MediaViewModel = mediaViewModel;
         }
         #endregion
 
@@ -179,7 +180,15 @@ namespace videotek.ViewModels
                     SupportPhysique = SupportPhysique
                 };
                 context.Add(m);
-                FilmViewModel.MaListFilm.Add(m);
+                if(Type.Equals(ETypeMedia.Film))
+                {
+                    MediaViewModel.MaListFilm.Add(m);
+                }
+                else
+                {
+                    MediaViewModel.MaListSerie.Add(m);
+                }
+              
                 MonMedia = m;
             }
             //Cas d'une modification

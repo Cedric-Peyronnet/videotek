@@ -10,25 +10,25 @@ namespace videotek.ViewModels
 {
     public class MainViewModel : UtilsBinding
     {
-        private FilmViewModel ContextFilmView;
+        private MediaViewModel ContextMediaView;
         public MainViewModel()
         {
-            
+            ContextMediaView = new MediaViewModel(this);
             AC = new Accueil()
             {
                 DataContext = new Accueil()
             };
 
-            ContextFilmView = new FilmViewModel(this);
+           
             FM = new FilmMain()
             {
-                DataContext = ContextFilmView
+                DataContext = ContextMediaView
 
             };
 
             SM = new SerieMain()
             {
-               // DataContext = new SerieMain()
+                DataContext = ContextMediaView
             };
             PageCourrante = AC;
         }
@@ -70,6 +70,7 @@ namespace videotek.ViewModels
             }
         }
 
+        private ETypeMedia TypeMedia { get; set; }
 
         private Page pageCourrante;
 
@@ -155,15 +156,24 @@ namespace videotek.ViewModels
         public void ClicAjout()
         {
             Action close = new Action(() => Ajout.Close());
-            
+
+            if (PageCourrante.Equals(FM))
+            {
+                TypeMedia = ETypeMedia.Film;
+            }
+            else if (PageCourrante.Equals(SM))
+            {
+                TypeMedia = ETypeMedia.Serie;
+            }
+
             Ajout = new Saisie()
             {
                 
-                DataContext = new SaisieMediaViewModel(close, ContextFilmView)
+                DataContext = new SaisieMediaViewModel(close, ContextMediaView, TypeMedia)
                 
             };
 
-            if (PageCourrante.Equals(FM))
+            if (PageCourrante.Equals(FM) || PageCourrante.Equals(SM))
             {                
                 Ajout.ShowDialog();          
             }
@@ -189,7 +199,7 @@ namespace videotek.ViewModels
             Modification = new Saisie()
             {
 
-                DataContext = new SaisieMediaViewModel(close, ContextFilmView, MediaCourrant)
+                DataContext = new SaisieMediaViewModel(close, ContextMediaView, MediaCourrant)
             };
 
             if (PageCourrante.Equals(FM))
@@ -242,7 +252,17 @@ namespace videotek.ViewModels
             var context = await db.VideoTDbContext.GetCurrent();
             context.Medias.Remove(MediaCourrant);
             context.SaveChanges();
-            ContextFilmView.MaListFilm.Remove(MediaCourrant);
+
+            if (PageCourrante.Equals(FM))
+            {
+                ContextMediaView.MaListFilm.Remove(MediaCourrant);
+            }
+            else if (PageCourrante.Equals(SM))
+            {
+                ContextMediaView.MaListSerie.Remove(MediaCourrant);
+            }
+
+            UnMediaSelectionne = false;
         }
         #endregion
 

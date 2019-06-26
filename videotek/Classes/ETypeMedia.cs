@@ -8,8 +8,8 @@ namespace videotek.Classes
 {
     public enum ETypeMedia
     {
-        Film = 1,
-        Serie = 2 
+        Film = 0,
+        Serie = 1 
     }
 
 }

@@ -24,7 +24,10 @@ namespace videotek
 
         private async void RemplissageGenre()
         {
+            
+
             var context = await db.VideoTDbContext.GetCurrent();
+
             List<Genre> genre = context.Genres.ToList();
 
             if (genre.Count == 0)
@@ -33,8 +36,6 @@ namespace videotek
                 {
                     Libelle = "Science Fiction"
                 };
-                context.Add(remplissageGenre);
-                remplissageGenre = new Genre() { Libelle = "Science Fiction" };
                 context.Add(remplissageGenre);
                 remplissageGenre = new Genre() { Libelle = "Fantaisie" };
                 context.Add(remplissageGenre);
@@ -48,6 +49,8 @@ namespace videotek
                 context.Add(remplissageGenre);
                 await context.SaveChangesAsync();
             }
+            context.Episodes.Add(new Episode { IdMedia = 1, Description = "test" });  //context.Episodes.ToList();
+           // await context.SaveChangesAsync();
         }
     }
 }

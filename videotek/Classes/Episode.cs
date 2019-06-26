@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace videotek.Classes
 {
@@ -19,5 +17,8 @@ namespace videotek.Classes
         public string Titre { get; set; }
         public string Description { get; set; }
         public DateTime DateDiffusion { get; set; }
+        
+        [InverseProperty(nameof(EpisodeMedia.Episode))]
+        public List<EpisodeMedia> Media { get; set; }
     }
 }

@@ -177,24 +177,30 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Civilite.cs" />
-    <Compile Include="Classes\Episode.cs" />
     <Compile Include="Classes\EFonction.cs" />
+    <Compile Include="Classes\Episode.cs" />
+    <Compile Include="Classes\EpisodeMedia.cs" />
     <Compile Include="Classes\Genre.cs" />
     <Compile Include="Classes\GenreMedia.cs" />
     <Compile Include="Classes\ELangue.cs" />
+    <Compile Include="Classes\ETypeMedia.cs" />
     <Compile Include="Classes\Personne.cs" />
     <Compile Include="Classes\PersonneMedia.cs" />
-    <Compile Include="Classes\ETypeMedia.cs" />
     <Compile Include="Converters\ImageCheckedConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\TestConverter.cs" />
     <Compile Include="Frames\Common\Consultation.xaml.cs">
       <DependentUpon>Consultation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190626132117_First.cs" />
+    <Compile Include="Migrations\20190626132117_First.designer.cs">
+      <DependentUpon>20190626132117_First.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\VideoTDbContextModelSnapshot.cs" />
     <Compile Include="Utils\UtilsBinding.cs" />
     <Compile Include="Utils\UtilsCommand.cs" />
     <Compile Include="ViewModels\ConsultMediaViewModel.cs" />
-    <Compile Include="ViewModels\FilmViewModel.cs" />
+    <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SaisieMediaViewModel.cs" />
     <Page Include="CommonDictionnaire.xaml">
@@ -250,11 +256,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\20190507073938_Initiale.cs" />
-    <Compile Include="Migrations\20190507073938_Initiale.designer.cs">
-      <DependentUpon>20190507073938_Initiale.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\VideoTDbContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
