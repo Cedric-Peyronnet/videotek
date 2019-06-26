@@ -31,7 +31,7 @@ namespace videotek.db
         public DbSet<GenreMedia> GenreMedias { get; set; }
         public DbSet<Media> Medias { get; set; }
         public DbSet<Episode> Episodes { get; set; }
-        //public DbSet<EpisodeMedia> EpisodesMedia { get; set; }
+        public DbSet<EpisodeMedia> EpisodesMedia { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -66,7 +66,7 @@ namespace videotek.db
                                 .HasKey(e => new { e.Id });
 
             modelBuilder.Entity<EpisodeMedia>()
-                            .HasKey(em => new { em.IdEpisode, em.IdMedia });
+                            .HasKey(em => new { em.IdMedia, em.IdEpisode });
 
         
             modelBuilder.Entity<EpisodeMedia>()

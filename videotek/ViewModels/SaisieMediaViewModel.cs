@@ -231,7 +231,7 @@ namespace videotek.ViewModels
                 }
 
 
-                if (null != SousGenre)
+                if (null != SousGenre && SousGenre != Genre)
                 {
                     GenreMedia sousGenreMedia = new GenreMedia()
                     {
@@ -250,7 +250,7 @@ namespace videotek.ViewModels
         }
         #endregion
 
-        #region
+        #region recuperation
         private async void RecuperationGenre()
         {
             var context = await db.VideoTDbContext.GetCurrent();
@@ -274,13 +274,8 @@ namespace videotek.ViewModels
             if (ListGenresMedia.Count > 1 && ListGenresMedia[1] != null)
             {
                 SousGenre = context.Genres.Where(gm => gm.Id == ListGenresMedia[1].IdGenre).First();
-            }
-
-            
-
-            
+            }        
         }
-
         #endregion
     }
 }

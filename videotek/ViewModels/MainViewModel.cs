@@ -314,6 +314,68 @@ namespace videotek.ViewModels
         }
         #endregion
 
+        #region AjoutEpisode 
+
+        SaisieEpisode AjoutEpisode;
+        UtilsCommand commandClicAjoutEpisode;
+        public UtilsCommand CommandClicAjoutEpisode
+
+        {
+            get
+            {
+                return commandClicAjoutEpisode ?? (commandClicAjoutEpisode = new UtilsCommand(() => ClicAjoutEpisode(), _canExecute));
+            }
+        }
+
+        public void ClicAjoutEpisode()
+        {
+            Action close = new Action(() => AjoutEpisode.Close());
+
+            AjoutEpisode = new SaisieEpisode()
+            {
+
+                DataContext = new SaisieEpisodeViewModel(close, ContextMediaView)
+
+            };
+
+            if (PageCourrante.Equals(FM) || PageCourrante.Equals(SM))
+            {
+                AjoutEpisode.ShowDialog();
+            }
+        }
+        #endregion
+
+        #region ModificationEpisode 
+
+        SaisieEpisode ModificationEpisode;
+        UtilsCommand commandClicModifierEpisode;
+        public UtilsCommand CommandClicModifierEpisode
+
+        {
+            get
+            {
+                return commandClicModifierEpisode ?? (commandClicModifierEpisode = new UtilsCommand(() => ClicModificationEpisode(), _canExecute));
+            }
+        }
+
+        public void ClicModificationEpisode()
+        {
+            Action close = new Action(() => ModificationEpisode.Close());
+            ModificationEpisode = new SaisieEpisode()
+            {
+
+                DataContext = new SaisieEpisodeViewModel(close, ContextMediaView,EpisodeCourrant)
+            };
+
+            if (PageCourrante.Equals(SM))
+            {
+                ModificationEpisode.ShowDialog();
+            }
+        }
+        #endregion
+
+
+
 
     }
 }

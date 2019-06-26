@@ -42,20 +42,15 @@ namespace videotek.Migrations
 
             modelBuilder.Entity("videotek.Classes.EpisodeMedia", b =>
                 {
-                    b.Property<int>("IdEpisode");
-
                     b.Property<int>("IdMedia");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("IdEpisode");
 
-                    b.HasKey("IdEpisode", "IdMedia");
+                    b.HasKey("IdMedia", "IdEpisode");
 
-                    b.HasAlternateKey("Id");
+                    b.HasIndex("IdEpisode");
 
-                    b.HasIndex("IdMedia");
-
-                    b.ToTable("EpisodeMedia");
+                    b.ToTable("EpisodesMedia");
                 });
 
             modelBuilder.Entity("videotek.Classes.Genre", b =>

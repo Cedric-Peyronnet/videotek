@@ -9,8 +9,8 @@ using videotek.db;
 namespace videotek.Migrations
 {
     [DbContext(typeof(VideoTDbContext))]
-    [Migration("20190626132117_First")]
-    partial class First
+    [Migration("20190626161932_a")]
+    partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,20 +44,15 @@ namespace videotek.Migrations
 
             modelBuilder.Entity("videotek.Classes.EpisodeMedia", b =>
                 {
-                    b.Property<int>("IdEpisode");
-
                     b.Property<int>("IdMedia");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("IdEpisode");
 
-                    b.HasKey("IdEpisode", "IdMedia");
+                    b.HasKey("IdMedia", "IdEpisode");
 
-                    b.HasAlternateKey("Id");
+                    b.HasIndex("IdEpisode");
 
-                    b.HasIndex("IdMedia");
-
-                    b.ToTable("EpisodeMedia");
+                    b.ToTable("EpisodesMedia");
                 });
 
             modelBuilder.Entity("videotek.Classes.Genre", b =>

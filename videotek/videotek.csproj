@@ -192,9 +192,12 @@
     <Compile Include="Frames\Common\Consultation.xaml.cs">
       <DependentUpon>Consultation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20190626132117_First.cs" />
-    <Compile Include="Migrations\20190626132117_First.designer.cs">
-      <DependentUpon>20190626132117_First.cs</DependentUpon>
+    <Compile Include="Frames\Series\SaisieEpisode.xaml.cs">
+      <DependentUpon>SaisieEpisode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190626161932_a.cs" />
+    <Compile Include="Migrations\20190626161932_a.designer.cs">
+      <DependentUpon>20190626161932_a.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\VideoTDbContextModelSnapshot.cs" />
     <Compile Include="Utils\UtilsBinding.cs" />
@@ -221,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\Films\FilmMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Series\SaisieEpisode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

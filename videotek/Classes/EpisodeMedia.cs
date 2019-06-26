@@ -10,16 +10,12 @@ namespace videotek.Classes
 {
    public class EpisodeMedia
     {
-
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        public int IdEpisode { get; set; }
-        [ForeignKey(nameof(IdEpisode))]
-        public Episode Episode { get; set; }
-
         public int IdMedia { get; set; }
         [ForeignKey(nameof(IdMedia))]
         public Media Media { get; set; }
+
+        public int IdEpisode { get; set; }
+        [ForeignKey(nameof(IdEpisode))]
+        public Episode Episode { get; set; }       
     }
 }

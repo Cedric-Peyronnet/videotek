@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace videotek.Migrations
 {
-    public partial class First : Migration
+    public partial class a : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,26 +85,23 @@ namespace videotek.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EpisodeMedia",
+                name: "EpisodesMedia",
                 columns: table => new
                 {
-                    IdEpisode = table.Column<int>(nullable: false),
                     IdMedia = table.Column<int>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true)
+                    IdEpisode = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EpisodeMedia", x => new { x.IdEpisode, x.IdMedia });
-                    table.UniqueConstraint("AK_EpisodeMedia_Id", x => x.Id);
+                    table.PrimaryKey("PK_EpisodesMedia", x => new { x.IdMedia, x.IdEpisode });
                     table.ForeignKey(
-                        name: "FK_EpisodeMedia_Episodes_IdEpisode",
+                        name: "FK_EpisodesMedia_Episodes_IdEpisode",
                         column: x => x.IdEpisode,
                         principalTable: "Episodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EpisodeMedia_Medias_IdMedia",
+                        name: "FK_EpisodesMedia_Medias_IdMedia",
                         column: x => x.IdMedia,
                         principalTable: "Medias",
                         principalColumn: "Id",
@@ -166,9 +163,9 @@ namespace videotek.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EpisodeMedia_IdMedia",
-                table: "EpisodeMedia",
-                column: "IdMedia");
+                name: "IX_EpisodesMedia_IdEpisode",
+                table: "EpisodesMedia",
+                column: "IdEpisode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GenreMedias_IdGenre",
@@ -184,7 +181,7 @@ namespace videotek.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EpisodeMedia");
+                name: "EpisodesMedia");
 
             migrationBuilder.DropTable(
                 name: "GenreMedias");

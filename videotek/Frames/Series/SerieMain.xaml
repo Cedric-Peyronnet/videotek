@@ -39,7 +39,9 @@
                 <GridView>
                     <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
                     <GridViewColumn Width="60" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
-                    <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie, StringFormat='dd-MM-yyyy'}" />
+                    <GridViewColumn Width="60" Header="N°Saison" DisplayMemberBinding="{Binding numSaison}"/>
+                    <GridViewColumn Width="60" Header="N°Episode" DisplayMemberBinding="{Binding NumEpisode}"/>
+                    <GridViewColumn Width="100" Header="Date de diffusion" DisplayMemberBinding="{Binding DateDiffusion, StringFormat='dd-MM-yyyy'}" />
                     <GridViewColumn Width="30" Header="Pegi" DisplayMemberBinding="{Binding AgeMinimum}"/>
                     <GridViewColumn Width="30" Header="Note" DisplayMemberBinding="{Binding Note}"/>
 
