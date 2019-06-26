@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using videotek.Classes;
 using videotek.Frames.Common;
@@ -250,7 +251,7 @@ namespace videotek.ViewModels
                 DataContext = new SaisieMediaViewModel(close, ContextMediaView, MediaCourrant)
             };
 
-            if (PageCourrante.Equals(FM))
+            if (PageCourrante.Equals(FM) || PageCourrante.Equals(SM))
             {
                 Modification.ShowDialog();
             }
@@ -294,11 +295,17 @@ namespace videotek.ViewModels
                 return commandClicSupprimer ?? (commandClicSupprimer = new UtilsCommand(() => ClicSupprimer(), _canExecute));
             }
         }
+      
+       
 
         public async void ClicSupprimer()
         {
             var context = await db.VideoTDbContext.GetCurrent();
+
+            ContextMediaView.SupprimerLesEpisodes(MediaCourrant.Id);
+
             context.Medias.Remove(MediaCourrant);
+            
             context.SaveChanges();
 
             if (PageCourrante.Equals(FM))

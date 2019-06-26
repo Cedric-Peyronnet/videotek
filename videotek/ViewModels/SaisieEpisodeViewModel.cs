@@ -114,15 +114,19 @@ namespace videotek.ViewModels
             {
                 Episode e = new Episode()
                 {
-                    Titre = Titre,               
+                    Titre = Titre,
                     Description = Description,
                     DateDiffusion = DateDiffusion,
                     Duree = ts,
+                    IdMedia = MediaViewModel.SelectedItem.Id,
                     NumSaison = NumSaison,
                     NumEpisode = NumEpisode,
                 };
-                context.Add(e);
+                context.Episodes.Add(e);
                 Episode = e;
+                await context.SaveChangesAsync();
+                context.EpisodesMedia.Add(new EpisodeMedia { IdMedia = MediaViewModel.SelectedItem.Id, IdEpisode = Episode.Id });
+                MediaViewModel.MaListEpisode.Add(e);
             }
             //Cas d'une modification
             else

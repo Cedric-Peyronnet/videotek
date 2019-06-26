@@ -41,8 +41,10 @@ namespace videotek.ViewModels
                 {    
                     selectedItem = value;
                     mainViewModel.MediaCourrant = value;
-                    RecuperationDesEpisodesDeSerie();
-                    
+                    if(selectedItem != null && mainViewModel.MediaCourrant.Type.Equals(ETypeMedia.Serie))
+                    {
+                        RecuperationDesEpisodesDeSerie();
+                    }                      
                 };
             }
         }
@@ -86,6 +88,21 @@ namespace videotek.ViewModels
 
             foreach (Media serie in series)
                 MaListSerie.Add(serie);
+        }
+
+        public async void SupprimerLesEpisodes(int id)
+        {
+            var context = await db.VideoTDbContext.GetCurrent();
+            List<Episode> episodes = context.Episodes.Where(e => e.IdMedia == id).ToList();
+            foreach (Episode ep in episodes)
+            {
+                MaListEpisode.Remove(ep);
+                context.Episodes.Remove(ep);
+            }
+                
+
+            context.SaveChanges();
+
         }
 
         private async void  RecuperationDesEpisodesDeSerie()

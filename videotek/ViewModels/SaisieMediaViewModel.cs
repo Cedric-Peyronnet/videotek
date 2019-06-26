@@ -192,6 +192,15 @@ namespace videotek.ViewModels
             //Cas d'une modification
             else
             {
+                if (Type.Equals(ETypeMedia.Film))
+                {
+                    MediaViewModel.MaListFilm.Remove(MonMedia);
+                }
+                else
+                {
+                    MediaViewModel.MaListSerie.Remove(MonMedia);
+                }
+
                 var entity = context.Medias.Find(MonMedia.Id);
                 if (entity == null)
                 {
@@ -212,6 +221,16 @@ namespace videotek.ViewModels
                 MonMedia.SupportPhysique = SupportPhysique;
                 MonMedia.Type = Type;
                 context.Entry(entity).CurrentValues.SetValues(MonMedia);
+
+                if (Type.Equals(ETypeMedia.Film))
+                {
+                    MediaViewModel.MaListFilm.Add(MonMedia);
+                }
+                else
+                {
+                    MediaViewModel.MaListSerie.Add(MonMedia);
+                }
+
             }
             
             await context.SaveChangesAsync();
@@ -255,6 +274,7 @@ namespace videotek.ViewModels
         {
             var context = await db.VideoTDbContext.GetCurrent();
             List<Genre> genres = context.Genres.ToList();
+          
 
             foreach (Genre genre in genres)
                 ListeGenre.Add(genre);

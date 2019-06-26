@@ -91,7 +91,7 @@ namespace videotek
                 List<Episode> episodes = context.Episodes.ToList();
                 foreach(Media serie in series)
                 {
-                    for(int i = 0; i < 21; i++)
+                    for(int i = 0; i < 20; i++)
                     {
                         context.EpisodesMedia.Add(new EpisodeMedia { IdMedia = serie.Id, IdEpisode = episodes[i].Id });
                     }
