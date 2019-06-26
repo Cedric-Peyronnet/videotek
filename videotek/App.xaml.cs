@@ -50,7 +50,7 @@ namespace videotek
                 await context.SaveChangesAsync();
             }
             context.Episodes.Add(new Episode { IdMedia = 1, Description = "test" });  //context.Episodes.ToList();
-           // await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
     }
 }

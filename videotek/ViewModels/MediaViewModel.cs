@@ -12,7 +12,7 @@ namespace videotek.ViewModels
 {
     public class MediaViewModel : UtilsBinding
     {
-
+        #region propriété
         private MainViewModel mainViewModel;
     
         private ObservableCollection<Media> maListFilm = new ObservableCollection<Media>();
@@ -22,6 +22,10 @@ namespace videotek.ViewModels
         private ObservableCollection<Media> maListSerie = new ObservableCollection<Media>();
 
         public ObservableCollection<Media> MaListSerie { get => maListSerie; set => SetProperty(ref maListSerie, value); }
+
+        private ObservableCollection<Episode> maListEpisode = new ObservableCollection<Episode>();
+
+        public ObservableCollection<Episode> MaListEpisode { get => maListEpisode; set => SetProperty(ref maListEpisode, value); }
 
         private Media selectedItem;
         public Media SelectedItem
@@ -37,16 +41,38 @@ namespace videotek.ViewModels
                 {    
                     selectedItem = value;
                     mainViewModel.MediaCourrant = value;
+                    RecuperationDesEpisodesDeSerie();
+                    
                 };
             }
         }
 
+        private Episode selectedItemEpisode;
+        public Episode SelectedItemEpisode
+        {
+            get
+            {
+                return selectedItemEpisode;
+            }
+
+            set
+            {
+                if (SetProperty(ref selectedItemEpisode, value))
+                {
+                    selectedItemEpisode = value;
+                    mainViewModel.EpisodeCourrant = value;                    
+                };
+            }
+        }
+
+        #endregion 
         public MediaViewModel(MainViewModel mvm)
         {
             mainViewModel = mvm;
             _canExecute = true;
             InitialisationValeursConsultationAsync();
         }
+
 
         private async void InitialisationValeursConsultationAsync()
         {
@@ -62,6 +88,16 @@ namespace videotek.ViewModels
                 MaListSerie.Add(serie);
         }
 
+        private async void  RecuperationDesEpisodesDeSerie()
+        {
+            MaListEpisode.Clear();
+
+            var context = await db.VideoTDbContext.GetCurrent();
+            List<Episode> episodes = context.Episodes.Where(e => e.IdMedia == SelectedItem.Id).ToList();
+
+            foreach (Episode episode in episodes)
+                MaListEpisode.Add(episode);
+        }
 
         private bool unBool;
 

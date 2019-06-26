@@ -22,7 +22,12 @@
             <Button Margin="0,0,0,20" Content ="Ajouter" Command="{Binding CommandClicAjout}" />
             <Button Margin="0,0,0,20" IsEnabled="{Binding UnMediaSelectionne}" Content="Consulter" Command="{Binding CommandClicConsultation}"/>
             <Button Margin="0,0,0,20" IsEnabled="{Binding UnMediaSelectionne}"  Content ="Modifier" Command="{Binding CommandClicModification}"/>
-            <Button Content ="Supprimer" IsEnabled="{Binding UnMediaSelectionne}" Command="{Binding CommandClicSupprimer}" />
+            <Button Margin="0,0,0,20" Content ="Supprimer" IsEnabled="{Binding UnMediaSelectionne}" Command="{Binding CommandClicSupprimer}" />
+            <Button Margin="0,0,0,20" Content ="Ajouter Episode" IsEnabled="{Binding UnMediaEstSerie}" Command="{Binding CommandClicAjouterEpisode}" />
+            <Button Margin="0,0,0,20" Content ="Consulter Episode" IsEnabled="{Binding UnEpisodeSelectionne}" Command="{Binding CommandClicConsulterEpisode}" />
+            <Button Margin="0,0,0,20" Content ="Modifier Episode" IsEnabled="{Binding UnEpisodeSelectionne}" Command="{Binding CommandClicModiferEpisode}" />
+            <Button Content ="Supprimer Episode" IsEnabled="{Binding UnEpisodeSelectionne}" Command="{Binding CommandClicSupprimerEpisode}" />
+
         </StackPanel>
     </Grid>
 </Window>

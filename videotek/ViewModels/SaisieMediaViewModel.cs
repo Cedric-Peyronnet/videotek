@@ -112,9 +112,7 @@ namespace videotek.ViewModels
 
         public SaisieMediaViewModel(Action close, MediaViewModel mediaViewModel, ETypeMedia eTypeMedia)
         {
-            RecuperationGenre();
-
-            
+            RecuperationGenre(); 
             CloseAction = close;
             MediaViewModel = mediaViewModel;
         }

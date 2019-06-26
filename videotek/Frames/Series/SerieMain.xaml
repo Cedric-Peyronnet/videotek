@@ -10,7 +10,31 @@
 
     <Grid>
         <TextBlock Text="Série" />
-        <ListView Height="124" Width="650"  HorizontalAlignment="Left" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListSerie}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+        <ListView Height="124" Width="640"  HorizontalAlignment="Left" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListSerie}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
+                    <GridViewColumn Width="60" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
+                    <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie, StringFormat='dd-MM-yyyy'}" />
+                    <GridViewColumn Width="30" Header="Pegi" DisplayMemberBinding="{Binding AgeMinimum}"/>
+                    <GridViewColumn Width="30" Header="Note" DisplayMemberBinding="{Binding Note}"/>
+
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center">
+                                    <CheckBox IsEnabled="False" IsChecked="{Binding Vu}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <Grid>
+                            <TextBlock  Text="Vu"  />
+                        </Grid>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Height="124" Width="640"  HorizontalAlignment="Left" Margin="0,200,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListEpisode}"  SelectedItem="{Binding SelectedItemEpisode, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>

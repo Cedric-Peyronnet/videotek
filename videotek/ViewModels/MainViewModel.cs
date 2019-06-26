@@ -18,8 +18,7 @@ namespace videotek.ViewModels
             {
                 DataContext = new Accueil()
             };
-
-           
+     
             FM = new FilmMain()
             {
                 DataContext = ContextMediaView
@@ -36,6 +35,39 @@ namespace videotek.ViewModels
         private bool _canExecute = true;
 
         #region Element Courrant
+        private Episode episodeCourrant;
+
+        public Episode EpisodeCourrant
+        {
+            get
+            {
+                return episodeCourrant;
+            }
+            set
+            {
+                if (SetProperty(ref episodeCourrant, value))
+                {
+                    episodeCourrant = value;
+                    OnPropertyChanged("UnEpisodeSelectionne");
+                };
+            }
+        }
+
+        private bool unEpisodeSelectionne = false;
+
+        public bool UnEpisodeSelectionne
+        {
+            get
+            {
+                return episodeCourrant != null;
+            }
+            set
+            {
+
+                SetProperty(ref unEpisodeSelectionne, value);
+            }
+        }
+
         private Media mediaCourrant; 
 
         public Media MediaCourrant
@@ -51,6 +83,7 @@ namespace videotek.ViewModels
                 {
                     mediaCourrant = value;
                     OnPropertyChanged("UnMediaSelectionne");
+                    OnPropertyChanged("UnMediaEstSerie");
                 };
             }
         }
@@ -67,6 +100,21 @@ namespace videotek.ViewModels
             {
 
                 SetProperty(ref unMediaSelectionne, value);
+            }
+        }
+
+        private bool unMediaEstSerie = false;
+
+        public bool UnMediaEstSerie
+        {
+            get
+            {
+                return mediaCourrant != null && mediaCourrant.Type.Equals(ETypeMedia.Serie);
+            }
+            set
+            {
+
+                SetProperty(ref unMediaEstSerie, value);
             }
         }
 

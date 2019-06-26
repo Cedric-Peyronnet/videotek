@@ -202,6 +202,7 @@
     <Compile Include="ViewModels\ConsultMediaViewModel.cs" />
     <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SaisieEpisodeViewModel.cs" />
     <Compile Include="ViewModels\SaisieMediaViewModel.cs" />
     <Page Include="CommonDictionnaire.xaml">
       <SubType>Designer</SubType>
