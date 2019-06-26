@@ -24,7 +24,7 @@ namespace videotek
 
         private async void RemplissageGenre()
         {
-            
+
 
             var context = await db.VideoTDbContext.GetCurrent();
 
@@ -49,8 +49,12 @@ namespace videotek
                 context.Add(remplissageGenre);
                 await context.SaveChangesAsync();
             }
-            context.Episodes.Add(new Episode { IdMedia = 1, Description = "test" });  //context.Episodes.ToList();
-            await context.SaveChangesAsync();
+
+            context.Episodes.Add(new Episode { IdMedia = 1, NumSaison = 1, Duree = new TimeSpan(0, 40, 0), Titre = "L'hiver vient ", Description = "", DateDiffusion = new DateTime(2011, 04, 17), NumEpisode = 1 });
+        //context.Episodes.ToList();
+     
+
+        await context.SaveChangesAsync();
         }
     }
 }
