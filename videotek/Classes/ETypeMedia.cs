@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace videotek.Classes
 {
-    public enum TypeMedia
+    public enum ETypeMedia
     {
-        Film = 1,
-        Serie = 2 
+        Film = 0,
+        Serie = 1 
     }
 
 }

@@ -21,17 +21,20 @@ namespace videotek.Classes
         public bool Vu { get; set; }
         public int Note { get; set; }
         public string Commentaire { get; set; }
-        public TypeMedia Type { get; set; }
+        public ETypeMedia Type { get; set; }
         public int AgeMinimum { get; set; }
         public bool SupportPhysique { get; set; }
         public bool SupportNumerique { get; set; }
         public string Image { get; set; }
-        public Langue LangueVO { get; set; }
-        public Langue LangueMedia { get; set; }
-        public Langue SousTitre { get; set; }
+        public ELangue LangueVO { get; set; }
+        public ELangue LangueMedia { get; set; }
+        public ELangue SousTitre { get; set; }
 
         [InverseProperty(nameof(GenreMedia.Media))]
         public List<GenreMedia> Genre { get; set; }
+
+        [InverseProperty(nameof(EpisodeMedia.Media))]
+        public List<EpisodeMedia> Episode { get; set; }
 
         [InverseProperty(nameof(PersonneMedia.Media))]
         public List<PersonneMedia> Personne { get; set; }

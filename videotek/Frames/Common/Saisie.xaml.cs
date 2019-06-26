@@ -21,12 +21,11 @@ namespace videotek.Frames.Common
     /// <summary>
     /// Logique d'interaction pour Ajout.xaml
     /// </summary>
-    public partial class Ajout : Window
+    public partial class Saisie : Window
     {
         
-        public Ajout()
-        {
-            this.DataContext = this;
+        public Saisie()
+        {   
             InitializeComponent();
            
         }

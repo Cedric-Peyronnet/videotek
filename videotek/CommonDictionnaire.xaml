@@ -7,23 +7,53 @@
 
     <Style x:Key="texteBlockAlignDroite" TargetType="TextBlock">
         <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Margin" Value="0,0,0,20"></Setter>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="Height" Value="20"/>
     </Style>
 
     <Style x:Key="texteBlockAlignGauche" TargetType="TextBlock">
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Margin" Value="0,0,0,10"></Setter>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="Height" Value="20"/>
     </Style>
 
+    <Style BasedOn="{StaticResource texteBlockAlignDroite}" x:Key="texteBlockSizeListeDeroulante" TargetType="TextBlock">
+        <Setter Property="Height" Value="25"/>
+    </Style>
+
+    <Style TargetType="ComboBox" x:Key="listeDeroulanteTaille">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    
+    
+    <Style TargetType="Control" x:Key="textBoxTaille">
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="texteBoxAlignGauche" TargetType="TextBox" BasedOn="{StaticResource textBoxTaille}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+
+    </Style>
+
+    <Style TargetType="ComboBox" x:Key="listeAGauche" BasedOn="{StaticResource listeDeroulanteTaille}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    
     <ObjectDataProvider x:Key="enmLangue" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="enm:Langue"></x:Type>
+            <x:Type TypeName="enm:ELangue"></x:Type>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
     <ObjectDataProvider x:Key="enmTypeMedia" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
         <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="enm:TypeMedia"></x:Type>
+            <x:Type TypeName="enm:ETypeMedia"></x:Type>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 

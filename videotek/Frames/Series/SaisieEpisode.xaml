@@ -1,0 +1,54 @@
+﻿<Window x:Class="videotek.Frames.Series.SaisieEpisode"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:videotek.Frames.Series"
+        mc:Ignorable="d"
+        Title="Saisie Episode" Height="280" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="160">
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" TextAlignment="Right" Text="Titre : "/>
+           
+            <TextBlock Height="30" HorizontalAlignment="Right" Text="Date de diffusion : "/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Heures : "/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Saison N° : "/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Episode N° :"/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Description :"/>
+            
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="240" >
+            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding Titre}"/>
+            <DatePicker Width="150" HorizontalAlignment="Left"  SelectedDate="{Binding DateDiffusion}" Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal" Height="20" Margin="0,0,0,10">
+                <TextBox MaxLength="2" Width="50" Height="20" TextAlignment="Left" Text="{Binding Heures}"/>
+                <TextBlock Margin="10,0,0,0" Width="50" Height="20" Text="Minutes :"/>
+                <TextBox MaxLength="2" Width="50"  Height="20" TextAlignment="Left" Text="{Binding Minutes}" />
+            </StackPanel>
+            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding NumSaison}"/>
+            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding NumEpisode}"/>
+            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding Description}"/>
+            
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" >
+            <Button Height="30" Width="120" HorizontalAlignment="Right" Content="Valider" Command="{Binding AjoutSaisie}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" >
+            <Button Margin="30,0,0,0" Height="30" Width="120" HorizontalAlignment="left" Content="Annuler" Command="{Binding Annuler}"/>
+        </StackPanel>
+        
+
+    </Grid>
+</Window>

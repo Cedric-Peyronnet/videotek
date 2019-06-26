@@ -9,14 +9,51 @@ using videotek.db;
 namespace videotek.Migrations
 {
     [DbContext(typeof(VideoTDbContext))]
-    [Migration("20190507073938_Initiale")]
-    partial class Initiale
+    [Migration("20190626161932_a")]
+    partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
+
+            modelBuilder.Entity("videotek.Classes.Episode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateDiffusion");
+
+                    b.Property<string>("Description");
+
+                    b.Property<TimeSpan>("Duree");
+
+                    b.Property<int>("IdMedia");
+
+                    b.Property<int>("NumEpisode");
+
+                    b.Property<int>("NumSaison");
+
+                    b.Property<string>("Titre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Episodes");
+                });
+
+            modelBuilder.Entity("videotek.Classes.EpisodeMedia", b =>
+                {
+                    b.Property<int>("IdMedia");
+
+                    b.Property<int>("IdEpisode");
+
+                    b.HasKey("IdMedia", "IdEpisode");
+
+                    b.HasIndex("IdEpisode");
+
+                    b.ToTable("EpisodesMedia");
+                });
 
             modelBuilder.Entity("videotek.Classes.Genre", b =>
                 {
@@ -32,13 +69,13 @@ namespace videotek.Migrations
 
             modelBuilder.Entity("videotek.Classes.GenreMedia", b =>
                 {
-                    b.Property<int>("IdGenre");
-
                     b.Property<int>("IdMedia");
 
-                    b.HasKey("IdGenre", "IdMedia");
+                    b.Property<int>("IdGenre");
 
-                    b.HasIndex("IdMedia");
+                    b.HasKey("IdMedia", "IdGenre");
+
+                    b.HasIndex("IdGenre");
 
                     b.ToTable("GenreMedias");
                 });
@@ -107,26 +144,39 @@ namespace videotek.Migrations
 
             modelBuilder.Entity("videotek.Classes.PersonneMedia", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Fonction");
+                    b.Property<int>("IdPersonne");
 
                     b.Property<int>("IdMedia");
 
-                    b.Property<int>("IdPersonne");
+                    b.Property<int>("Fonction");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Photo");
 
                     b.Property<string>("Role");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdPersonne", "IdMedia");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("IdMedia");
 
-                    b.HasIndex("IdPersonne");
-
                     b.ToTable("PersonneMedia");
+                });
+
+            modelBuilder.Entity("videotek.Classes.EpisodeMedia", b =>
+                {
+                    b.HasOne("videotek.Classes.Episode", "Episode")
+                        .WithMany("Media")
+                        .HasForeignKey("IdEpisode")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("videotek.Classes.Media", "Media")
+                        .WithMany("Episode")
+                        .HasForeignKey("IdMedia")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("videotek.Classes.GenreMedia", b =>
