@@ -22,7 +22,7 @@
             <Button Margin="0,0,0,20" Content ="Ajouter" Command="{Binding CommandClicAjout}" />
             <Button Margin="0,0,0,20" IsEnabled="{Binding UnMediaSelectionne}" Content="Consulter" Command="{Binding CommandClicConsultation}"/>
             <Button Margin="0,0,0,20" IsEnabled="{Binding UnMediaSelectionne}"  Content ="Modifier" Command="{Binding CommandClicModification}"/>
-            <Button Content ="Supprimer" IsEnabled="{Binding UnMediaSelectionne}" />
+            <Button Content ="Supprimer" IsEnabled="{Binding UnMediaSelectionne}" Command="{Binding CommandClicSupprimer}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -224,6 +224,28 @@ namespace videotek.ViewModels
         }
         #endregion
 
+        #region Suppression 
+
+        
+        UtilsCommand commandClicSupprimer;
+        public UtilsCommand CommandClicSupprimer
+
+        {
+            get
+            {
+                return commandClicSupprimer ?? (commandClicSupprimer = new UtilsCommand(() => ClicSupprimer(), _canExecute));
+            }
+        }
+
+        public async void ClicSupprimer()
+        {
+            var context = await db.VideoTDbContext.GetCurrent();
+            context.Medias.Remove(MediaCourrant);
+            context.SaveChanges();
+            ContextFilmView.MaListFilm.Remove(MediaCourrant);
+        }
+        #endregion
+
 
     }
 }

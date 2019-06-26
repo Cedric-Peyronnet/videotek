@@ -18,21 +18,21 @@
     </Page.Resources>
     <Grid>
         <TextBlock Text="Consultation des films" />
-        <ListView Margin="0,20,0,0">
-        </ListView>
-        <ListView Height="124" HorizontalAlignment="Left" Margin="0,20,0,0"  VerticalAlignment="Top" Width="Auto" ItemsSource="{Binding MaListFilm}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+       
+        <ListView Height="124" Width="650"  HorizontalAlignment="Left" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListFilm}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
                     <GridViewColumn Width="60" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
-                    <GridViewColumn Width="100" Header="Date  de sortie" DisplayMemberBinding="{Binding DateSortie}"/>
+                    <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie, StringFormat='dd-MM-yyyy'}" />
                     <GridViewColumn Width="30" Header="Pegi" DisplayMemberBinding="{Binding AgeMinimum}"/>
+                    <GridViewColumn Width="30" Header="Note" DisplayMemberBinding="{Binding Note}"/>
 
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Center">
-                                    <CheckBox  IsChecked="{Binding Vu}" />
+                                    <CheckBox IsEnabled="False" IsChecked="{Binding Vu}" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

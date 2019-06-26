@@ -89,6 +89,8 @@ namespace videotek.ViewModels
             FilmViewModel = filmViewModel;
             MonMedia = media;
 
+            RecuperationGenreMedia();
+
             Titre = media.Titre;
             Commentaire = media.Commentaire;
             Description = media.Description;
@@ -104,6 +106,7 @@ namespace videotek.ViewModels
             Type = media.Type;
             SupportNumerique = media.SupportNumerique;
             SupportPhysique = media.SupportPhysique;
+           
            
         }
 
@@ -206,23 +209,33 @@ namespace videotek.ViewModels
             
             await context.SaveChangesAsync();
 
-           
-            //Enregistrement du genre et du media
-            GenreMedia genreMedia = new GenreMedia()
+           if(Genre != null || SousGenre != null)
             {
-                IdGenre = Genre.Id,
-                IdMedia = MonMedia.Id
-                
-            };
-            context.Add(genreMedia);
-            GenreMedia sousGenreMedia = new GenreMedia()
-            {
-                IdGenre = SousGenre.Id,
-                IdMedia = MonMedia.Id
-            };
+                //Enregistrement du genre et du media
+                if (Genre != null)
+                {
+                    GenreMedia genreMedia = new GenreMedia()
+                    {
+                        IdGenre = Genre.Id,
+                        IdMedia = MonMedia.Id
+
+                    };
+                    context.Add(genreMedia);
+                }
+
+
+                if (null != SousGenre)
+                {
+                    GenreMedia sousGenreMedia = new GenreMedia()
+                    {
+                        IdGenre = SousGenre.Id,
+                        IdMedia = MonMedia.Id
+                    };
+                    context.Add(sousGenreMedia);
+                }
+                await context.SaveChangesAsync();
+            }
            
-            context.Add(sousGenreMedia);
-            await context.SaveChangesAsync();
 
             MessageBox.Show("Enregistré");        
             CloseAction();
@@ -238,6 +251,27 @@ namespace videotek.ViewModels
 
             foreach (Genre genre in genres)
                 ListeGenre.Add(genre);
+        }
+
+        
+        private async void RecuperationGenreMedia()
+        {
+            var context = await db.VideoTDbContext.GetCurrent();
+
+            List<GenreMedia> ListGenresMedia = context.GenreMedias.Where(me => me.IdMedia  == MonMedia.Id).ToList();
+
+            if(ListGenresMedia.Count > 0 && ListGenresMedia[0] != null  )
+            {
+                Genre = context.Genres.Where(gm => gm.Id == ListGenresMedia[0].IdGenre).First();
+            }
+            if (ListGenresMedia.Count > 1 && ListGenresMedia[1] != null)
+            {
+                SousGenre = context.Genres.Where(gm => gm.Id == ListGenresMedia[1].IdGenre).First();
+            }
+
+            
+
+            
         }
 
         #endregion
