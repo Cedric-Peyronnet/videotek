@@ -77,13 +77,16 @@ namespace videotek.ViewModels
 
         private ETypeMedia type;
         public ETypeMedia Type { get => type; set => SetProperty(ref type, value); }
+
+        private GenreMedia GenreMediaCourant;
+        private GenreMedia SousGenreMediaCourant;
         #endregion
 
         #region constructeur
         public SaisieMediaViewModel(Action close, MediaViewModel mediaViewModel, Media media)
         {
             RecuperationGenre();
-
+            
             CloseAction = close;
             MediaViewModel = mediaViewModel;
             MonMedia = media;
@@ -105,8 +108,10 @@ namespace videotek.ViewModels
             Type = media.Type;
             SupportNumerique = media.SupportNumerique;
             SupportPhysique = media.SupportPhysique;
-           
-           
+
+         
+
+
         }
 
         public SaisieMediaViewModel(Action close, MediaViewModel mediaViewModel, ETypeMedia eTypeMedia)
@@ -191,6 +196,16 @@ namespace videotek.ViewModels
             //Cas d'une modification
             else
             {
+                if(GenreMediaCourant != null)
+                {
+                    context.Remove(GenreMediaCourant);
+                }
+                if(SousGenreMediaCourant != null)
+                {
+                    context.Remove(SousGenreMediaCourant);
+                }
+                await context.SaveChangesAsync();
+
                 if (Type.Equals(ETypeMedia.Film))
                 {
                     MediaViewModel.MaListFilm.Remove(MonMedia);
@@ -236,9 +251,11 @@ namespace videotek.ViewModels
 
            if(Genre != null || SousGenre != null)
             {
+
                 //Enregistrement du genre et du media
                 if (Genre != null)
-                {
+                {              
+                    
                     GenreMedia genreMedia = new GenreMedia()
                     {
                         IdGenre = Genre.Id,
@@ -257,6 +274,7 @@ namespace videotek.ViewModels
                         IdGenre = SousGenre.Id,
                         IdMedia = MonMedia.Id
                     };
+                    
                     //TODO FAIRE LE TEST SI LE LIEN EXISTE DEJA // remove le lien et le rajouter de nouveau.
                     context.Add(sousGenreMedia);
                 }
@@ -290,10 +308,12 @@ namespace videotek.ViewModels
 
             if(ListGenresMedia.Count > 0 && ListGenresMedia[0] != null  )
             {
+                GenreMediaCourant = ListGenresMedia[0];
                 Genre = context.Genres.Where(gm => gm.Id == ListGenresMedia[0].IdGenre).First();
             }
             if (ListGenresMedia.Count > 1 && ListGenresMedia[1] != null)
             {
+                SousGenreMediaCourant = ListGenresMedia[1];
                 SousGenre = context.Genres.Where(gm => gm.Id == ListGenresMedia[1].IdGenre).First();
             }        
         }

@@ -32,7 +32,6 @@ namespace videotek.ViewModels
             FM = new FilmMain()
             {
                 DataContext = ContextMediaView
-
             };
 
             SM = new SerieMain()
@@ -97,6 +96,8 @@ namespace videotek.ViewModels
                 };
             }
         }
+
+        public ETypeMedia TypeMediaCourant { get; set; }
 
         private bool unMediaSelectionne = false;
 
@@ -175,6 +176,7 @@ namespace videotek.ViewModels
         public void ClicSerie()
         {
             PageCourrante = SM;
+            TypeMediaCourant = ETypeMedia.Serie;
         }
         #endregion
 
@@ -194,7 +196,8 @@ namespace videotek.ViewModels
         public void ClicFilm()
         {
             PageCourrante = FM;
-                
+            TypeMediaCourant = ETypeMedia.Film;
+
         }
         #endregion
 

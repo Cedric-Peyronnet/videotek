@@ -32,6 +32,8 @@ namespace videotek.db
         public DbSet<Media> Medias { get; set; }
         public DbSet<Episode> Episodes { get; set; }
         public DbSet<EpisodeMedia> EpisodesMedia { get; set; }
+        
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

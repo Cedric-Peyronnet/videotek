@@ -15,6 +15,9 @@ namespace videotek.ViewModels
         #region propriété
         private MainViewModel mainViewModel;
 
+        private ETypeMedia TypeMediaCourant { get; set; }
+
+
         private string recherche ="";
         public string Recherche { get => recherche; set => SetProperty(ref recherche, value); }
 
@@ -31,7 +34,21 @@ namespace videotek.ViewModels
         public ObservableCollection<Genre> ListeGenre { get => listeGenre; set => SetProperty(ref listeGenre, value); }
 
         private Genre filtreGenre;
-        public Genre FiltreGenre { get => filtreGenre; set => SetProperty(ref filtreGenre, value); }
+        public Genre FiltreGenre
+        {
+            get
+            {
+                return filtreGenre;
+            }
+            set
+            {
+                if (SetProperty(ref filtreGenre, value))
+                {
+                    filtreGenre = value;
+                    RechercheMedia();
+                }
+            }
+        }
 
         private bool filtreActif;
         public bool FiltreActif { get => filtreActif; set => SetProperty(ref filtreActif, value); }
@@ -94,6 +111,7 @@ namespace videotek.ViewModels
         }
 
         #endregion 
+
         public MediaViewModel(MainViewModel mvm)
         {
             mainViewModel = mvm;
@@ -120,8 +138,7 @@ namespace videotek.ViewModels
         public async void SupprimerLesEpisodes(int id)
         {
             var context = await db.VideoTDbContext.GetCurrent();
-            List<Episode> episodes = context.Episodes.Where(e => e.IdMedia == id).ToList();
-            foreach (Episode ep in episodes)
+            foreach (Episode ep in context.Episodes.Where(e => e.IdMedia == id).ToList())
             {
                 MaListEpisode.Remove(ep);
                 context.Episodes.Remove(ep);
@@ -132,11 +149,9 @@ namespace videotek.ViewModels
         private async void  RecuperationDesEpisodesDeSerie()
         {
             MaListEpisode.Clear();
-
             var context = await db.VideoTDbContext.GetCurrent();
-            List<Episode> episodes = context.Episodes.Where(e => e.IdMedia == SelectedItem.Id).ToList();
 
-            foreach (Episode episode in episodes)
+            foreach (Episode episode in context.Episodes.Where(e => e.IdMedia == SelectedItem.Id).ToList())
                 MaListEpisode.Add(episode);
         }
 
@@ -171,60 +186,55 @@ namespace videotek.ViewModels
 
         private async void RechercheMedia()
         {
+            List<Media> Medias = new List<Media>();
+
             var context = await db.VideoTDbContext.GetCurrent();
-           if(FiltreActif)
+            TypeMediaCourant = mainViewModel.TypeMediaCourant;
+           
+
+
+            if (FiltreActif)             
             {
-                if (mainViewModel.PageCourrante.Equals(mainViewModel.FM))
+                var query = from m in context.Medias
+                            from mg in context.GenreMedias
+                            where m.Id == mg.IdMedia
+                            where m.Vu == FiltreVu
+                            where mg.Genre.Id == FiltreGenre.Id
+                            select m;
+                if(true)
                 {
-                    MaListFilm.Clear();
-                    List<Media> films = context.Medias.Where(m => m.Type == ETypeMedia.Film && m.Titre.Contains(Recherche) && m.Vu == FiltreVu).ToList();
-
-                    foreach (Media film in films)
-                        MaListFilm.Add(film);
+                    query.Where(m => m.Titre == Recherche);
                 }
-                else if (mainViewModel.PageCourrante.Equals(mainViewModel.SM))
-                {
-                    MaListEpisode.Clear();
-                    MaListSerie.Clear();
-                    recherche = Recherche;
-                    
-                    List<Media> series = context.Medias.Where(m => m.Type == ETypeMedia.Serie && m.Titre.Contains(Recherche) && m.Vu == FiltreVu).ToList();
 
-                    foreach (Media serie in series)
-                        MaListSerie.Add(serie);
-                }
+                    Medias = query.ToList();
+            }
+            else
+            {              
+                Medias = context.Medias.Where(m => m.Type == mainViewModel.TypeMediaCourant && m.Titre.Contains(Recherche)).ToList();          
+            }
+
+            if (mainViewModel.TypeMediaCourant.Equals(ETypeMedia.Film))
+            {
+                MaListFilm.Clear();
+                foreach (Media film in Medias)
+                    MaListFilm.Add(film);
             }
             else
             {
-                if (mainViewModel.PageCourrante.Equals(mainViewModel.FM))
-                {
-                    MaListFilm.Clear();
-                    List<Media> films = context.Medias.Where(m => m.Type == ETypeMedia.Film).ToList();
-
-                    foreach (Media film in films)
-                        MaListFilm.Add(film);
-                }
-                else if (mainViewModel.PageCourrante.Equals(mainViewModel.SM))
-                {
-                    MaListEpisode.Clear();
-                    MaListSerie.Clear();
-                    recherche = Recherche;
-                    List<Media> series = context.Medias.Where(m => m.Type == ETypeMedia.Serie && m.Titre.Contains(Recherche)).ToList();
-
-                    foreach (Media serie in series)
-                        MaListSerie.Add(serie);
-                }
+                MaListEpisode.Clear();
+                MaListSerie.Clear();
+                foreach (Media serie in Medias)
+                    MaListSerie.Add(serie);
             }
-                        
+            
         }
+
 
       
         private async void RecuperationGenre()
         {
             var context = await db.VideoTDbContext.GetCurrent();
             List<Genre> genres = context.Genres.ToList();
-
-
             foreach (Genre genre in genres)
                 ListeGenre.Add(genre);
 
