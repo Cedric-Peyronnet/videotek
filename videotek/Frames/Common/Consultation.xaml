@@ -10,7 +10,7 @@
       Title="Consultation">
 
     <Grid>
-        <TextBlock Text="Consultation d'un film" />
+        <TextBlock Width="auto" Text="Consultation d'un média" />
         <Grid>
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>
@@ -29,7 +29,7 @@
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Vu : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Genre : "/>
-                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="SousGenre : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Sous Genre : "/>
                
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Width="100" Height="130">
@@ -43,8 +43,8 @@
                 <DatePicker  Margin="0,0,0,10" Height="24" Width="150" HorizontalAlignment="Left" SelectedDate="{Binding Annee}" IsEnabled="False"/>
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding Duree}"/>
                 <StackPanel Orientation="Horizontal" Height="20" Margin="0,0,0,10">
-                    <RadioButton GroupName="Vu" Content="Oui" IsChecked="{Binding Vu}"/>
-                    <RadioButton Margin="20,0,0,0" GroupName="Vu" Content="Non"/>
+                    <RadioButton IsEnabled="False" GroupName="Vu" Content="Oui" IsChecked="{Binding Vu}"/>
+                    <RadioButton IsEnabled="False" Margin="20,0,0,0" GroupName="Vu" Content="Non"/>
                 </StackPanel>
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding Note}" />
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding Genre}" />
@@ -56,14 +56,14 @@
             </StackPanel>
             <!-- -->
             <StackPanel Margin="0,30,0,0" Grid.Column="2"  Grid.Row="0">
-                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Type : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Type : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Age minimum : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support Physique : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support numérique : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Image : "/>
-                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Langue VO : "/>
-                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Langue : "/>
-                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Sous titres : " />
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Langue VO : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Langue : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Sous titres : " />
                 
             </StackPanel>
             <StackPanel Grid.Column="2"  Grid.Row="1">
@@ -72,20 +72,20 @@
             
             <!-- -->
             <StackPanel Grid.Column="3"  Grid.Row="0" Margin="0,30,0,0">
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmTypeMedia}}" Style="{StaticResource listeAGauche}" />
+                <TextBlock Text="{Binding Type}" Style="{StaticResource texteBlockAlignGauche}" />
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}"  Text="{Binding AgeMini}"/>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
-                    <RadioButton GroupName="SP" IsChecked="{Binding SupportPhysique}" Content="Oui"/>
-                    <RadioButton Margin="20,0,0,0" GroupName="SP" Content="Non"></RadioButton>
+                    <RadioButton IsEnabled="False" GroupName="SP" IsChecked="{Binding SupportPhysique}" Content="Oui"/>
+                    <RadioButton IsEnabled="False" Margin="20,0,0,0" GroupName="SP" Content="Non"></RadioButton>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
-                    <RadioButton GroupName="SN" Content="Oui" IsChecked="{Binding SupportNumerique}"/>
-                    <RadioButton Margin="20,0,0,0"  GroupName="SN" Content="Non" />
+                    <RadioButton IsEnabled="False" GroupName="SN" Content="Oui" IsChecked="{Binding SupportNumerique}"/>
+                    <RadioButton IsEnabled="False" Margin="20,0,0,0"  GroupName="SN" Content="Non" />
                 </StackPanel>
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text=""  />
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Style="{StaticResource listeAGauche}" Text="{Binding LangueVo}" IsReadOnly="True"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Style="{StaticResource listeAGauche}" Text="{Binding LangueMedia}" IsReadOnly="True"  />
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Style="{StaticResource listeAGauche}" Text="{Binding LangueSousTitre}" IsReadOnly="True" />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding LangueVo}" />
+                <TextBlock  Style="{StaticResource texteBlockAlignGauche}" Text="{Binding LangueMedia}"  />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding LangueSousTitre}"  />
                
             </StackPanel>
             <StackPanel Grid.Column="3"  Grid.Row="1">

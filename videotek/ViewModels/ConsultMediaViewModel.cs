@@ -27,6 +27,9 @@ namespace videotek.ViewModels
         private string commentaire;
         public string Commentaire { get => MonMedia.Commentaire; set => SetProperty(ref commentaire, value); }
 
+        private ETypeMedia type;
+        public ETypeMedia Type { get => MonMedia.Type; set => SetProperty(ref type, value); }
+
         private string description;
         public string Description { get => MonMedia.Description; set => SetProperty(ref description, value); }
 
@@ -62,11 +65,11 @@ namespace videotek.ViewModels
 
    
 
-        private Genre genre;
-        public Genre Genre { get => genre; set => SetProperty(ref genre, value); }
+        private string genre;
+        public string Genre { get => genre; set => SetProperty(ref genre, value); }
 
-        private Genre sousGenre;
-        public Genre SousGenre { get => sousGenre; set => SetProperty(ref sousGenre, value); }
+        private string sousGenre;
+        public string SousGenre { get => sousGenre; set => SetProperty(ref sousGenre, value); }
 
         private async void RecuperationGenreMedia()
         {
@@ -76,11 +79,13 @@ namespace videotek.ViewModels
 
             if (ListGenresMedia.Count > 0 && ListGenresMedia[0] != null)
             {
-                Genre = context.Genres.Where(gm => gm.Id == ListGenresMedia[0].IdGenre).First();
+                Genre genre = context.Genres.Where(gm => gm.Id == ListGenresMedia[0].IdGenre).First();
+                Genre = genre.Libelle;
             }
             if (ListGenresMedia.Count > 1 && ListGenresMedia[1] != null)
             {
-                SousGenre = context.Genres.Where(gm => gm.Id == ListGenresMedia[1].IdGenre).First();
+                Genre sousFenre = context.Genres.Where(gm => gm.Id == ListGenresMedia[1].IdGenre).First();
+                Genre = sousFenre.Libelle;
             }
         }
 

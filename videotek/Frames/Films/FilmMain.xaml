@@ -8,7 +8,7 @@
       xmlns:viewmodels="clr-namespace:videotek.ViewModels"
       xmlns:converters="clr-namespace:videotek.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="700"
       Title="FilmMain">
     <Page.Resources>
         <ResourceDictionary>
@@ -18,8 +18,13 @@
     </Page.Resources>
     <Grid>
         <TextBlock Text="Consultation des films" />
-       
-        <ListView Height="124" Width="650"  HorizontalAlignment="Left" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListFilm}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,20,0,0" HorizontalAlignment="Center">
+            <TextBlock Text="Recherche du titre : "></TextBlock>
+            <TextBox Style="{StaticResource textBoxTaille}" Text="{Binding Recherche}"/>
+            <Button Margin="10,0,0,10" Style="{StaticResource textBoxTaille}" Command="{Binding RechercheCommand}" Content="Recherche"/>
+        </StackPanel>
+          
+        <ListView Height="124" Width="450"  HorizontalAlignment="Center" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListFilm}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>

@@ -151,7 +151,7 @@ namespace videotek.ViewModels
 
         #region Serie
 
-        SerieMain SM; 
+        public SerieMain SM; 
 
         UtilsCommand commandClicSerie;
         public UtilsCommand CommandClicSerie
@@ -170,7 +170,7 @@ namespace videotek.ViewModels
         #endregion
 
         #region Film
-        FilmMain FM; 
+        public FilmMain FM; 
 
         UtilsCommand commandClicFilm;
         public UtilsCommand CommandClicFilm

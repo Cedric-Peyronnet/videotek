@@ -10,7 +10,14 @@
     <Grid>
         
         <TextBlock Text="Série" />
-        <ListView Height="124" Width="440"  HorizontalAlignment="Center" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListSerie}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,20,0,0" HorizontalAlignment="Center">
+            <TextBlock Text="Recherche du titre : "></TextBlock>
+            <TextBox Style="{StaticResource textBoxTaille}" Text="{Binding Recherche}"/>
+            <Button Margin="10,0,0,10" Style="{StaticResource textBoxTaille}" Command="{Binding RechercheCommand}" Content="Recherche"/>
+        </StackPanel>
+
+        <ListView Height="124" Width="450"  HorizontalAlignment="Center" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListSerie}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
@@ -34,7 +41,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Height="124" Width="440"  HorizontalAlignment="Center" Margin="0,200,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListEpisode}"  SelectedItem="{Binding SelectedItemEpisode, Mode=TwoWay}">
+        <ListView Height="124" Width="450"  HorizontalAlignment="Center" Margin="0,200,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListEpisode}"  SelectedItem="{Binding SelectedItemEpisode, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
