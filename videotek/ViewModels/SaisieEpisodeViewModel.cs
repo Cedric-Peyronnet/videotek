@@ -132,10 +132,13 @@ namespace videotek.ViewModels
             else
             {
                 var entity = context.Episodes.Find(Episode.Id);
+               
                 if (entity == null)
                 {
                     return;
                 }
+                MediaViewModel.MaListEpisode.Remove(Episode);
+
                 Episode.Titre = Titre;            
                 Episode.Description = Description;
                 Episode.Duree = ts;
@@ -143,6 +146,10 @@ namespace videotek.ViewModels
                 Episode.NumEpisode = NumEpisode;
                 Episode.DateDiffusion = DateDiffusion;
                 context.Entry(entity).CurrentValues.SetValues(Episode);
+                MediaViewModel.MaListEpisode.Add(Episode);
+                context.EpisodesMedia.Remove(context.EpisodesMedia.Where(em => em.IdEpisode == Episode.Id).First());
+                await context.SaveChangesAsync();
+                context.EpisodesMedia.Add(new EpisodeMedia { IdMedia = MediaViewModel.SelectedItem.Id, IdEpisode = Episode.Id });
             }
 
             await context.SaveChangesAsync();

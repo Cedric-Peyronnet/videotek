@@ -15,6 +15,7 @@ namespace videotek.ViewModels
         public ConsultationViewModel(Media media)
         {
             MonMedia = media;
+            RecuperationGenreMedia();
         }
 
         private Media monMedia;
@@ -59,7 +60,29 @@ namespace videotek.ViewModels
         private ELangue langueMedia;
         public ELangue LangueMedia { get => MonMedia.LangueMedia; set => SetProperty(ref langueMedia, value); }
 
+   
 
+        private Genre genre;
+        public Genre Genre { get => genre; set => SetProperty(ref genre, value); }
+
+        private Genre sousGenre;
+        public Genre SousGenre { get => sousGenre; set => SetProperty(ref sousGenre, value); }
+
+        private async void RecuperationGenreMedia()
+        {
+            var context = await db.VideoTDbContext.GetCurrent();
+
+            List<GenreMedia> ListGenresMedia = context.GenreMedias.Where(me => me.IdMedia == MonMedia.Id).ToList();
+
+            if (ListGenresMedia.Count > 0 && ListGenresMedia[0] != null)
+            {
+                Genre = context.Genres.Where(gm => gm.Id == ListGenresMedia[0].IdGenre).First();
+            }
+            if (ListGenresMedia.Count > 1 && ListGenresMedia[1] != null)
+            {
+                SousGenre = context.Genres.Where(gm => gm.Id == ListGenresMedia[1].IdGenre).First();
+            }
+        }
 
     }
 }

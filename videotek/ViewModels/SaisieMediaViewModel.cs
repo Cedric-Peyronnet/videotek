@@ -246,6 +246,7 @@ namespace videotek.ViewModels
                         IdMedia = MonMedia.Id
 
                     };
+                    //TODO FAIRE LE TEST SI LE LIEN EXISTE DEJA //  remove le lien et le rajouter de nouveau.
                     context.Add(genreMedia);
                 }
 
@@ -257,6 +258,7 @@ namespace videotek.ViewModels
                         IdGenre = SousGenre.Id,
                         IdMedia = MonMedia.Id
                     };
+                    //TODO FAIRE LE TEST SI LE LIEN EXISTE DEJA // remove le lien et le rajouter de nouveau.
                     context.Add(sousGenreMedia);
                 }
                 await context.SaveChangesAsync();

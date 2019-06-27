@@ -6,73 +6,93 @@
       xmlns:local="clr-namespace:videotek.Frames.Common"
       xmlns:viewmodels="clr-namespace:videotek.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="430" d:DesignWidth="600"
       Title="Consultation">
 
     <Grid>
         <TextBlock Text="Consultation d'un film" />
         <Grid>
             <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="160"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="290"/>
+            <RowDefinition Height="130"/>
         </Grid.RowDefinitions>
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="100">
-                <TextBlock Margin="0,50,0,20" TextAlignment="Right" Text="Titre : "/>
-                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Date de sortie : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Titre : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Height="24" Text="Date de sortie : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Durée : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Vu : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note : "/>
-                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Description : "/>
-            </StackPanel >
-           
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Genre : "/>
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="SousGenre : "/>
+               
+            </StackPanel>
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Width="100" Height="130">
+                <TextBlock Style="{StaticResource texteBlockAlignDroite}" HorizontalAlignment="Center"  Text="Description : "/>
+            </StackPanel>
+            
+            
             <!-- -->
-            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="200">
-                <TextBlock Height="16" Margin="0,50,0,20" TextAlignment="Left" Text="{Binding Titre}"/>
-                <DatePicker Height="24" Margin="0,0,0,16" SelectedDate="{Binding Annee}" IsEnabled="False"/>
-                <TextBlock Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding Duree}"/>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" >
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding Titre}"/>
+                <DatePicker  Margin="0,0,0,10" Height="24" Width="150" HorizontalAlignment="Left" SelectedDate="{Binding Annee}" IsEnabled="False"/>
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding Duree}"/>
+                <StackPanel Orientation="Horizontal" Height="20" Margin="0,0,0,10">
                     <RadioButton GroupName="Vu" Content="Oui" IsChecked="{Binding Vu}"/>
                     <RadioButton Margin="20,0,0,0" GroupName="Vu" Content="Non"/>
                 </StackPanel>
-                <TextBlock Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding Note}" />
-                <TextBlock Style="{StaticResource texteBlockAlignGauche}"  Width="160" Margin="0,0,0,16" TextAlignment="Left"  TextWrapping="Wrap" Text="{Binding Description}"/>
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding Note}" />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding Genre}" />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding SousGenre}" />
+
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Height="130" >
+                <TextBlock   TextWrapping="Wrap" Text="{Binding Description}" />
             </StackPanel>
             <!-- -->
-            <StackPanel Grid.Column="2"  Grid.Row="0">
-                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Type : "/>
+            <StackPanel Margin="0,30,0,0" Grid.Column="2"  Grid.Row="0">
+                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Type : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Age minimum : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support Physique : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support numérique : "/>
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Image : "/>
-                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Langue VO : "/>
-                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Langue : "/>
-                <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Sous titres : " />
+                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Langue VO : "/>
+                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Langue : "/>
+                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Sous titres : " />
+                
+            </StackPanel>
+            <StackPanel Grid.Column="2"  Grid.Row="1">
                 <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Commentaire : "/>
             </StackPanel>
+            
             <!-- -->
-            <StackPanel Grid.Column="3"  Grid.Row="0">
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmTypeMedia}}" Height="16" Margin="0,0,0,20" />
-                <TextBox Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding AgeMini}"/>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <StackPanel Grid.Column="3"  Grid.Row="0" Margin="0,30,0,0">
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmTypeMedia}}" Style="{StaticResource listeAGauche}" />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}"  Text="{Binding AgeMini}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
                     <RadioButton GroupName="SP" IsChecked="{Binding SupportPhysique}" Content="Oui"/>
                     <RadioButton Margin="20,0,0,0" GroupName="SP" Content="Non"></RadioButton>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
                     <RadioButton GroupName="SN" Content="Oui" IsChecked="{Binding SupportNumerique}"/>
                     <RadioButton Margin="20,0,0,0"  GroupName="SN" Content="Non" />
                 </StackPanel>
-                <TextBox Height="16" Margin="0,0,0,20" TextAlignment="Left" Text=""/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Height="16" Margin="0,0,0,20" Text="{Binding LangueVo}"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Height="16" Margin="0,0,0,20" Text="{Binding LangueMedia}"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Height="16" Margin="0,0,0,20" Text="{Binding LangueSousTitre}" />
-                <TextBlock Height="16" Margin="0,0,0,20" TextAlignment="Left" Text="{Binding Commentaire}"/>
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text=""  />
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Style="{StaticResource listeAGauche}" Text="{Binding LangueVo}" IsReadOnly="True"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Style="{StaticResource listeAGauche}" Text="{Binding LangueMedia}" IsReadOnly="True"  />
+                <ComboBox ItemsSource="{Binding Source={StaticResource enmLangue}}" Style="{StaticResource listeAGauche}" Text="{Binding LangueSousTitre}" IsReadOnly="True" />
+               
             </StackPanel>
+            <StackPanel Grid.Column="3"  Grid.Row="1">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Left" Text="{Binding Commentaire}"/>
+            </StackPanel>
+
+
         </Grid>
     </Grid>
 </Page>
