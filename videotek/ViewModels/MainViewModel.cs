@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using videotek.Classes;
 using videotek.Frames.Common;
@@ -11,6 +13,13 @@ namespace videotek.ViewModels
 {
     public class MainViewModel : UtilsBinding
     {
+        #region propriété
+        private ObservableCollection<Genre> listeGenre = new ObservableCollection<Genre>();
+        public ObservableCollection<Genre> ListeGenre { get => listeGenre; set => SetProperty(ref listeGenre, value); }
+
+        #endregion
+
+
         private MediaViewModel ContextMediaView;
         public MainViewModel()
         {
@@ -381,7 +390,7 @@ namespace videotek.ViewModels
         }
         #endregion
 
-
+      
 
 
     }

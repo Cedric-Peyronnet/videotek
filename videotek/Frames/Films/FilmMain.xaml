@@ -48,6 +48,36 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" HorizontalAlignment="Center" Text="Filtre"/>
+                <CheckBox IsChecked="{Binding FiltreActif}"/>
+            </StackPanel>
+           
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Genre : " >
+                </TextBlock>
+                <ComboBox Style="{StaticResource textBoxTaille}" ItemsSource="{Binding Path=ListeGenre}" SelectedItem="{Binding Path=FiltreGenre}" 
+                  HorizontalAlignment="Left"       
+                  VerticalAlignment="Top"  >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=Libelle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Vu : "/>
+                <CheckBox IsChecked="{Binding FiltreVu}" />
+
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            </StackPanel>
+        </StackPanel>
+        
         <Button Command="{Binding Command}" Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding Texte}" Margin="0,200" />
         <Label  Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding UnBool,Converter={StaticResource TConverter}}" Margin="0,255,0,145" />
         <TextBox Height="50" HorizontalAlignment="Left" Width="122" Text="{Binding UnBool,Converter={StaticResource TConverter},Mode=TwoWay}" Margin="127,255,0,145" />

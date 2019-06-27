@@ -17,7 +17,6 @@ namespace videotek.ViewModels
         public Action CloseAction { get; set; }
 
         private ObservableCollection<Genre> listeGenre = new ObservableCollection<Genre>();
-
         public ObservableCollection<Genre> ListeGenre { get => listeGenre; set => SetProperty(ref listeGenre, value); }
 
         private Media monMedia;
