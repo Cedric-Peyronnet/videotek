@@ -1,0 +1,59 @@
+﻿<Page x:Class="videotek.Frames.Series.ConsultationEpisode"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:videotek.Frames.Series"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Consultation d'un épisode">
+
+    <Grid>
+        <TextBlock Text="Consultation d'un épisode"></TextBlock>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="220"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0,30,0,0" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="Titre : " Style="{StaticResource texteBlockAlignDroite}" />
+                <TextBlock Text="N° Saison : " Style="{StaticResource texteBlockAlignDroite}" />
+                <TextBlock Text="N° Episode : " Style="{StaticResource texteBlockAlignDroite}" />
+                <TextBlock Text="Heures : " Style="{StaticResource texteBlockAlignDroite}" />
+                <TextBlock Text="Date de diffusion : " Style="{StaticResource texteBlockAlignDroite}"/>
+                
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical"  VerticalAlignment="Top">
+                <TextBlock Text="Description : " Style="{StaticResource texteBlockAlignDroite}"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,30,0,0" Grid.Column="1" Orientation="Vertical"  VerticalAlignment="Center">
+                <TextBlock Text="{Binding Titre}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding NumSaison}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding NumEpisode}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding Duree}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding DateDiffusion}" Style="{StaticResource texteBlockAlignGauche}"/>
+                
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical"  VerticalAlignment="Top">
+                <TextBlock Text="{Binding DateDiffusion}" Style="{StaticResource texteBlockAlignGauche}" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+                <Button Content="Episode Précédent" Width="110" />
+                <Button Margin= "40,0,0,0" Content="Episode Suivant" Width="100"/>
+            </StackPanel>
+            
+
+
+        </Grid>
+    </Grid>
+</Page>
