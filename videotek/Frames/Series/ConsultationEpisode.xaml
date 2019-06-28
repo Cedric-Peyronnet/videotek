@@ -35,16 +35,16 @@
             </StackPanel>
 
             <StackPanel Margin="0,30,0,0" Grid.Column="1" Orientation="Vertical"  VerticalAlignment="Center">
-                <TextBlock Text="{Binding Titre}" Style="{StaticResource texteBlockAlignGauche}" />
-                <TextBlock Text="{Binding NumSaison}" Style="{StaticResource texteBlockAlignGauche}" />
-                <TextBlock Text="{Binding NumEpisode}" Style="{StaticResource texteBlockAlignGauche}" />
-                <TextBlock Text="{Binding Duree}" Style="{StaticResource texteBlockAlignGauche}" />
-                <TextBlock Text="{Binding DateDiffusion}" Style="{StaticResource texteBlockAlignGauche}"/>
+                <TextBlock Text="{Binding MonEpisode.Titre}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding MonEpisode.NumSaison}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding MonEpisode.NumEpisode}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding MonEpisode.Duree}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Text="{Binding MonEpisode.DateDiffusion}" Style="{StaticResource texteBlockAlignGauche}"/>
                 
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical"  VerticalAlignment="Top">
-                <TextBlock Text="{Binding DateDiffusion}" Style="{StaticResource texteBlockAlignGauche}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding MonEpisode.Description}" Style="{StaticResource texteBlockAlignGauche}" TextWrapping="Wrap"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">

@@ -29,27 +29,6 @@ namespace videotek.ViewModels
         private Episode monEpisode;
         public Episode MonEpisode { get => monEpisode; set => SetProperty(ref monEpisode, value); }
 
-        private int numSaison;
-        public int NumSaison { get => numSaison; set => SetProperty(ref numSaison, value); }
-
-        private int numEpisode;
-        public int NumEpisode { get => numEpisode; set => SetProperty(ref numEpisode, value); }
-
-        private string titre;
-        public string Titre { get => titre; set => SetProperty(ref titre, value); }
-
-        private string description;
-        public string Description { get => description; set => SetProperty(ref description, value); }
-
-        private DateTime dateDiffusion;
-        public DateTime DateDiffusion { get => dateDiffusion; set => SetProperty(ref dateDiffusion, value); }
-
-        private int heures;
-        public int Heures { get => heures; set => SetProperty(ref heures, value); }
-
-        private int minutes;
-        public int Minutes { get => minutes; set => SetProperty(ref minutes, value); }
-
         private TimeSpan duree;
         public TimeSpan Duree { get => duree; set => SetProperty(ref duree, value); }
 
