@@ -46,12 +46,10 @@ namespace videotek.ViewModels
         #region constructeur
         public SaisieEpisodeViewModel(Action close, MediaViewModel mediaViewModel, Episode episode)
         {
-        
-
             CloseAction = close;
             MediaViewModel = mediaViewModel;
             Episode = episode;
-          
+
             Titre = episode.Titre;
             NumSaison = episode.NumSaison;
             NumEpisode = episode.NumEpisode;
@@ -62,7 +60,7 @@ namespace videotek.ViewModels
         }
 
         public SaisieEpisodeViewModel(Action close, MediaViewModel mediaViewModel)
-        {  
+        {
             CloseAction = close;
             MediaViewModel = mediaViewModel;
         }
@@ -132,24 +130,17 @@ namespace videotek.ViewModels
             else
             {
                 var entity = context.Episodes.Find(Episode.Id);
-               
                 if (entity == null)
                 {
                     return;
                 }
-                MediaViewModel.MaListEpisode.Remove(Episode);
-
-                Episode.Titre = Titre;            
+                Episode.Titre = Titre;
                 Episode.Description = Description;
                 Episode.Duree = ts;
                 Episode.NumSaison = NumSaison;
                 Episode.NumEpisode = NumEpisode;
                 Episode.DateDiffusion = DateDiffusion;
                 context.Entry(entity).CurrentValues.SetValues(Episode);
-                MediaViewModel.MaListEpisode.Add(Episode);
-                context.EpisodesMedia.Remove(context.EpisodesMedia.Where(em => em.IdEpisode == Episode.Id).First());
-                await context.SaveChangesAsync();
-                context.EpisodesMedia.Add(new EpisodeMedia { IdMedia = MediaViewModel.SelectedItem.Id, IdEpisode = Episode.Id });
             }
 
             await context.SaveChangesAsync();

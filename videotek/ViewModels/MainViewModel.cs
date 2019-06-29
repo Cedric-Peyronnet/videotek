@@ -19,16 +19,17 @@ namespace videotek.ViewModels
 
         #endregion
 
-
-        private MediaViewModel ContextMediaView;
+        public MediaViewModel ContextMediaView { get; set; }
+        public AccueilViewModel ContextAccueilView { get; set; }
         public MainViewModel()
         {
             ContextMediaView = new MediaViewModel(this);
+            ContextAccueilView = new AccueilViewModel(this);
             AC = new Accueil()
             {
-                DataContext = new Accueil()
+                DataContext = ContextAccueilView
             };
-     
+
             FM = new FilmMain()
             {
                 DataContext = ContextMediaView
@@ -77,7 +78,7 @@ namespace videotek.ViewModels
             }
         }
 
-        private Media mediaCourrant; 
+        private Media mediaCourrant;
 
         public Media MediaCourrant
         {
@@ -139,13 +140,13 @@ namespace videotek.ViewModels
 
         #region Accueil
 
-        Accueil AC; 
+        Accueil AC;
 
         UtilsCommand commandClicAccueil;
         public UtilsCommand CommandClicAccueil
 
         {
-            
+
             get
             {
                 return commandClicAccueil ?? (commandClicAccueil = new UtilsCommand(() => ClicAccueil(), _canExecute));
@@ -154,14 +155,15 @@ namespace videotek.ViewModels
 
         public void ClicAccueil()
         {
-          
+
             PageCourrante = AC;
+            ContextAccueilView.GenererDonnee();
         }
         #endregion
 
         #region Serie
 
-        public SerieMain SM; 
+        public SerieMain SM;
 
         UtilsCommand commandClicSerie;
         public UtilsCommand CommandClicSerie
@@ -181,7 +183,7 @@ namespace videotek.ViewModels
         #endregion
 
         #region Film
-        public FilmMain FM; 
+        public FilmMain FM;
 
         UtilsCommand commandClicFilm;
         public UtilsCommand CommandClicFilm
@@ -229,14 +231,14 @@ namespace videotek.ViewModels
 
             Ajout = new Saisie()
             {
-                
+
                 DataContext = new SaisieMediaViewModel(close, ContextMediaView, TypeMedia)
-                
+
             };
 
             if (PageCourrante.Equals(FM) || PageCourrante.Equals(SM))
-            {                
-                Ajout.ShowDialog();          
+            {
+                Ajout.ShowDialog();
             }
         }
         #endregion
@@ -297,7 +299,7 @@ namespace videotek.ViewModels
 
         #region Suppression 
 
-        
+
         UtilsCommand commandClicSupprimer;
         public UtilsCommand CommandClicSupprimer
 
@@ -307,17 +309,18 @@ namespace videotek.ViewModels
                 return commandClicSupprimer ?? (commandClicSupprimer = new UtilsCommand(() => ClicSupprimer(), _canExecute));
             }
         }
-      
-       
+
+
 
         public async void ClicSupprimer()
         {
             var context = await db.VideoTDbContext.GetCurrent();
-
-            ContextMediaView.SupprimerLesEpisodes(MediaCourrant.Id);
+            await context.SaveChangesAsync();
+            if (MediaCourrant.Type.Equals(ETypeMedia.Serie))
+                ContextMediaView.SupprimerLesEpisodes(MediaCourrant.Id);
 
             context.Medias.Remove(MediaCourrant);
-            
+
             context.SaveChanges();
 
             if (PageCourrante.Equals(FM))
@@ -383,7 +386,7 @@ namespace videotek.ViewModels
             ModificationEpisode = new SaisieEpisode()
             {
 
-                DataContext = new SaisieEpisodeViewModel(close, ContextMediaView,EpisodeCourrant)
+                DataContext = new SaisieEpisodeViewModel(close, ContextMediaView, EpisodeCourrant)
             };
 
             if (PageCourrante.Equals(SM))
@@ -393,7 +396,63 @@ namespace videotek.ViewModels
         }
         #endregion
 
-      
+        #region ConsultationEpisode 
+
+        ConsultationEpisode consultationEpisode;
+        UtilsCommand commandClicConsulterEpisode;
+        public UtilsCommand CommandClicConsulterEpisode
+
+        {
+            get
+            {
+                return commandClicConsulterEpisode ?? (commandClicConsulterEpisode = new UtilsCommand(() => ClicConsulterEpisode(), _canExecute));
+            }
+        }
+
+        public void ClicConsulterEpisode()
+        {
+            consultationEpisode = new ConsultationEpisode()
+            {
+
+                DataContext = new ConsultEpisodeViewModel(EpisodeCourrant, MediaCourrant.Id)
+            };
+            PageCourrante = consultationEpisode;
+        }
+        #endregion
+
+        #region SuppressionEpisode
+
+
+        UtilsCommand commandClicSupprimerEpisode;
+        public UtilsCommand CommandClicSupprimerEpisode
+
+        {
+            get
+            {
+                return commandClicSupprimerEpisode ?? (commandClicSupprimerEpisode = new UtilsCommand(() => ClicSupprimerEpisode(), _canExecute));
+            }
+        }
+
+        public async void ClicSupprimerEpisode()
+        {
+            var context = await db.VideoTDbContext.GetCurrent();
+
+            context.Episodes.Remove(EpisodeCourrant);
+
+            await context.SaveChangesAsync();
+
+            
+            if (PageCourrante.Equals(SM))
+            {
+                ContextMediaView.MaListEpisode.Remove(EpisodeCourrant);
+            }
+
+            UnEpisodeSelectionne = false;
+        }
+
+
+
+        #endregion
 
 
     }

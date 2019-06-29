@@ -55,7 +55,7 @@
                 <RadioButton Margin="-80,0,0,0" GroupName="Vu" Content="Non" IsChecked="True"/>
             </StackPanel>
 
-            <TextBox MaxLength="2"  Style="{StaticResource texteBoxAlignGauche}" Text="{Binding Note}" PreviewTextInput="Note_PreviewTextInput"/>
+            <TextBox MaxLength="1"  Style="{StaticResource texteBoxAlignGauche}" Text="{Binding Note}" PreviewTextInput="Note_PreviewTextInput"/>
             <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding Commentaire}"/>
             <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmTypeMedia}}" Text="{Binding Type}"   />
             <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding AgeMini}"  PreviewTextInput="AgeMini_PreviewTextInput"/>

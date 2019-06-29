@@ -13,10 +13,9 @@ namespace videotek.ViewModels
     public class MediaViewModel : UtilsBinding
     {
         #region propriété
-        private MainViewModel mainViewModel;
+        public MainViewModel MainViewModel;
 
         private ETypeMedia TypeMediaCourant { get; set; }
-
 
         private string recherche ="";
         public string Recherche { get => recherche; set => SetProperty(ref recherche, value); }
@@ -83,8 +82,8 @@ namespace videotek.ViewModels
                 if (SetProperty(ref selectedItem, value))
                 {    
                     selectedItem = value;
-                    mainViewModel.MediaCourrant = value;
-                    if(selectedItem != null && mainViewModel.MediaCourrant.Type.Equals(ETypeMedia.Serie))
+                    MainViewModel.MediaCourrant = value;
+                    if(selectedItem != null && MainViewModel.MediaCourrant.Type.Equals(ETypeMedia.Serie))
                     {
                         RecuperationDesEpisodesDeSerie();
                     }                      
@@ -105,7 +104,7 @@ namespace videotek.ViewModels
                 if (SetProperty(ref selectedItemEpisode, value))
                 {
                     selectedItemEpisode = value;
-                    mainViewModel.EpisodeCourrant = value;                    
+                    MainViewModel.EpisodeCourrant = value;                    
                 };
             }
         }
@@ -114,7 +113,7 @@ namespace videotek.ViewModels
 
         public MediaViewModel(MainViewModel mvm)
         {
-            mainViewModel = mvm;
+            MainViewModel = mvm;
             _canExecute = true;
             InitialisationValeursConsultationAsync();
             RecuperationGenre();
@@ -138,6 +137,13 @@ namespace videotek.ViewModels
         public async void SupprimerLesEpisodes(int id)
         {
             var context = await db.VideoTDbContext.GetCurrent();
+            context.SaveChanges();
+            foreach (EpisodeMedia ep in context.EpisodesMedia.Where(e => e.IdMedia == id).ToList())
+            {             
+                context.EpisodesMedia.Remove(ep);
+            }
+
+            context.SaveChanges();
             foreach (Episode ep in context.Episodes.Where(e => e.IdMedia == id).ToList())
             {
                 MaListEpisode.Remove(ep);
@@ -189,16 +195,15 @@ namespace videotek.ViewModels
             List<Media> Medias = new List<Media>();
 
             var context = await db.VideoTDbContext.GetCurrent();
-            TypeMediaCourant = mainViewModel.TypeMediaCourant;
-           
-
-
+            TypeMediaCourant = MainViewModel.TypeMediaCourant;
+          
             if (FiltreActif)             
             {
                 var query = from m in context.Medias
                             from mg in context.GenreMedias
                             where m.Id == mg.IdMedia
                             where m.Vu == FiltreVu
+                            where m.Type == TypeMediaCourant
                             where mg.Genre.Id == FiltreGenre.Id
                             select m;
                 if(true)
@@ -210,10 +215,10 @@ namespace videotek.ViewModels
             }
             else
             {              
-                Medias = context.Medias.Where(m => m.Type == mainViewModel.TypeMediaCourant && m.Titre.Contains(Recherche)).ToList();          
+                Medias = context.Medias.Where(m => m.Type == MainViewModel.TypeMediaCourant && m.Titre.Contains(Recherche)).ToList();          
             }
 
-            if (mainViewModel.TypeMediaCourant.Equals(ETypeMedia.Film))
+            if (MainViewModel.TypeMediaCourant.Equals(ETypeMedia.Film))
             {
                 MaListFilm.Clear();
                 foreach (Media film in Medias)

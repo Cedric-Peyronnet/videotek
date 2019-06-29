@@ -205,6 +205,7 @@
     <Compile Include="Migrations\VideoTDbContextModelSnapshot.cs" />
     <Compile Include="Utils\UtilsBinding.cs" />
     <Compile Include="Utils\UtilsCommand.cs" />
+    <Compile Include="ViewModels\AccueilViewModel.cs" />
     <Compile Include="ViewModels\ConsultEpisodeViewModel.cs" />
     <Compile Include="ViewModels\ConsultMediaViewModel.cs" />
     <Compile Include="ViewModels\MediaViewModel.cs" />

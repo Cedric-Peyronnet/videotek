@@ -39,20 +39,20 @@
             
             <!-- -->
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" >
-                <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding Titre}"/>
-                <DatePicker  Margin="0,0,0,10" Height="24" Width="150" HorizontalAlignment="Left" SelectedDate="{Binding Annee}" IsEnabled="False"/>
-                <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding Duree}"/>
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding MonMedia.Titre}"/>
+                <DatePicker  Margin="0,0,0,10" Height="24" Width="150" HorizontalAlignment="Left" SelectedDate="{Binding MonMedia.DateSortie}" IsEnabled="False"/>
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding MonMedia.Duree}"/>
                 <StackPanel Orientation="Horizontal" Height="20" Margin="0,0,0,10">
-                    <RadioButton IsEnabled="False" GroupName="Vu" Content="Oui" IsChecked="{Binding Vu}"/>
+                    <RadioButton IsEnabled="False" GroupName="Vu" Content="Oui" IsChecked="{Binding MonMedia.Vu}"/>
                     <RadioButton IsEnabled="False" Margin="20,0,0,0" GroupName="Vu" Content="Non"/>
                 </StackPanel>
-                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding Note}" />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding MonMedia.Note}" />
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding Genre}" />
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding SousGenre}" />
 
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Height="130" >
-                <TextBlock   TextWrapping="Wrap" Text="{Binding Description}" />
+                <TextBlock   TextWrapping="Wrap" Text="{Binding MonMedia.Description}" />
             </StackPanel>
             <!-- -->
             <StackPanel Margin="0,30,0,0" Grid.Column="2"  Grid.Row="0">
@@ -72,24 +72,24 @@
             
             <!-- -->
             <StackPanel Grid.Column="3"  Grid.Row="0" Margin="0,30,0,0">
-                <TextBlock Text="{Binding Type}" Style="{StaticResource texteBlockAlignGauche}" />
-                <TextBlock Style="{StaticResource texteBlockAlignGauche}"  Text="{Binding AgeMini}"/>
+                <TextBlock Text="{Binding MonMedia.Type}" Style="{StaticResource texteBlockAlignGauche}" />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}"  Text="{Binding MonMedia.AgeMinimum}"/>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
-                    <RadioButton IsEnabled="False" GroupName="SP" IsChecked="{Binding SupportPhysique}" Content="Oui"/>
+                    <RadioButton IsEnabled="False" GroupName="SP" IsChecked="{Binding MonMedia.SupportPhysique}" Content="Oui"/>
                     <RadioButton IsEnabled="False" Margin="20,0,0,0" GroupName="SP" Content="Non"></RadioButton>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
-                    <RadioButton IsEnabled="False" GroupName="SN" Content="Oui" IsChecked="{Binding SupportNumerique}"/>
+                    <RadioButton IsEnabled="False" GroupName="SN" Content="Oui" IsChecked="{Binding MonMedia.SupportNumerique}"/>
                     <RadioButton IsEnabled="False" Margin="20,0,0,0"  GroupName="SN" Content="Non" />
                 </StackPanel>
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text=""  />
-                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding LangueVo}" />
-                <TextBlock  Style="{StaticResource texteBlockAlignGauche}" Text="{Binding LangueMedia}"  />
-                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding LangueSousTitre}"  />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding MonMedia.LangueVO}" />
+                <TextBlock  Style="{StaticResource texteBlockAlignGauche}" Text="{Binding MonMedia.LangueMedia}"  />
+                <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding MonMedia.LangueSousTitre}"  />
                
             </StackPanel>
             <StackPanel Grid.Column="3"  Grid.Row="1">
-                <TextBlock TextWrapping="Wrap" TextAlignment="Left" Text="{Binding Commentaire}"/>
+                <TextBlock TextWrapping="Wrap" TextAlignment="Left" Text="{Binding MonMedia.Commentaire}"/>
             </StackPanel>
 
 
