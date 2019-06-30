@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using videotek.Classes;
@@ -20,8 +21,9 @@ namespace videotek.ViewModels
 
         public ObservableCollection<Genre> ListeGenre { get => listeGenre; set => SetProperty(ref listeGenre, value); }
 
-        private GenreMedia GenreMediaCourant;
-        private GenreMedia SousGenreMediaCourant;
+        private GenreMedia GenreMediaCourant { get; set; }
+        private GenreMedia SousGenreMediaCourant { get; set; }
+        private bool estUnAjout { get; set; }
 
         private Media monMedia;
         public Media MonMedia { get => monMedia; set => SetProperty(ref monMedia, value); }
@@ -34,53 +36,13 @@ namespace videotek.ViewModels
 
         public MediaViewModel MediaViewModel { get; set; }
 
-        private string titre;
-        public string Titre { get => titre; set => SetProperty(ref titre, value); }
-
-        private string commentaire;
-        public string Commentaire { get => commentaire; set => SetProperty(ref commentaire, value); }
-
-        private string description;
-        public string Description { get => description; set => SetProperty(ref description, value); }
-
-        private int ageMini;
-        public int AgeMini { get => ageMini; set => SetProperty(ref ageMini, value); }
-
-        private int note;
-        public int Note { get => note; set => SetProperty(ref note, value); }
-
-        private bool vu = false;
-        public bool Vu { get => vu; set => SetProperty(ref vu, value); }
-
-        private bool supportPhysique = false;
-        public bool SupportPhysique { get => supportPhysique; set => SetProperty(ref supportPhysique, value); }
-
-        private bool supportNumerique = false;
-        public bool SupportNumerique { get => supportNumerique; set => SetProperty(ref supportNumerique, value); }
-
-        private DateTime annee;
-        public DateTime Annee { get => annee; set => SetProperty(ref annee, value); }
-
         private int heures;
         public int Heures { get => heures; set => SetProperty(ref heures, value); }
 
         private int minutes;
         public int Minutes { get => minutes; set => SetProperty(ref minutes, value); }
 
-        private TimeSpan duree;
-        public TimeSpan Duree { get => duree; set => SetProperty(ref duree, value); }
 
-        private ELangue langueVo;
-        public ELangue LangueVo { get => langueVo; set => SetProperty(ref langueVo, value); }
-
-        private ELangue langueSousTitre;
-        public ELangue LangueSousTitre { get => langueSousTitre; set => SetProperty(ref langueSousTitre, value); }
-
-        private ELangue langueMedia;
-        public ELangue LangueMedia { get => langueMedia; set => SetProperty(ref langueMedia, value); }
-
-        private ETypeMedia type;
-        public ETypeMedia Type { get => type; set => SetProperty(ref type, value); }
         #endregion
 
         #region constructeur
@@ -90,27 +52,14 @@ namespace videotek.ViewModels
 
             CloseAction = close;
             MediaViewModel = mediaViewModel;
-            MonMedia = media;
 
+            MonMedia = media;
             RecuperationGenreMedia();
 
-            Titre = media.Titre;
-            Commentaire = media.Commentaire;
-            Description = media.Description;
-            annee = media.DateSortie;
-            Heures = media.Duree.Hours;
-            Minutes = media.Duree.Minutes;
-            AgeMini = media.AgeMinimum;
-            Note = media.Note;
-            LangueMedia = media.LangueMedia;
-            LangueVo = media.LangueVO;
-            LangueSousTitre = media.SousTitre;
-            Vu = media.Vu;
-            Type = media.Type;
-            SupportNumerique = media.SupportNumerique;
-            SupportPhysique = media.SupportPhysique;
+            Heures = MonMedia.Duree.Hours;
+            Minutes = MonMedia.Duree.Minutes;
 
-
+            estUnAjout = false;
         }
 
         public SaisieMediaViewModel(Action close, MediaViewModel mediaViewModel, ETypeMedia eTypeMedia)
@@ -118,6 +67,12 @@ namespace videotek.ViewModels
             RecuperationGenre();
             CloseAction = close;
             MediaViewModel = mediaViewModel;
+
+            estUnAjout = true;
+
+            MonMedia = new Media();
+
+            MonMedia.Type = eTypeMedia;
         }
         #endregion
 
@@ -160,37 +115,20 @@ namespace videotek.ViewModels
         {
             var context = await db.VideoTDbContext.GetCurrent();
             TimeSpan ts = new TimeSpan(Heures, minutes, 0);
+            MonMedia.Duree = ts;
 
-            if (MonMedia == null)
+            if (estUnAjout)
             {
-                Media m = new Media()
+                context.Add(MonMedia);
+                if (MonMedia.Type.Equals(ETypeMedia.Film))
                 {
-                    Titre = Titre,
-                    Commentaire = Commentaire,
-                    Description = Description,
-                    DateSortie = Annee,
-                    Duree = ts,
-                    AgeMinimum = AgeMini,
-                    Note = Note,
-                    LangueMedia = LangueMedia,
-                    LangueVO = LangueVo,
-                    SousTitre = LangueSousTitre,
-                    Vu = Vu,
-                    Type = Type,
-                    SupportNumerique = SupportNumerique,
-                    SupportPhysique = SupportPhysique
-                };
-                context.Add(m);
-                if (Type.Equals(ETypeMedia.Film))
-                {
-                    MediaViewModel.MaListFilm.Add(m);
+                    MediaViewModel.MaListFilm.Add(MonMedia);
                 }
                 else
                 {
-                    MediaViewModel.MaListSerie.Add(m);
+                    MediaViewModel.MaListSerie.Add(MonMedia);
                 }
 
-                MonMedia = m;
             }
             //Cas d'une modification
             else
@@ -205,42 +143,14 @@ namespace videotek.ViewModels
                 }
                 await context.SaveChangesAsync();
 
-                if (Type.Equals(ETypeMedia.Film))
+                if (MonMedia.Type.Equals(ETypeMedia.Film))
                 {
                     MediaViewModel.MaListFilm.Remove(MonMedia);
-                }
-                else
-                {
-                    MediaViewModel.MaListSerie.Remove(MonMedia);
-                }
-
-                var entity = context.Medias.Find(MonMedia.Id);
-                if (entity == null)
-                {
-                    return;
-                }
-                MonMedia.Titre = Titre;
-                MonMedia.Commentaire = Commentaire;
-                MonMedia.Description = Description;
-                MonMedia.DateSortie = Annee;
-                MonMedia.Duree = ts;
-                MonMedia.AgeMinimum = AgeMini;
-                MonMedia.Note = Note;
-                MonMedia.LangueMedia = LangueMedia;
-                MonMedia.LangueVO = LangueVo;
-                MonMedia.SousTitre = LangueSousTitre;
-                MonMedia.Vu = Vu;
-                MonMedia.SupportNumerique = SupportNumerique;
-                MonMedia.SupportPhysique = SupportPhysique;
-                MonMedia.Type = Type;
-                context.Entry(entity).CurrentValues.SetValues(MonMedia);
-
-                if (Type.Equals(ETypeMedia.Film))
-                {
                     MediaViewModel.MaListFilm.Add(MonMedia);
                 }
                 else
                 {
+                    MediaViewModel.MaListSerie.Remove(MonMedia);
                     MediaViewModel.MaListSerie.Add(MonMedia);
                 }
 
@@ -253,7 +163,6 @@ namespace videotek.ViewModels
                 //Enregistrement du genre et du media
                 if (Genre != null)
                 {
-                    
                     GenreMedia genreMedia = new GenreMedia()
                     {
                         IdGenre = Genre.Id,
@@ -262,11 +171,9 @@ namespace videotek.ViewModels
                     };
                     context.Add(genreMedia);
                 }
-
-
                 if (null != SousGenre && SousGenre != Genre)
                 {
-                   
+
                     GenreMedia sousGenreMedia = new GenreMedia()
                     {
                         IdGenre = SousGenre.Id,
@@ -274,14 +181,13 @@ namespace videotek.ViewModels
                     };
                     context.Add(sousGenreMedia);
                 }
-              
-            }
 
+            }
             await context.SaveChangesAsync();
             
             MessageBox.Show("Enregistré");
-            CloseAction();
 
+            CloseAction();
         }
         #endregion
 
@@ -290,7 +196,6 @@ namespace videotek.ViewModels
         {
             var context = await db.VideoTDbContext.GetCurrent();
             List<Genre> genres = context.Genres.ToList();
-
 
             foreach (Genre genre in genres)
                 ListeGenre.Add(genre);

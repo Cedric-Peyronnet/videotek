@@ -9,7 +9,7 @@
       Title="Consultation d'un épisode">
 
     <Grid>
-        <TextBlock Text="Consultation d'un épisode"></TextBlock>
+        <TextBlock FontFamily="Sylfaen" Margin="0,20,0,0" Text="Consultation d'un épisode" HorizontalAlignment="Center"></TextBlock>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>

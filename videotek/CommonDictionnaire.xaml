@@ -27,8 +27,8 @@
         <Setter Property="Margin" Value="0,0,0,10"/>
     </Style>
 
-    
-    
+
+
     <Style TargetType="Control" x:Key="textBoxTaille">
         <Setter Property="Width" Value="150"/>
         <Setter Property="Height" Value="20"/>
@@ -44,7 +44,7 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
-    
+
     <ObjectDataProvider x:Key="enmLangue" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
         <ObjectDataProvider.MethodParameters>
             <x:Type TypeName="enm:ELangue"></x:Type>
@@ -56,5 +56,160 @@
             <x:Type TypeName="enm:ETypeMedia"></x:Type>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+
+
+    <Style x:Key="ButtonStyle" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="FontFamily" Value="Sylfaen"/>
+        <Setter Property="Foreground" Value="White"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/buttonNormal.png" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/buttonGrise.png" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/buttonOver.png" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="topButton" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontFamily" Value="Sylfaen"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+                        BorderThickness="0" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/topButtonNormal.png" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                      
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/topButtonOver.png" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Storyboard x:Key="Bouton_animation" x:Shared="False" >
+        <DoubleAnimation Storyboard.TargetName="BoutonAnimation"
+                         Storyboard.TargetProperty="Opacity"                                          
+                         From="1.0" To="0.0" Duration="0:0:001"                                  
+                         AutoReverse="True" RepeatBehavior="Forever"
+                                             ></DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetName="BoutonAnimation"
+                         Storyboard.TargetProperty="Width"                                          
+                         From="150" To="100" Duration="0:0:0:01"                                  
+                         AutoReverse="True" RepeatBehavior="Forever"
+                                             ></DoubleAnimation>
+
+    </Storyboard>
+
+
+    <ControlTemplate TargetType="CheckBox" x:Key="CheckBoxStyle">
+        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    Background="{TemplateBinding Background}">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CheckStates">
+                    <VisualState x:Name="Checked">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0" To="20"
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 Storyboard.TargetName="CheckGlyph"/>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Unchecked"/>
+                    <VisualState x:Name="Indeterminate">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0" To="10"
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 Storyboard.TargetName="IndeterminateGlyph"/>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="0"/>
+                </Grid.RowDefinitions>
+                <Rectangle x:Name="NormalRectangle" 
+                                 
+                               Stroke="Red" 
+                               StrokeThickness="2"  
+                               UseLayoutRounding="False" Height="21" Width="21"/>
+                <!-- Create an X to indicate that the CheckBox is selected. -->
+                <Path x:Name="CheckGlyph" 
+                          Data="M103,240 L111,240 119,248 127,240 135,240 123,252 135,264 127,264 119,257 111,264 103,264 114,252 z" 
+                          Fill="Blue" FlowDirection="LeftToRight" 
+                          Height="14" Width="16" Opacity="0" Stretch="Fill"/>
+                <Rectangle x:Name="IndeterminateGlyph" 
+                               Fill="Blue" 
+                               Height="9" Width="9" Opacity="0" UseLayoutRounding="False" />
+                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                      Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" Grid.Row="1" 
+                                      HorizontalAlignment="{TemplateBinding HorizontalAlignment}" 
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Grid>
+        </Border>
+    </ControlTemplate>
 
 </ResourceDictionary>

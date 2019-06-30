@@ -40,6 +40,7 @@ namespace videotek.ViewModels
                 DataContext = ContextMediaView
             };
             PageCourrante = AC;
+
         }
 
         private bool _canExecute = true;
@@ -110,7 +111,6 @@ namespace videotek.ViewModels
             }
             set
             {
-
                 SetProperty(ref unMediaSelectionne, value);
             }
         }
@@ -146,7 +146,6 @@ namespace videotek.ViewModels
         public UtilsCommand CommandClicAccueil
 
         {
-
             get
             {
                 return commandClicAccueil ?? (commandClicAccueil = new UtilsCommand(() => ClicAccueil(), _canExecute));
@@ -155,7 +154,7 @@ namespace videotek.ViewModels
 
         public void ClicAccueil()
         {
-
+            MediaCourrant = null;
             PageCourrante = AC;
             ContextAccueilView.GenererDonnee();
         }
@@ -177,6 +176,8 @@ namespace videotek.ViewModels
 
         public void ClicSerie()
         {
+            MediaCourrant = null;
+
             PageCourrante = SM;
             TypeMediaCourant = ETypeMedia.Serie;
         }
@@ -184,7 +185,6 @@ namespace videotek.ViewModels
 
         #region Film
         public FilmMain FM;
-
         UtilsCommand commandClicFilm;
         public UtilsCommand CommandClicFilm
 
@@ -197,6 +197,7 @@ namespace videotek.ViewModels
 
         public void ClicFilm()
         {
+            MediaCourrant = null;
             PageCourrante = FM;
             TypeMediaCourant = ETypeMedia.Film;
 
@@ -228,16 +229,14 @@ namespace videotek.ViewModels
             {
                 TypeMedia = ETypeMedia.Serie;
             }
-
-            Ajout = new Saisie()
-            {
-
-                DataContext = new SaisieMediaViewModel(close, ContextMediaView, TypeMedia)
-
-            };
-
             if (PageCourrante.Equals(FM) || PageCourrante.Equals(SM))
             {
+                Ajout = new Saisie()
+                {
+
+                    DataContext = new SaisieMediaViewModel(close, ContextMediaView, TypeMediaCourant)
+
+                };
                 Ajout.ShowDialog();
             }
         }
@@ -261,7 +260,6 @@ namespace videotek.ViewModels
             Action close = new Action(() => Modification.Close());
             Modification = new Saisie()
             {
-
                 DataContext = new SaisieMediaViewModel(close, ContextMediaView, MediaCourrant)
             };
 
@@ -310,8 +308,6 @@ namespace videotek.ViewModels
             }
         }
 
-
-
         public async void ClicSupprimer()
         {
             var context = await db.VideoTDbContext.GetCurrent();
@@ -353,15 +349,12 @@ namespace videotek.ViewModels
         {
             Action close = new Action(() => AjoutEpisode.Close());
 
-            AjoutEpisode = new SaisieEpisode()
-            {
-
-                DataContext = new SaisieEpisodeViewModel(close, ContextMediaView)
-
-            };
-
             if (PageCourrante.Equals(FM) || PageCourrante.Equals(SM))
             {
+                AjoutEpisode = new SaisieEpisode()
+                {
+                    DataContext = new SaisieEpisodeViewModel(close, ContextMediaView)
+                };
                 AjoutEpisode.ShowDialog();
             }
         }
@@ -441,7 +434,6 @@ namespace videotek.ViewModels
 
             await context.SaveChangesAsync();
 
-            
             if (PageCourrante.Equals(SM))
             {
                 ContextMediaView.MaListEpisode.Remove(EpisodeCourrant);
@@ -450,10 +442,7 @@ namespace videotek.ViewModels
             UnEpisodeSelectionne = false;
         }
 
-
-
         #endregion
-
 
     }
 }

@@ -14,11 +14,7 @@ namespace videotek.ViewModels
         public ConsultEpisodeViewModel(Episode episode, int idMedia)
         {
             monEpisode = episode;
-            // l'id de media permettra d'aller sur l'épisode suivant
-            //if il y a épisode suivant ou précedent on activera ou désactivera les buttons 
         }
-
-        private List<int> listeEpisodeSaison;
 
         private bool episodeSuivant;
         public bool EpisodeSuivant { get => episodeSuivant; set => SetProperty(ref episodeSuivant, value); }
@@ -31,34 +27,6 @@ namespace videotek.ViewModels
 
         private TimeSpan duree;
         public TimeSpan Duree { get => duree; set => SetProperty(ref duree, value); }
-
-        UtilsCommand commandEpisodeSuivant;
-        public UtilsCommand CommandEpisodeSuivant
-        {
-            get
-            {
-                return commandEpisodeSuivant ?? (commandEpisodeSuivant = new UtilsCommand(() => MEpisodeSuivant(), episodeSuivant));
-            }
-        }
-
-        private void MEpisodeSuivant()
-        {
-
-        }
-
-        UtilsCommand commandEpisodePrecedent;
-        public UtilsCommand CommandEpisodePrecedent
-        {
-            get
-            {
-                return commandEpisodeSuivant ?? (commandEpisodeSuivant = new UtilsCommand(() => MEpisodePrecedent(), episodePrecedent));
-            }
-        }
-
-        private void MEpisodePrecedent()
-        {
-
-        }
 
     }
 }

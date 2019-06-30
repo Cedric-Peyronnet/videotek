@@ -29,20 +29,5 @@ namespace videotek.Frames.Common
             InitializeComponent();
            
         }
-  
-        
-    
-
-        Regex regexEntierPositif = new Regex("[^0-9]+");
-
-        private void Note_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = regexEntierPositif.IsMatch(e.Text);
-        }    
-
-        private void AgeMini_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = regexEntierPositif.IsMatch(e.Text);
-        }
     }
 }

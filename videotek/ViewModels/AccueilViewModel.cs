@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,13 +37,13 @@ namespace videotek.ViewModels
         public string DernierEpisodeAjoute { get => dernierEpisodeAjoute; set => SetProperty(ref dernierEpisodeAjoute, value); }
         #endregion
 
-        private MainViewModel MainViewModel ;
+        private MainViewModel MainViewModel;
 
-        private List<KeyValuePair<string, int>> grapListSerie = new List<KeyValuePair<string, int>>();
-        public List<KeyValuePair<string, int>> GrapListSerie { get => grapListSerie; set => SetProperty(ref grapListSerie, value); }
+        private ObservableCollection<KeyValuePair<string, int>> grapListSerie = new ObservableCollection<KeyValuePair<string, int>>();
+        public ObservableCollection<KeyValuePair<string, int>> GrapListSerie { get => grapListSerie; set => SetProperty(ref grapListSerie, value); }
 
-        private List<KeyValuePair<string, int>> grapListFilm = new List<KeyValuePair<string, int>>();
-        public List<KeyValuePair<string, int>> GrapListFilm { get => grapListFilm; set => SetProperty(ref grapListFilm, value); }
+        private ObservableCollection<KeyValuePair<string, int>> grapListFilm = new ObservableCollection<KeyValuePair<string, int>>();
+        public ObservableCollection<KeyValuePair<string, int>> GrapListFilm { get => grapListFilm; set => SetProperty(ref grapListFilm, value); }
 
 
         #endregion
@@ -58,18 +59,21 @@ namespace videotek.ViewModels
 
         public async void GenererDonnee()
         {
-           var context = await db.VideoTDbContext.GetCurrent();
-           List<Media> listeMedia =  context.Medias.ToList();
-          
-           int nbFilmEnregistre = 0;
-           int nbFilmAVoir = 0;
-           int pointTotauxFilm = 0;
-           int nbFilmVu = 0;
+            GrapListSerie.Clear();
+            GrapListFilm.Clear();
 
-           int nbSerieEnregistree = 0;
-           int nbSerieAVoir = 0;            
-           int nbSerieVu= 0;
-           int pointTotauxSerie = 0;
+            var context = await db.VideoTDbContext.GetCurrent();
+            List<Media> listeMedia = context.Medias.ToList();
+
+            int nbFilmEnregistre = 0;
+            int nbFilmAVoir = 0;
+            int pointTotauxFilm = 0;
+            int nbFilmVu = 0;
+
+            int nbSerieEnregistree = 0;
+            int nbSerieAVoir = 0;
+            int nbSerieVu = 0;
+            int pointTotauxSerie = 0;
 
             foreach (Media media in listeMedia)
             {
@@ -84,9 +88,8 @@ namespace videotek.ViewModels
                     else
                     {
                         nbSerieVu++;
-                        pointTotauxSerie = +media.Note;
+                        pointTotauxSerie = pointTotauxFilm + media.Note;
                     }
-
                 }
                 else
                 {
@@ -99,7 +102,7 @@ namespace videotek.ViewModels
                     else
                     {
                         nbFilmVu++;
-                        pointTotauxFilm = +media.Note;
+                        pointTotauxFilm = pointTotauxFilm + media.Note;
                     }
                 }
             }
@@ -114,7 +117,6 @@ namespace videotek.ViewModels
             NombreSerieEnregistree = nbSerieEnregistree;
 
             if (nbFilmVu != 0)
-
             {
                 NoteMoyenneFilm = pointTotauxFilm / nbFilmVu;
             }
@@ -122,44 +124,45 @@ namespace videotek.ViewModels
             NombreFilmAVoir = nbFilmAVoir;
             NombreFilmEnregistre = nbFilmEnregistre;
 
-            var ListGenresMedia = context.GenreMedias.GroupBy(m => m.IdGenre).ToList();           
+            var ListGenresMedia = context.GenreMedias.GroupBy(m => m.IdGenre).ToList();
 
-            List<GenreMedia> genreMedia  = context.GenreMedias.ToList();
+            List<GenreMedia> genreMedia = context.GenreMedias.ToList();
 
-            List < Media > countListeMediaGenre = listeMedia;
+            List<Media> countListeMediaGenre = listeMedia;
             List<int> countSerie = new List<int>();
             List<int> countFilm = new List<int>();
 
             List<string> libelleGenre = new List<string>();
 
-            for (int i = 0; i < ListGenresMedia.Count;i++ )
+            for (int i = 0; i < ListGenresMedia.Count; i++)
             {
-                var querySerie = from me in context.Medias
-                            from mg in context.GenreMedias
-                            where me.Id == mg.IdMedia
-                            where me.Type == ETypeMedia.Serie
-                            where mg.Genre.Id == genreMedia[i].IdGenre
-                            select me;
+                var querySerie =
+                    from me in context.Medias
+                    from mg in context.GenreMedias
+                    where me.Id == mg.IdMedia
+                    where me.Type == ETypeMedia.Serie
+                    where mg.Genre.Id == genreMedia[i].IdGenre
+                    select me;
 
                 countSerie.Add(querySerie.Count());
 
-                var queryFilm = from me in context.Medias
-                                 from mg in context.GenreMedias
-                                 where me.Id == mg.IdMedia
-                                  where me.Type == ETypeMedia.Film
-                                 where mg.Genre.Id == genreMedia[i].IdGenre
-                                 select me;
+                var queryFilm =
+                    from me in context.Medias
+                    from mg in context.GenreMedias
+                    where me.Id == mg.IdMedia
+                    where me.Type == ETypeMedia.Film
+                    where mg.Genre.Id == genreMedia[i].IdGenre
+                    select me;
                 countFilm.Add(queryFilm.Count());
 
                 libelleGenre.Add(context.Genres.Where(g => g.Id == ListGenresMedia[i].Key).First().Libelle);
             }
 
-       
-          for (int i = 0; i < libelleGenre.Count; i++)
+            for (int i = 0; i < libelleGenre.Count; i++)
             {
                 GrapListSerie.Add(new KeyValuePair<string, int>(libelleGenre[i] + " " + countSerie[i], countSerie[i]));
-                            
             }
+
             for (int i = 0; i < libelleGenre.Count; i++)
             {
                 GrapListFilm.Add(new KeyValuePair<string, int>(libelleGenre[i] + " " + countFilm[i], countFilm[i]));

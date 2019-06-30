@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using videotek.Classes;
@@ -16,22 +17,10 @@ namespace videotek.ViewModels
 
         private MediaViewModel MediaViewModel { get; set; }
 
-        private Episode Episode { get; set; }
+        private bool estUnAjout { get; set; }
 
-        private int numSaison;
-        public int NumSaison { get => numSaison; set => SetProperty(ref numSaison, value); }
-
-        private int numEpisode;
-        public int NumEpisode { get => numEpisode; set => SetProperty(ref numEpisode, value); }
-
-        private string titre;
-        public string Titre { get => titre; set => SetProperty(ref titre, value); }
-
-        private string description;
-        public string Description { get => description; set => SetProperty(ref description, value); }
-
-        private DateTime dateDiffusion;
-        public DateTime DateDiffusion { get => dateDiffusion; set => SetProperty(ref dateDiffusion, value); }
+        private Episode monEpisode;
+        public Episode MonEpisode { get => monEpisode; set => SetProperty(ref monEpisode, value); }
 
         private int heures;
         public int Heures { get => heures; set => SetProperty(ref heures, value); }
@@ -41,6 +30,8 @@ namespace videotek.ViewModels
 
         private TimeSpan duree;
         public TimeSpan Duree { get => duree; set => SetProperty(ref duree, value); }
+
+
         #endregion
 
         #region constructeur
@@ -48,21 +39,19 @@ namespace videotek.ViewModels
         {
             CloseAction = close;
             MediaViewModel = mediaViewModel;
-            Episode = episode;
+            MonEpisode = episode;
 
-            Titre = episode.Titre;
-            NumSaison = episode.NumSaison;
-            NumEpisode = episode.NumEpisode;
-            DateDiffusion = episode.DateDiffusion;
-            Heures = episode.Duree.Hours;
-            Minutes = episode.Duree.Minutes;
-            Description = episode.Description;
+            estUnAjout = false;
         }
 
         public SaisieEpisodeViewModel(Action close, MediaViewModel mediaViewModel)
         {
             CloseAction = close;
             MediaViewModel = mediaViewModel;
+
+            MonEpisode = new Episode() { };
+
+            estUnAjout = true;
         }
 
 
@@ -108,43 +97,26 @@ namespace videotek.ViewModels
             var context = await db.VideoTDbContext.GetCurrent();
             TimeSpan ts = new TimeSpan(Heures, minutes, 0);
 
-            if (Episode == null)
+            MonEpisode.Duree = ts;
+            if (estUnAjout)
             {
-                Episode e = new Episode()
-                {
-                    Titre = Titre,
-                    Description = Description,
-                    DateDiffusion = DateDiffusion,
-                    Duree = ts,
-                    IdMedia = MediaViewModel.SelectedItem.Id,
-                    NumSaison = NumSaison,
-                    NumEpisode = NumEpisode,
-                };
-                context.Episodes.Add(e);
-                Episode = e;
-                await context.SaveChangesAsync();
-                context.EpisodesMedia.Add(new EpisodeMedia { IdMedia = MediaViewModel.SelectedItem.Id, IdEpisode = Episode.Id });
-                MediaViewModel.MaListEpisode.Add(e);
+                context.Episodes.Add(MonEpisode);
+                MonEpisode.IdMedia = MediaViewModel.SelectedItem.Id;
+                context.SaveChanges();
+
+                context.EpisodesMedia.Add(new EpisodeMedia { IdMedia = MediaViewModel.SelectedItem.Id, IdEpisode = MonEpisode.Id });
+                MediaViewModel.MaListEpisode.Add(MonEpisode);
             }
-            //Cas d'une modification
             else
             {
-                var entity = context.Episodes.Find(Episode.Id);
-                if (entity == null)
-                {
-                    return;
-                }
-                Episode.Titre = Titre;
-                Episode.Description = Description;
-                Episode.Duree = ts;
-                Episode.NumSaison = NumSaison;
-                Episode.NumEpisode = NumEpisode;
-                Episode.DateDiffusion = DateDiffusion;
-                context.Entry(entity).CurrentValues.SetValues(Episode);
+                MediaViewModel.MaListEpisode.Remove(MonEpisode);
+                MediaViewModel.MaListEpisode.Add(MonEpisode);
             }
 
+
             await context.SaveChangesAsync();
-            MessageBox.Show("Enregistré");
+
+            
             CloseAction();
 
         }

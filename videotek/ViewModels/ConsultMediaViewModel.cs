@@ -44,6 +44,5 @@ namespace videotek.ViewModels
                 Genre = sousFenre.Libelle;
             }
         }
-
     }
 }

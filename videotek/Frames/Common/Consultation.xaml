@@ -10,7 +10,7 @@
       Title="Consultation">
 
     <Grid>
-        <TextBlock Width="auto" Text="Consultation d'un média" />
+        <TextBlock Width="auto" Text="CONSULTATION D'UNE MEDIA" FontFamily="Sylfaen" HorizontalAlignment="Center"  Margin="0,15,0,0" />
         <Grid>
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>
