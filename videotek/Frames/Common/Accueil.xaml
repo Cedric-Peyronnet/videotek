@@ -50,7 +50,7 @@
             </DVC:Chart.Series>
         </DVC:Chart>
 
-            <DVC:Chart Grid.Column="2"  VerticalAlignment="Bottom" Margin="0,0,0,0" Width="300" Height="200"  Foreground="DarkBlue" Title="Genre des films ajouté" LegendTitle="Genre et nombre">
+            <DVC:Chart Grid.Column="2"  BorderThickness="0" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="300" Height="200" Title="Genre des films ajouté" LegendTitle="Genre et nombre">
                 <DVC:Chart.Series>
                     <DVC:PieSeries ItemsSource="{Binding GrapListFilm}"  IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
                     </DVC:PieSeries>

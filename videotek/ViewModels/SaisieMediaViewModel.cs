@@ -72,6 +72,8 @@ namespace videotek.ViewModels
 
             MonMedia = new Media();
 
+            MonMedia.DateSortie = new DateTime(2019,01,01);
+
             MonMedia.Type = eTypeMedia;
         }
         #endregion

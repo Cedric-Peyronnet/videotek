@@ -155,6 +155,8 @@ namespace videotek.ViewModels
         public void ClicAccueil()
         {
             MediaCourrant = null;
+            episodeCourrant = null;
+            OnPropertyChanged("UnEpisodeSelectionne");
             PageCourrante = AC;
             ContextAccueilView.GenererDonnee();
         }
@@ -176,8 +178,10 @@ namespace videotek.ViewModels
 
         public void ClicSerie()
         {
-            MediaCourrant = null;
 
+            MediaCourrant = null;
+            episodeCourrant = null;
+            OnPropertyChanged("UnEpisodeSelectionne");
             PageCourrante = SM;
             TypeMediaCourant = ETypeMedia.Serie;
         }
@@ -198,6 +202,9 @@ namespace videotek.ViewModels
         public void ClicFilm()
         {
             MediaCourrant = null;
+            episodeCourrant = null;
+            OnPropertyChanged("UnEpisodeSelectionne");
+            
             PageCourrante = FM;
             TypeMediaCourant = ETypeMedia.Film;
 
@@ -404,12 +411,15 @@ namespace videotek.ViewModels
 
         public void ClicConsulterEpisode()
         {
-            consultationEpisode = new ConsultationEpisode()
+            if(MediaCourrant != null)
             {
+                consultationEpisode = new ConsultationEpisode()
+                {
 
-                DataContext = new ConsultEpisodeViewModel(EpisodeCourrant, MediaCourrant.Id)
-            };
-            PageCourrante = consultationEpisode;
+                    DataContext = new ConsultEpisodeViewModel(EpisodeCourrant, MediaCourrant.Id)
+                };
+                PageCourrante = consultationEpisode;
+            }      
         }
         #endregion
 

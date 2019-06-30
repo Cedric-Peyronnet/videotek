@@ -199,6 +199,7 @@
     <Compile Include="Classes\GenreMedia.cs" />
     <Compile Include="Classes\ELangue.cs" />
     <Compile Include="Classes\ETypeMedia.cs" />
+    <Compile Include="Classes\Initialisation.cs" />
     <Compile Include="Classes\Personne.cs" />
     <Compile Include="Classes\PersonneMedia.cs" />
     <Compile Include="Converters\ImageCheckedConverter.cs" />

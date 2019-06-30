@@ -44,7 +44,7 @@
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text="{Binding MonMedia.Duree}"/>
                 <StackPanel Orientation="Horizontal" Height="20" Margin="0,0,0,10">
                     <RadioButton IsEnabled="False" GroupName="Vu" Content="Oui" IsChecked="{Binding MonMedia.Vu}"/>
-                    <RadioButton IsEnabled="False" Margin="20,0,0,0" GroupName="Vu" Content="Non"/>
+                    <RadioButton IsChecked="True" IsEnabled="False" Margin="20,0,0,0" GroupName="Vu" Content="Non"/>
                 </StackPanel>
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding MonMedia.Note}" />
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding Genre}" />
@@ -76,11 +76,11 @@
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}"  Text="{Binding MonMedia.AgeMinimum}"/>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
                     <RadioButton IsEnabled="False" GroupName="SP" IsChecked="{Binding MonMedia.SupportPhysique}" Content="Oui"/>
-                    <RadioButton IsEnabled="False" Margin="20,0,0,0" GroupName="SP" Content="Non"></RadioButton>
+                    <RadioButton IsChecked="True" IsEnabled="False" Margin="20,0,0,0" GroupName="SP" Content="Non"></RadioButton>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Height="20">
                     <RadioButton IsEnabled="False" GroupName="SN" Content="Oui" IsChecked="{Binding MonMedia.SupportNumerique}"/>
-                    <RadioButton IsEnabled="False" Margin="20,0,0,0"  GroupName="SN" Content="Non" />
+                    <RadioButton IsChecked="True" IsEnabled="False" Margin="20,0,0,0"  GroupName="SN" Content="Non" />
                 </StackPanel>
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" TextAlignment="Left" Text=""  />
                 <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding MonMedia.LangueVO}" />

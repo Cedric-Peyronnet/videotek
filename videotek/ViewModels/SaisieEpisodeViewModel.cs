@@ -51,6 +51,7 @@ namespace videotek.ViewModels
 
             MonEpisode = new Episode() { };
 
+            MonEpisode.DateDiffusion = new DateTime(2019, 01, 01);
             estUnAjout = true;
         }
 
