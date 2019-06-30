@@ -11,8 +11,7 @@ namespace videotek
     {
         public MainWindow()
         {
-            InitializeComponent();
-           
+            InitializeComponent();          
         }       
     }
 }

@@ -3,12 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:videotek.Frames.Films"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:viewmodels="clr-namespace:videotek.ViewModels"
       xmlns:converters="clr-namespace:videotek.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="700"
       Title="FilmMain">
     <Page.Resources>
         <ResourceDictionary>
@@ -17,11 +18,24 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
-        <TextBlock Text="Consultation des films" />
-       
-        <ListView Height="124" Width="650"  HorizontalAlignment="Left" Margin="0,60,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListFilm}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+        <TextBlock FontFamily="Sylfaen" Text="CONSULTATION DES FILMS" HorizontalAlignment="Center"  Margin="0,20,0,0"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,60,0,0" HorizontalAlignment="Center">
+            <TextBlock Text="Recherche du titre : "></TextBlock>
+            <TextBox Style="{StaticResource textBoxTaille}" Text="{Binding Recherche}"/>
+            <Button Margin="10,0,0,10"  Style="{StaticResource ButtonStyle}" Name="BoutonAnimation"  Width="130" Command="{Binding RechercheCommand}" Content="RECHERCHE">
+              
+                
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard Storyboard="{StaticResource Bouton_animation}"/>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </StackPanel>
+
+        <ListView  Height="124" Width="450"  HorizontalAlignment="Center" Margin="0,140,0,0"  VerticalAlignment="Top"  ItemsSource="{Binding MaListFilm}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
-                <GridView>
+                <GridView >
                     <GridViewColumn Width="100" Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
                     <GridViewColumn Width="60" Header="Duree" DisplayMemberBinding="{Binding Duree}"/>
                     <GridViewColumn Width="100" Header="Date de sortie" DisplayMemberBinding="{Binding DateSortie, StringFormat='dd-MM-yyyy'}" />
@@ -43,10 +57,29 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Command="{Binding Command}" Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding Texte}" Margin="0,200" />
-        <Label  Height="50" HorizontalAlignment="Left" Width="122" Content="{Binding UnBool,Converter={StaticResource TConverter}}" Margin="0,255,0,145" />
-        <TextBox Height="50" HorizontalAlignment="Left" Width="122" Text="{Binding UnBool,Converter={StaticResource TConverter},Mode=TwoWay}" Margin="127,255,0,145" />
-        <CheckBox Height="50" HorizontalAlignment="Left" Width="122" Content="fsdsfdssfd" IsChecked="{Binding UnBool,Mode=TwoWay}" Margin="0,334,0,66"/>
+        <StackPanel Margin="0,280,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" >
+            <StackPanel Orientation="Vertical">
+                <Button Style="{StaticResource ButtonStyle}" Width="130" Content="ACTIVER FILTRE" Command="{Binding CommandActiverFiltre}" Margin="0,0,0,5"/>
 
+                <Button  Style="{StaticResource ButtonStyle}" Width="130" Content="DESACTIVER FILTRE" Command="{Binding CommandDesactiverFiltre}"/>
+            </StackPanel>
+            <TextBlock VerticalAlignment="Center"  Text="Genre : " Margin="10,0,5,0"/>
+
+            <ComboBox   Margin="0,0,20,0" Style="{StaticResource textBoxTaille}" ItemsSource="{Binding Path=ListeGenre}" SelectedItem="{Binding Path=FiltreGenre}" 
+                  HorizontalAlignment="Left"       
+                  VerticalAlignment="Center"  >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Libelle}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock VerticalAlignment="Center" Text="Vu : "/>
+            <CheckBox VerticalAlignment="Center"  Template="{StaticResource CheckBoxStyle}"  IsChecked="{Binding FiltreVu}" Margin="0,0,20,0" Height="23" />
+            
+            </StackPanel>
     </Grid>
 </Page>

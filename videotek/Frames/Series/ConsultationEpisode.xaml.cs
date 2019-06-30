@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,22 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using videotek.Classes;
-using videotek.ViewModels;
 
-namespace videotek.Frames.Common
+namespace videotek.Frames.Series
 {
     /// <summary>
-    /// Logique d'interaction pour Ajout.xaml
+    /// Logique d'interaction pour ConsultationEpisode.xaml
     /// </summary>
-    public partial class Saisie : Window
+    public partial class ConsultationEpisode : Page
     {
-        
-        public Saisie()
-        {   
+        public ConsultationEpisode()
+        {
             InitializeComponent();
-           
         }
     }
 }

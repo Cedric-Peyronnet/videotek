@@ -3,12 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:videotek.Frames.Common"
         xmlns:viewmodels="clr-namespace:videotek.ViewModels"
         mc:Ignorable="d"
-        Title="Ajout" Height="630" Width="400">
+        WindowStartupLocation="CenterScreen"
+        Title="Saisie d'un média" Height="630" Width="400">
 
     <Grid>
+        <Grid.Background>
+        <ImageBrush ImageSource="/Images/saisie.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="auto"/>
@@ -17,9 +22,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="160">
+        <StackPanel Margin="0,20,0,0" Grid.Column="0" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="160">
             <TextBlock Style="{StaticResource texteBlockAlignDroite}" TextAlignment="Right" Text="Titre : "/>
             <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Description : "/>
             <TextBlock Height="30" HorizontalAlignment="Right" Text="Date de sortie : "/>
@@ -31,7 +37,6 @@
             <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Age minimum : "/>
             <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support Physique : "/>
             <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Support numérique : "/>
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Image : "/>
             <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Langue VO : "/>
             <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Langue : "/>
             <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Sous titres : "/>
@@ -39,41 +44,39 @@
             <TextBlock Style="{StaticResource texteBlockSizeListeDeroulante}" Text="Sous Genre : "/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="240" >
-            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding Titre}"/>
-            <TextBox Style="{StaticResource texteBoxAlignGauche}"   Text="{Binding Description}"/>
-            <DatePicker Margin="0,0,0,10" Height="24" Width="150" HorizontalAlignment="Left"  SelectedDate="{Binding Annee}"/>
+        <StackPanel Margin="0,20,0,0" Grid.Column="1" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" Width="240" >
+            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding MonMedia.Titre}"/>
+            <TextBox Style="{StaticResource texteBoxAlignGauche}"   Text="{Binding MonMedia.Description}"/>
+            <DatePicker Margin="0,0,0,10" Height="24" Width="150" HorizontalAlignment="Left"  SelectedDate="{Binding MonMedia.DateSortie}"/>
             <StackPanel Orientation="Horizontal" Height="20" Margin="0,0,0,10">
-                <TextBox MaxLength="2" Width="50" Height="20" TextAlignment="Left" Text="{Binding Heures}"/>
+                <xctk:IntegerUpDown Text="{Binding Minutes}" Value="{Binding Minutes}" HorizontalAlignment="Left" Increment="1" Maximum="59" Width="50"  Height="20"/>
+                
                 <TextBlock Margin="10,0,0,0" Width="50" Height="20" Text="Minutes :"/>
-                <TextBox MaxLength="2" Width="50"  Height="20" TextAlignment="Left" Text="{Binding Minutes}" />
+                <xctk:IntegerUpDown Text="{Binding Heures}" Value="{Binding Heures}" HorizontalAlignment="Left" Increment="1" Maximum="24" Width="50"  Height="20"/>
             </StackPanel>
            
 
             <StackPanel Orientation="Horizontal">
-                <RadioButton Style="{StaticResource textBoxTaille}" GroupName="Vu" Content="Oui" IsChecked="{Binding Vu}"/>
+                <RadioButton Style="{StaticResource textBoxTaille}" GroupName="Vu" Content="Oui" IsChecked="{Binding MonMedia.Vu}"/>
                 <RadioButton Margin="-80,0,0,0" GroupName="Vu" Content="Non" IsChecked="True"/>
             </StackPanel>
 
-            <TextBox MaxLength="2"  Style="{StaticResource texteBoxAlignGauche}" Text="{Binding Note}" PreviewTextInput="Note_PreviewTextInput"/>
-            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding Commentaire}"/>
-            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmTypeMedia}}" Text="{Binding Type}"   />
-            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding AgeMini}"  PreviewTextInput="AgeMini_PreviewTextInput"/>
-
+            <xctk:IntegerUpDown Text="{Binding MonMedia.Note}" HorizontalAlignment="Left" Increment="1" Maximum="10" Width="50" Margin="0,0,0,10" Height="20"/>
+            <TextBox Style="{StaticResource texteBoxAlignGauche}" TextAlignment="Left" Text="{Binding MonMedia.Commentaire}"/>
+            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmTypeMedia}}" Text="{Binding MonMedia.Type}"   />
+            <xctk:IntegerUpDown Text="{Binding MonMedia.AgeMinimum}" HorizontalAlignment="Left" Increment="1" Maximum="18" Width="50" Margin="0,0,0,10" Height="20"/>
             <StackPanel Orientation="Horizontal">
-                <RadioButton Style="{StaticResource textBoxTaille}"  GroupName="SP" IsChecked="{Binding SupportPhysique}" Content="Oui"/>
+                <RadioButton Style="{StaticResource textBoxTaille}"  GroupName="SP" IsChecked="{Binding MonMedia.SupportPhysique}" Content="Oui"/>
                 <RadioButton Margin="-80,0,0,0" GroupName="SP" Content="Non" IsChecked="True"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
-                <RadioButton Style="{StaticResource textBoxTaille}" GroupName="SN" Content="Oui" IsChecked="{Binding SupportNumerique}"></RadioButton>
+                <RadioButton Style="{StaticResource textBoxTaille}" GroupName="SN" Content="Oui" IsChecked="{Binding MonMedia.SupportNumerique}"></RadioButton>
                 <RadioButton Margin="-80,0,0,0"  GroupName="SN" Content="Non" IsChecked="True"></RadioButton>
             </StackPanel>
-
-            <TextBox  TextAlignment="Left" Style="{StaticResource texteBoxAlignGauche}" />
-            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmLangue}}"   Text="{Binding LangueVo}"/>
-            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmLangue}}"   Text="{Binding LangueMedia}"/>
-            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmLangue}}"   Text="{Binding LangueSousTitre}" />
+            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmLangue}}"   Text="{Binding MonMedia.LangueVO}"/>
+            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmLangue}}"   Text="{Binding MonMedia.LangueMedia}"/>
+            <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Source={StaticResource enmLangue}}"   Text="{Binding MonMedia.SousTitre}" />
             <ComboBox Style="{StaticResource listeAGauche}" ItemsSource="{Binding Path=ListeGenre}"  
                   SelectedItem="{Binding Path=Genre}" 
                   HorizontalAlignment="Left"       
@@ -101,12 +104,13 @@
         </StackPanel>
  
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" >
-            <Button Height="30" Width="120" HorizontalAlignment="Right" Content="Valider" Command="{Binding AjoutSaisie}"/>
+            <Button Style="{StaticResource ButtonStyle}" Height="30" Width="120" HorizontalAlignment="Right" Content="VALIDER" Command="{Binding AjoutSaisie}"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" >
-            <Button Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="left" Content="Annuler" Command="{Binding Annuler}"/>
-        </StackPanel>
+        <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" >
+            <Button Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Height="30" Width="120" HorizontalAlignment="left" Content="ANNULER" Command="{Binding Annuler}"/>
+        </StackPanel> 
 
+      
     </Grid>
 </Window>

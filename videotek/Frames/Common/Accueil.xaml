@@ -7,46 +7,55 @@
       xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"  
       xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
-      Title="Accueil">
+      d:DesignHeight="470" d:DesignWidth="595"
+      Title="Accueil" >
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="195"/>
+            <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Accueil" />
-        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Width="200">
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de séries enregistrés :"> </TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de films enregistrés :"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de séries à voir :"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de films à voir :"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Derniers épisodes à voir :"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note moyenne aux films :"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note moyenne donnée aux séries :"></TextBlock>
+        
+        <TextBlock Text="ACCUEIL" FontFamily="Sylfaen" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+        
+        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top"  Margin="0,80,0,0">
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de séries enregistrées :"/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de séries à voir :"/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note moyenne aux séries vu:" />
         </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Width="20">
-            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="0"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="0"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="0"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="0"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="0"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="0"></TextBlock>
-            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="0"></TextBlock>
+        
+        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,100">
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de films enregistrés :"/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Nombre de films à voir :"/>
+            <TextBlock Style="{StaticResource texteBlockAlignDroite}" Text="Note moyenne aux films vu:"/>
         </StackPanel>
-        <DVC:Chart Grid.Column="2" VerticalAlignment="Bottom" Margin="0,0,0,15" Name="mcChartFilms" Width="300" Height="200" Background="YellowGreen" Foreground="DarkBlue" Title="Années des films vus" LegendTitle="Années">
+        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Width="20" Margin="0,80,0,0" >
+            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding NombreSerieEnregistree}"/>
+            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding NombreSerieAVoir}"/>
+            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding NoteMoyenneSerie}" />
+       </StackPanel>
+        
+        <StackPanel VerticalAlignment="Bottom" Grid.Column="1" Width="20" Margin="0,0,0,100" >
+            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding NombreFilmEnregistre}" />
+            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding NombreFilmAVoir}"/>
+            <TextBlock Style="{StaticResource texteBlockAlignGauche}" Text="{Binding NoteMoyenneFilm}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="2">
+            <DVC:Chart  VerticalAlignment="Top" BorderThickness="0" Margin="0,10,0,20"  Width="300" Height="200"  Foreground="DarkBlue" Title="Genre des séries ajouté"  LegendTitle="Genre et nombre">
             <DVC:Chart.Series>
-                <DVC:PieSeries IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
-                </DVC:PieSeries>
-            </DVC:Chart.Series>
-        </DVC:Chart>
-        <DVC:Chart Grid.Column="2" VerticalAlignment="Top" Margin="0,15,0,0"  Name="mcChartSeries" Width="300" Height="200" Background="YellowGreen" Foreground="DarkBlue" Title="Années des séries vues"  LegendTitle="Années">
-            <DVC:Chart.Series>
-                <DVC:PieSeries  IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
+                <DVC:PieSeries ItemsSource="{Binding GrapListSerie}" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
                 </DVC:PieSeries>
             </DVC:Chart.Series>
         </DVC:Chart>
 
+            <DVC:Chart Grid.Column="2"  VerticalAlignment="Bottom" Margin="0,0,0,0" Width="300" Height="200"  Foreground="DarkBlue" Title="Genre des films ajouté" LegendTitle="Genre et nombre">
+                <DVC:Chart.Series>
+                    <DVC:PieSeries ItemsSource="{Binding GrapListFilm}"  IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}">
+                    </DVC:PieSeries>
+            </DVC:Chart.Series>
+        </DVC:Chart>
+        </StackPanel>
     </Grid>
 </Page>
